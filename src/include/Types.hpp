@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include <functional>
 #include <string>
+#include <functional>
 
 enum class SortEvent {
     Compare,
@@ -9,5 +9,8 @@ enum class SortEvent {
     PassComplete
 };
 
-// Unified callback type emitted by all algorithms
-using SortCallback = std::function<void(SortEvent event, int idx1, int idx2, const std::string& stepName)>;
+using SortCallback = std::function<void(
+    SortEvent event, 
+    int idx1, 
+    int idx2, 
+    const std::string& stepName)>;

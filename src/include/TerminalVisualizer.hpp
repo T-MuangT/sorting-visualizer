@@ -13,7 +13,7 @@ private:
 public:
     explicit TerminalVisualizer(int delayMs = 100);
 
-    // Main event handler method matching the SortCallback logic
+    // Event handler for all sorting renderings
     void onSortEvent(
         const std::vector<int>& arr,
         SortEvent event,

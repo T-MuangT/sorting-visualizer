@@ -1,6 +1,7 @@
 #include "ParallelCombSort.hpp"
 #include <algorithm>
 #include <string>
+#include <vector>
 #include <omp.h>
 
 void parallelCombSort(std::vector<int>& arr, SortCallback notify) {
@@ -8,39 +9,62 @@ void parallelCombSort(std::vector<int>& arr, SortCallback notify) {
     int gap = n;
     bool swapped = true;
     const double shrink = 1.3;
+    int passNumber = 1;
 
     while (gap > 1 || swapped) {
         gap = static_cast<int>(gap / shrink);
-        if (gap == 9 || gap == 10) gap = 11; // Comb Sort 11 rule
+        if (gap == 9 || gap == 10) gap = 11;
         if (gap < 1) gap = 1;
 
         swapped = false;
-        int maxSteps = (n - gap + 1) / 2;
+        
+        // Track indices swapped during both phases of this gap pass
+        std::vector<int> swappedIndices;
 
-        for (int step = 0; step < maxSteps; ++step) {
-            bool stepSwapped = false;
+        // Run Phase 0 and Phase 1 silently in parallel
+        for (int phase = 0; phase < 2; ++phase) {
+            bool phaseSwapped = false;
 
-            #pragma omp parallel for reduction(|:stepSwapped) schedule(static)
-            for (int phase = 0; phase < 2; ++phase) {
-                int i = phase + step * 2;
-                if (i < n - gap) {
+            #pragma omp parallel
+            {
+                std::vector<int> localSwaps;
+
+                #pragma omp for reduction(|:phaseSwapped) schedule(static)
+                for (int i = phase; i < n - gap; i += 2) {
                     int idx1 = i;
                     int idx2 = i + gap;
 
                     if (arr[idx1] > arr[idx2]) {
                         std::swap(arr[idx1], arr[idx2]);
-                        stepSwapped = true;
+                        phaseSwapped = true;
+                        localSwaps.push_back(idx1);
+                        localSwaps.push_back(idx2);
                     }
+                }
+
+                #pragma omp critical
+                {
+                    swappedIndices.insert(swappedIndices.end(), localSwaps.begin(), localSwaps.end());
                 }
             }
 
-            if (stepSwapped) {
+            if (phaseSwapped) {
                 swapped = true;
             }
+        }
 
-            if (notify) {
-                notify(SortEvent::Compare, step, gap, "Parallel Step " + std::to_string(step));
-            }
+        // Render ONCE per completed gap pass
+        if (notify) {
+            int highlight1 = swappedIndices.empty() ? -1 : swappedIndices.front();
+            int highlight2 = swappedIndices.empty() ? -1 : swappedIndices.back();
+
+            notify(
+                swappedIndices.empty() ? SortEvent::Compare : SortEvent::Swap,
+                highlight1,
+                highlight2,
+                "Gap " + std::to_string(gap) + " Pass #" + std::to_string(passNumber++) +
+                " (" + std::to_string(swappedIndices.size() / 2) + " swaps)"
+            );
         }
     }
 }

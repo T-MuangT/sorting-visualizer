@@ -17,7 +17,7 @@ public:
         int minValue, 
         int maxValue, 
         Pattern pattern = Pattern::UniformRandom,
-        uint64_t seed = 42);
+        uint64_t seed = 0);
 
     static std::vector<int> generateRandom(size_t size, int minValue, int maxValue, uint64_t seed);
     static std::vector<int> generateReversed(size_t size, int minValue, int maxValue, uint64_t seed);

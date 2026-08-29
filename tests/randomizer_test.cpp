@@ -59,6 +59,13 @@ int main() {
         return 1;
     }
 
+    auto defaultRandomA = ArrayGenerator::generate(size, minValue, maxValue, Pattern::UniformRandom);
+    auto defaultRandomB = ArrayGenerator::generate(size, minValue, maxValue, Pattern::UniformRandom);
+    if (defaultRandomA == defaultRandomB) {
+        std::cerr << "Default random generation is deterministic across calls\n";
+        return 1;
+    }
+
     std::cout << "Randomizer tests passed." << std::endl;
     return 0;
 }

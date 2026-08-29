@@ -11,7 +11,7 @@ Added:
 - Odd-Even Sort
 - Circle Sort
 
-### v1.2.0 (Current)
+### v1.2.0
 Added:
 - Partition Sort branch
     - Circle Sort (moved from Bubble Sort branch)
@@ -20,3 +20,6 @@ Added:
     - Dual Pivot Quick Sort
     - Stable Quick Sort
 - Bubble Sort branch, included all preexisting sorting algorithms except Circle Sort
+
+### v1.2.1
+- Fixed randomizer

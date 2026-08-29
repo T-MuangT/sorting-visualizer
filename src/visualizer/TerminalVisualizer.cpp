@@ -27,8 +27,7 @@ void TerminalVisualizer::renderFrame(
     std::cout << "Step: " << stepName << "\n";
     
     // Render stats snapshot
-    std::cout << "Passes: " << stats.getPasses() 
-              << " | Comparisons: " << stats.getComparisons() 
+    std::cout << "Comparisons: " << stats.getComparisons()
               << " | Swaps: " << stats.getSwaps() << "\n\n";
 
     for (size_t i = 0; i < arr.size(); ++i) {

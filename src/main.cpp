@@ -71,9 +71,9 @@ AlgorithmRunner selectExchangeAlgorithm() {
     std::cout << "  2. Cocktail Shaker Sort\n";
     std::cout << "  3. Optimized Cocktail Shaker Sort\n";
     std::cout << "  4. Odd-Even Sort\n";
-    std::cout << "  5. Circle Sort\n";
-    std::cout << "  6. Sequential Comb Sort\n";
-    std::cout << "  7. Parallel Comb Sort (with OpenMP)\n";
+    std::cout << "  5. Comb Sort\n";
+    std::cout << "  6. Optimized Comb Sort\n";
+    std::cout << "  7. Circle Sort\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -85,9 +85,9 @@ AlgorithmRunner selectExchangeAlgorithm() {
         case 2: return cocktailShakerSort;
         case 3: return optimizedCocktailShakerSort;
         case 4: return oddEvenSort;
-        case 5: return circleSort;
-        case 6: return combSort;
-        case 7: return optimizedCombSort;
+        case 5: return combSort;
+        case 6: return optimizedCombSort;
+        case 7: return circleSort;
         default: return nullptr;
     }
 }

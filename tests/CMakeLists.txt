@@ -61,6 +61,7 @@ add_test(NAME integration_test COMMAND $<TARGET_FILE:integration_test>)
 
 foreach(test_target IN ITEMS randomizer_test exchange_bubble_test exchange_partition_test visualizer_test integration_test)
     target_include_directories(${test_target} PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
+    target_link_libraries(${test_target} PRIVATE OpenMP::OpenMP_CXX)
     if(MSVC)
         target_compile_options(${test_target} PRIVATE /W4)
     else()

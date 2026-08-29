@@ -1,0 +1,85 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  package:
+    name: Package ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux-x64
+            archive_ext: tar.gz
+            cpack_generator: TGZ
+          - os: windows-latest
+            platform: windows-x64
+            archive_ext: zip
+            cpack_generator: ZIP
+          - os: macos-latest
+            platform: macos-x64
+            archive_ext: tar.gz
+            cpack_generator: TGZ
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare tag metadata
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          PACKAGE_NAME="sorting-visualizer-${VERSION}-${{ matrix.platform }}"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+          echo "PACKAGE_NAME=${PACKAGE_NAME}" >> "$GITHUB_ENV"
+          echo "PACKAGE_PATH=${PACKAGE_NAME}.${{ matrix.archive_ext }}" >> "$GITHUB_ENV"
+
+      - name: Configure CMake
+        shell: bash
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
+            -DCPACK_PACKAGE_FILE_NAME="${PACKAGE_NAME}"
+
+      - name: Build
+        shell: bash
+        run: cmake --build build --parallel
+
+      - name: Package with CPack
+        shell: bash
+        run: |
+          cd build
+          cpack -G "${{ matrix.cpack_generator }}"
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sorting-visualizer-${{ env.VERSION }}-${{ matrix.platform }}
+          path: build/${{ env.PACKAGE_PATH }}
+          if-no-files-found: error
+
+  github-release:
+    name: Publish GitHub Release
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          files: release-artifacts/**/*
+          generate_release_notes: true

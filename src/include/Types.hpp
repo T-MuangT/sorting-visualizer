@@ -5,8 +5,7 @@
 
 enum class SortEvent {
     Compare,
-    Swap,
-    PassComplete
+    Swap
 };
 
 using SortCallback = std::function<void(

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(SortingVisualizer VERSION 1.0 LANGUAGES CXX)
+project(SortingVisualizer VERSION 1.1 LANGUAGES CXX)
 
 # Require C++20 standard
 set(CMAKE_CXX_STANDARD 20)
@@ -15,18 +15,19 @@ include_directories(include)
 # Gather source files explicitly
 set(SOURCES
     src/main.cpp
-    src/exchange-sort/BubbleSort.cpp
-    src/exchange-sort/CocktailShakerSort.cpp
-    src/exchange-sort/CircleSort.cpp
-    # src/exchange-sort/LomutoQuickSort.cpp
-    src/exchange-sort/OddEvenSort.cpp
-    src/exchange-sort/OptimizedCocktailShakerSort.cpp
-    src/exchange-sort/SequentialCombSort.cpp
-    src/exchange-sort/ParallelCombSort.cpp
+    src/algorithms/exchange-sort/BubbleSort.cpp
+    src/algorithms/exchange-sort/CocktailShakerSort.cpp
+    src/algorithms/exchange-sort/CircleSort.cpp
+    # src/algorithms/exchange-sort/LomutoQuickSort.cpp
+    src/algorithms/exchange-sort/OddEvenSort.cpp
+    src/algorithms/exchange-sort/OptimizedCocktailShakerSort.cpp
+    src/algorithms/exchange-sort/SequentialCombSort.cpp
+    src/algorithms/exchange-sort/ParallelCombSort.cpp
     src/randomizer/ArrayGenerator.cpp
     src/randomizer/ArrayRandomizer.cpp
     src/randomizer/ArrayReversed.cpp
     src/randomizer/ArrayNearlySorted.cpp
+    src/stats/SortStats.cpp
     src/visualizer/TerminalVisualizer.cpp
 )
 

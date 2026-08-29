@@ -10,17 +10,22 @@
 #include "include/Types.hpp"
 #include "include/ArrayGenerator.hpp"
 
-// Include Exchange Algorithms
-#include "exchange-sort/BubbleSort.hpp"
-#include "exchange-sort/CocktailShakerSort.hpp"
-#include "exchange-sort/OptimizedCocktailShakerSort.hpp"
-#include "exchange-sort/OddEvenSort.hpp"
-#include "exchange-sort/CircleSort.hpp"
-#include "exchange-sort/SequentialCombSort.hpp"
-#include "exchange-sort/ParallelCombSort.hpp"
+// Include Modular Stats Model
+#include "include/SortStats.hpp"
 
-// Include Visualizer
-#include "include/TerminalVisualizer.hpp"
+// Include Exchange Algorithms
+#include "algorithms/exchange-sort/bubble-sort/BubbleSort.hpp"
+#include "algorithms/exchange-sort/bubble-sort/CocktailShakerSort.hpp"
+#include "algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.hpp"
+#include "algorithms/exchange-sort/bubble-sort/OddEvenSort.hpp"
+#include "algorithms/exchange-sort/bubble-sort/CircleSort.hpp"
+#include "algorithms/exchange-sort/bubble-sort/CombSort.hpp"
+#include "algorithms/exchange-sort/bubble-sort/OptimizedCombSort.hpp"
+
+// Include Visualizers
+#include "include/visualizer/IVisualizer.hpp"
+#include "include/visualizer/TerminalVisualizer.hpp"
+// #include "include/visualizer/GraphicsVisualizer.hpp" // For future GUI backend
 
 using AlgorithmRunner = std::function<void(std::vector<int>&, SortCallback)>;
 
@@ -68,7 +73,7 @@ AlgorithmRunner selectExchangeAlgorithm() {
     std::cout << "  4. Odd-Even Sort\n";
     std::cout << "  5. Circle Sort\n";
     std::cout << "  6. Sequential Comb Sort\n";
-    std::cout << "  7. Parallel Comb Sort (OpenMP)\n";
+    std::cout << "  7. Parallel Comb Sort (with OpenMP)\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -81,8 +86,8 @@ AlgorithmRunner selectExchangeAlgorithm() {
         case 3: return optimizedCocktailShakerSort;
         case 4: return oddEvenSort;
         case 5: return circleSort;
-        case 6: return sequentialCombSort;
-        case 7: return parallelCombSort;
+        case 6: return combSort;
+        case 7: return optimizedCombSort;
         default: return nullptr;
     }
 }
@@ -95,6 +100,22 @@ AlgorithmRunner selectPlaceholderMenu(const std::string& familyName) {
     int choice;
     std::cin >> choice;
     return nullptr;
+}
+
+enum class RenderBackend {
+    Terminal,
+    Graphics
+};
+
+RenderBackend selectBackend() {
+    std::cout << "\nSelect Rendering Mode:\n";
+    std::cout << "  1. Terminal Mode\n";
+    std::cout << "  2. Graphics Mode\n";
+    std::cout << "Choice [1-2]: ";
+
+    int choice = 1;
+    std::cin >> choice;
+    return (choice == 2) ? RenderBackend::Graphics : RenderBackend::Terminal;
 }
 
 int main() {
@@ -145,6 +166,8 @@ int main() {
             continue;
         }
 
+        // Prompt for backend strategy
+        RenderBackend backend = selectBackend();
         Pattern pattern = selectPattern();
 
         size_t arraySize = 32;
@@ -158,12 +181,23 @@ int main() {
         // Generate data based on user pattern choice
         auto data = ArrayGenerator::generate(arraySize, 1, 64, pattern);
 
-        // Instantiate decoupled visualizer
-        TerminalVisualizer visualizer(delayMs);
+        // Polymorphic backend instantiation
+        std::unique_ptr<IVisualizer> visualizer;
+        if (backend == RenderBackend::Terminal) {
+            visualizer = std::make_unique<TerminalVisualizer>(delayMs);
+        } else {
+            // visualizer = std::make_unique<GraphicsVisualizer>(delayMs);
+            std::cout << "[Graphics Backend coming soon, falling back to Terminal Visualizer]\n";
+            visualizer = std::make_unique<TerminalVisualizer>(delayMs);
+        }
 
-        // Create unified callback binding
-        auto callback = [&data, &visualizer](SortEvent event, int i1, int i2, const std::string& step) {
-            visualizer.onSortEvent(data, event, i1, i2, step);
+        // State tracker
+        SortStats stats;
+
+        // Callback captures visualizer pointer and calls renderFrame
+        auto callback = [&data, &visualizer, &stats](SortEvent event, int i1, int i2, const std::string& step) {
+            stats.recordEvent(event);
+            visualizer->renderFrame(data, event, i1, i2, step, stats);
         };
 
         std::cout << "\nStarting visualization in 2 seconds...\n";
@@ -173,7 +207,7 @@ int main() {
         selectedAlgorithm(data, callback);
 
         // Final completion render frame
-        visualizer.onSortEvent(data, SortEvent::PassComplete, -1, -1, "Sorting Complete!");
+        visualizer->renderFrame(data, SortEvent::Compare, -1, -1, "Sorting Complete!", stats);
         
         std::cout << "\nPress Enter to return to main menu...";
         std::cin.ignore();

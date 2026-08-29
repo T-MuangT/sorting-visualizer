@@ -1,4 +1,4 @@
-#include "../include/TerminalVisualizer.hpp"
+#include "../include/visualizer/TerminalVisualizer.hpp"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -14,16 +14,22 @@ void TerminalVisualizer::clearScreen() const {
 #endif
 }
 
-void TerminalVisualizer::onSortEvent(
+void TerminalVisualizer::renderFrame(
     const std::vector<int>& arr,
     SortEvent event,
     int idx1,
     int idx2,
-    const std::string& stepName)
+    const std::string& stepName,
+    const SortStats& stats)
 {
     clearScreen();
     std::cout << "==== Terminal Visualizer ====\n";
-    std::cout << "Step: " << stepName << "\n\n";
+    std::cout << "Step: " << stepName << "\n";
+    
+    // Render stats snapshot
+    std::cout << "Passes: " << stats.getPasses() 
+              << " | Comparisons: " << stats.getComparisons() 
+              << " | Swaps: " << stats.getSwaps() << "\n\n";
 
     for (size_t i = 0; i < arr.size(); ++i) {
         std::cout << "[";

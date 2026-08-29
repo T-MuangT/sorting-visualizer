@@ -1,8 +1,8 @@
-#include "SequentialCombSort.hpp"
+#include "CombSort.hpp"
 #include <algorithm>
 #include <string>
 
-void sequentialCombSort(std::vector<int>& arr, SortCallback notify) {
+void combSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());
     int gap = n;
     bool swapped = true;

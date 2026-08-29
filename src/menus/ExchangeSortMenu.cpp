@@ -6,11 +6,13 @@
 #include "../algorithms/exchange-sort/bubble-sort/CocktailShakerSort.hpp"
 #include "../algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.hpp"
 #include "../algorithms/exchange-sort/bubble-sort/OddEvenSort.hpp"
+#include "../algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.hpp"
 #include "../algorithms/exchange-sort/bubble-sort/CombSort.hpp"
 #include "../algorithms/exchange-sort/bubble-sort/OptimizedCombSort.hpp"
 
 // Include Partition Sort Family Headers
 #include "../algorithms/exchange-sort/partition-sort/CircleSort.hpp"
+#include "../algorithms/exchange-sort/partition-sort/OptimizedCircleSort.hpp"
 #include "../algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
 #include "../algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
 #include "../algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
@@ -22,8 +24,9 @@ AlgorithmRunner selectBubbleAlgorithm() {
     std::cout << "  2. Cocktail Shaker Sort\n";
     std::cout << "  3. Optimized Cocktail Shaker Sort\n";
     std::cout << "  4. Odd-Even Sort\n";
-    std::cout << "  5. Comb Sort\n";
-    std::cout << "  6. Optimized Comb Sort\n";
+    std::cout << "  5. Optimized Odd-Even Sort\n";
+    std::cout << "  6. Comb Sort\n";
+    std::cout << "  7. Optimized Comb Sort\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -35,8 +38,9 @@ AlgorithmRunner selectBubbleAlgorithm() {
         case 2: return cocktailShakerSort;
         case 3: return optimizedCocktailShakerSort;
         case 4: return oddEvenSort;
-        case 5: return combSort;
-        case 6: return optimizedCombSort;
+        case 5: return optimizedOddEvenSort;
+        case 6: return combSort;
+        case 7: return optimizedCombSort;
         default: return nullptr;
     }
 }
@@ -44,10 +48,11 @@ AlgorithmRunner selectBubbleAlgorithm() {
 AlgorithmRunner selectPartitionAlgorithm() {
     std::cout << "\n--- Partition Sort Branch ---\n";
     std::cout << "  1. Circle Sort\n";
-    std::cout << "  2. Lomuto Partition (Left-Left)\n";
-    std::cout << "  3. Hoare Partition (Left-Right)\n";
-    std::cout << "  4. Dual-Pivot Quick Sort (Yaroslavskiy)\n";
-    std::cout << "  5. Stable Quick Sort (Out-of-Place)\n";
+    std::cout << "  2. Optimized Circle Sort\n";
+    std::cout << "  3. Lomuto Partition (Left-Left)\n";
+    std::cout << "  4. Hoare Partition (Left-Right)\n";
+    std::cout << "  5. Dual-Pivot Quick Sort (Yaroslavskiy)\n";
+    std::cout << "  6. Stable Quick Sort (Out-of-Place)\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -56,10 +61,11 @@ AlgorithmRunner selectPartitionAlgorithm() {
 
     switch (choice) {
         case 1: return circleSort;
-        case 2: return lomutoQuickSort;
-        case 3: return hoareQuickSort;
-        case 4: return dualPivotQuickSort;
-        case 5: return stableQuickSort;
+        case 2: return optimizedCircleSort;
+        case 3: return lomutoQuickSort;
+        case 4: return hoareQuickSort;
+        case 5: return dualPivotQuickSort;
+        case 6: return stableQuickSort;
         default: return nullptr;
     }
 }

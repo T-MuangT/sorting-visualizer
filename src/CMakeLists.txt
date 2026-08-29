@@ -13,9 +13,11 @@ set(SOURCES
     algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
     algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
     algorithms/exchange-sort/bubble-sort/OddEvenSort.cpp
+    algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.cpp
     algorithms/exchange-sort/bubble-sort/CombSort.cpp
     algorithms/exchange-sort/bubble-sort/OptimizedCombSort.cpp
     algorithms/exchange-sort/partition-sort/CircleSort.cpp
+    algorithms/exchange-sort/partition-sort/OptimizedCircleSort.cpp
     algorithms/exchange-sort/partition-sort/LomutoQuickSort.cpp
     algorithms/exchange-sort/partition-sort/HoareQuickSort.cpp
     algorithms/exchange-sort/partition-sort/DualPivotQuickSort.cpp

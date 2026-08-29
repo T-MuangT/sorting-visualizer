@@ -14,6 +14,7 @@ set(EXCHANGE_BUBBLE_TEST_SOURCES
     ../src/algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/OddEvenSort.cpp
+    ../src/algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/CombSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.cpp
 )
@@ -21,6 +22,7 @@ set(EXCHANGE_BUBBLE_TEST_SOURCES
 set(EXCHANGE_PARTITION_TEST_SOURCES
     exchange_partition_test.cpp
     ../src/algorithms/exchange-sort/partition-sort/CircleSort.cpp
+    ../src/algorithms/exchange-sort/partition-sort/OptimizedCircleSort.cpp
     ../src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.cpp
     ../src/algorithms/exchange-sort/partition-sort/HoareQuickSort.cpp
     ../src/algorithms/exchange-sort/partition-sort/DualPivotQuickSort.cpp
@@ -59,6 +61,7 @@ add_test(NAME integration_test COMMAND $<TARGET_FILE:integration_test>)
 
 foreach(test_target IN ITEMS randomizer_test exchange_bubble_test exchange_partition_test visualizer_test integration_test)
     target_include_directories(${test_target} PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
+    target_link_libraries(${test_target} PRIVATE OpenMP::OpenMP_CXX)
     if(MSVC)
         target_compile_options(${test_target} PRIVATE /W4)
     else()

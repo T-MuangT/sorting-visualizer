@@ -69,3 +69,7 @@ Testing/
 
 # development environment
 .vscode/
+
+# release packages
+_CPack_Packages/
+*.zip

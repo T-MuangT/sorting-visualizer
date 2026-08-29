@@ -15,14 +15,14 @@ include_directories(include)
 # Gather source files explicitly
 set(SOURCES
     src/main.cpp
-    src/algorithms/exchange-sort/BubbleSort.cpp
-    src/algorithms/exchange-sort/CocktailShakerSort.cpp
-    src/algorithms/exchange-sort/CircleSort.cpp
-    # src/algorithms/exchange-sort/LomutoQuickSort.cpp
-    src/algorithms/exchange-sort/OddEvenSort.cpp
-    src/algorithms/exchange-sort/OptimizedCocktailShakerSort.cpp
-    src/algorithms/exchange-sort/SequentialCombSort.cpp
-    src/algorithms/exchange-sort/ParallelCombSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/CircleSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/OddEvenSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/CombSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.cpp
+    # src/algorithms/exchange-sort/quick-sort/LomutoQuickSort.cpp
     src/randomizer/ArrayGenerator.cpp
     src/randomizer/ArrayRandomizer.cpp
     src/randomizer/ArrayReversed.cpp

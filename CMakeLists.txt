@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(SortingVisualizer VERSION 1.1 LANGUAGES CXX)
+project(SortingVisualizer VERSION 1.2 LANGUAGES CXX)
 
 # Require C++20 standard
 set(CMAKE_CXX_STANDARD 20)
@@ -15,20 +15,24 @@ include_directories(include)
 # Gather source files explicitly
 set(SOURCES
     src/main.cpp
-    src/algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
-    src/algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
-    src/algorithms/exchange-sort/bubble-sort/CircleSort.cpp
-    src/algorithms/exchange-sort/bubble-sort/OddEvenSort.cpp
-    src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
-    src/algorithms/exchange-sort/bubble-sort/CombSort.cpp
-    src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.cpp
-    # src/algorithms/exchange-sort/quick-sort/LomutoQuickSort.cpp
+    src/menus/ExchangeSortMenu.cpp
+    src/stats/SortStats.cpp
+    src/visualizer/TerminalVisualizer.cpp
     src/randomizer/ArrayGenerator.cpp
     src/randomizer/ArrayRandomizer.cpp
     src/randomizer/ArrayReversed.cpp
     src/randomizer/ArrayNearlySorted.cpp
-    src/stats/SortStats.cpp
-    src/visualizer/TerminalVisualizer.cpp
+    src/algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/OddEvenSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/CombSort.cpp
+    src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.cpp
+    src/algorithms/exchange-sort/partition-sort/CircleSort.cpp
+    src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.cpp
+    src/algorithms/exchange-sort/partition-sort/HoareQuickSort.cpp
+    src/algorithms/exchange-sort/partition-sort/DualPivotQuickSort.cpp
+    src/algorithms/exchange-sort/partition-sort/StableQuickSort.cpp
 )
 
 # Define executable target

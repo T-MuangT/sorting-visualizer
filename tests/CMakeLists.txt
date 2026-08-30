@@ -38,6 +38,7 @@ set(SELECTION_SELECTION_TEST_SOURCES
 set(SELECTION_HEAP_TEST_SOURCES
     selection_heap_test.cpp
     ../src/algorithms/selection-sort/heap-sort/MaxHeapSort.cpp
+    ../src/algorithms/selection-sort/heap-sort/MinHeapSort.cpp
 )
 
 set(VISUALIZER_TEST_SOURCES

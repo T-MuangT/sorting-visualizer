@@ -23,3 +23,13 @@ Added:
 
 ### v1.2.1
 - Fixed randomizer
+
+### v1.2.2
+- Added Optimized Circle Sort and Optimized Odd-Even Sort
+
+### v1.2.3
+- Added Selection Sort, Double Selection Sort, and Max Heap Sort (inaccessible due to bug)
+
+### v1.2.4
+- Added Min Heap Sort
+- Fixed bug unable to access Selection Sort family from menu

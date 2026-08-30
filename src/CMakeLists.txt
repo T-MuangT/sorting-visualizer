@@ -26,6 +26,7 @@ set(SOURCES
     algorithms/selection-sort/selection-sort/SelectionSort.cpp
     algorithms/selection-sort/selection-sort/DoubleSelectionSort.cpp
     algorithms/selection-sort/heap-sort/MaxHeapSort.cpp
+    algorithms/selection-sort/heap-sort/MinHeapSort.cpp
 )
 
 add_executable(sorting-visualizer ${SOURCES})

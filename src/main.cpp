@@ -12,6 +12,7 @@
 
 // Include Menus
 #include "include/menus/ExchangeSortMenu.hpp"
+#include "include/menus/SelectionSortMenu.hpp"
 
 // Include Visualizers
 #include "include/SortStats.hpp"
@@ -33,6 +34,12 @@
 #include "algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
 #include "algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
 #include "algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
+
+// Include Selection Algorithms
+#include "algorithms/selection-sort/selection-sort/SelectionSort.hpp"
+#include "algorithms/selection-sort/selection-sort/DoubleSelectionSort.hpp"
+#include "algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
+#include "algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
 
 using AlgorithmRunner = std::function<void(std::vector<int>&, SortCallback)>;
 
@@ -114,7 +121,7 @@ int main() {
                 selectedAlgorithm = selectExchangeAlgorithm();
                 break;
             case 2:
-                selectedAlgorithm = selectPlaceholderMenu("Selection Sort Family");
+                selectedAlgorithm = selectSelectionFamilyAlgorithm();
                 break;
             case 3:
                 selectedAlgorithm = selectPlaceholderMenu("Insertion Sort Family");

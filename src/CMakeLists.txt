@@ -3,6 +3,7 @@
 set(SOURCES
     main.cpp
     menus/ExchangeSortMenu.cpp
+    menus/SelectionSortMenu.cpp
     stats/SortStats.cpp
     visualizer/TerminalVisualizer.cpp
     randomizer/ArrayGenerator.cpp
@@ -22,12 +23,27 @@ set(SOURCES
     algorithms/exchange-sort/partition-sort/HoareQuickSort.cpp
     algorithms/exchange-sort/partition-sort/DualPivotQuickSort.cpp
     algorithms/exchange-sort/partition-sort/StableQuickSort.cpp
+    algorithms/selection-sort/selection-sort/SelectionSort.cpp
+    algorithms/selection-sort/selection-sort/DoubleSelectionSort.cpp
+    algorithms/selection-sort/heap-sort/MaxHeapSort.cpp
 )
 
 add_executable(sorting-visualizer ${SOURCES})
 
 target_include_directories(sorting-visualizer PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(sorting-visualizer PRIVATE OpenMP::OpenMP_CXX)
+
+install(TARGETS sorting-visualizer
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
+
+install(FILES
+    "${PROJECT_SOURCE_DIR}/README.md"
+    "${PROJECT_SOURCE_DIR}/LICENSE"
+    DESTINATION .
+)
 
 if(MSVC)
     target_compile_options(sorting-visualizer PRIVATE /W4)

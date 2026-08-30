@@ -29,6 +29,17 @@ set(EXCHANGE_PARTITION_TEST_SOURCES
     ../src/algorithms/exchange-sort/partition-sort/StableQuickSort.cpp
 )
 
+set(SELECTION_SELECTION_TEST_SOURCES
+    selection_selection_test.cpp
+    ../src/algorithms/selection-sort/selection-sort/SelectionSort.cpp
+    ../src/algorithms/selection-sort/selection-sort/DoubleSelectionSort.cpp
+)
+
+set(SELECTION_HEAP_TEST_SOURCES
+    selection_heap_test.cpp
+    ../src/algorithms/selection-sort/heap-sort/MaxHeapSort.cpp
+)
+
 set(VISUALIZER_TEST_SOURCES
     visualizer_test.cpp
     ../src/stats/SortStats.cpp
@@ -50,16 +61,20 @@ set(INTEGRATION_TEST_SOURCES
 add_executable(randomizer_test ${RANDOMIZER_TEST_SOURCES})
 add_executable(exchange_bubble_test ${EXCHANGE_BUBBLE_TEST_SOURCES})
 add_executable(exchange_partition_test ${EXCHANGE_PARTITION_TEST_SOURCES})
+add_executable(selection_selection_test ${SELECTION_SELECTION_TEST_SOURCES})
+add_executable(selection_heap_test ${SELECTION_HEAP_TEST_SOURCES})
 add_executable(visualizer_test ${VISUALIZER_TEST_SOURCES})
 add_executable(integration_test ${INTEGRATION_TEST_SOURCES})
 
 add_test(NAME randomizer_test COMMAND $<TARGET_FILE:randomizer_test>)
 add_test(NAME exchange_bubble_test COMMAND $<TARGET_FILE:exchange_bubble_test>)
 add_test(NAME exchange_partition_test COMMAND $<TARGET_FILE:exchange_partition_test>)
+add_test(NAME selection_selection_test COMMAND $<TARGET_FILE:selection_selection_test>)
+add_test(NAME selection_heap_test COMMAND $<TARGET_FILE:selection_heap_test>)
 add_test(NAME visualizer_test COMMAND $<TARGET_FILE:visualizer_test>)
 add_test(NAME integration_test COMMAND $<TARGET_FILE:integration_test>)
 
-foreach(test_target IN ITEMS randomizer_test exchange_bubble_test exchange_partition_test visualizer_test integration_test)
+foreach(test_target IN ITEMS randomizer_test exchange_bubble_test exchange_partition_test selection_selection_test selection_heap_test visualizer_test integration_test)
     target_include_directories(${test_target} PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
     target_link_libraries(${test_target} PRIVATE OpenMP::OpenMP_CXX)
     if(MSVC)

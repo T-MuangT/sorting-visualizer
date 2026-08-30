@@ -9,52 +9,50 @@ void optimizedOddEvenSort(std::vector<int>& arr, SortCallback notify) {
         return;
     }
 
-    bool swappedThisPass = false;
-
     while (true) {
-        swappedThisPass = false;
+        bool swappedThisPass = false;
 
-        // Odd phase: pairs (1,2), (3,4), ... are independent and can run in parallel.
-        #pragma omp parallel for schedule(static) reduction(||: swappedThisPass)
-        for (int i = 1; i <= n - 2; i += 2) {
-            if (notify) {
-                #pragma omp critical
-                {
-                    notify(SortEvent::Compare, i, i + 1, "Optimized Odd-Even: Odd Phase Compare");
-                }
-            }
+        for (int phase = 0; phase < 2; ++phase) {
+            bool phaseSwapped = false;
+            std::vector<int> swappedIndices;
 
-            if (arr[i] > arr[i + 1]) {
-                std::swap(arr[i], arr[i + 1]);
-                swappedThisPass = true;
-                if (notify) {
-                    #pragma omp critical
-                    {
-                        notify(SortEvent::Swap, i, i + 1, "Optimized Odd-Even: Odd Phase Swap");
+            #pragma omp parallel
+            {
+                std::vector<int> localSwaps;
+
+                #pragma omp for reduction(||: phaseSwapped) schedule(static)
+                for (int i = phase; i <= n - 2; i += 2) {
+                    int idx1 = i;
+                    int idx2 = i + 1;
+
+                    if (arr[idx1] > arr[idx2]) {
+                        std::swap(arr[idx1], arr[idx2]);
+                        phaseSwapped = true;
+                        localSwaps.push_back(idx1);
+                        localSwaps.push_back(idx2);
                     }
                 }
-            }
-        }
 
-        // Even phase: pairs (0,1), (2,3), ... are independent and can run in parallel.
-        #pragma omp parallel for schedule(static) reduction(||: swappedThisPass)
-        for (int i = 0; i <= n - 2; i += 2) {
-            if (notify) {
                 #pragma omp critical
                 {
-                    notify(SortEvent::Compare, i, i + 1, "Optimized Odd-Even: Even Phase Compare");
+                    swappedIndices.insert(swappedIndices.end(), localSwaps.begin(), localSwaps.end());
                 }
             }
 
-            if (arr[i] > arr[i + 1]) {
-                std::swap(arr[i], arr[i + 1]);
+            if (phaseSwapped) {
                 swappedThisPass = true;
-                if (notify) {
-                    #pragma omp critical
-                    {
-                        notify(SortEvent::Swap, i, i + 1, "Optimized Odd-Even: Even Phase Swap");
-                    }
-                }
+            }
+
+            if (notify && !swappedIndices.empty()) {
+                int highlight1 = swappedIndices.front();
+                int highlight2 = swappedIndices.back();
+                std::string phaseLabel = (phase == 0) ? "Odd Phase" : "Even Phase";
+                notify(
+                    SortEvent::Swap,
+                    highlight1,
+                    highlight2,
+                    "Optimized Odd-Even: " + phaseLabel + " (" + std::to_string(swappedIndices.size() / 2) + " swaps)"
+                );
             }
         }
 

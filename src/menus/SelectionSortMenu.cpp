@@ -6,6 +6,7 @@
 #include "../algorithms/selection-sort/selection-sort/CycleSort.hpp"
 #include "../algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
 #include "../algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
+#include "../algorithms/selection-sort/heap-sort/SmoothSort.hpp"
 
 AlgorithmRunner selectSelectionBranchAlgorithm() {
     std::cout << "\n--- Selection Sort Branch ---\n";
@@ -30,6 +31,7 @@ AlgorithmRunner selectHeapBranchAlgorithm() {
     std::cout << "\n--- Heap Sort Branch ---\n";
     std::cout << "  1. Max Heap Sort\n";
     std::cout << "  2. Min Heap Sort\n";
+    std::cout << "  3. Smooth Sort\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -39,6 +41,7 @@ AlgorithmRunner selectHeapBranchAlgorithm() {
     switch (choice) {
         case 1: return maxHeapSort;
         case 2: return minHeapSort;
+        case 3: return smoothSort;
         default: return nullptr;
     }
 }

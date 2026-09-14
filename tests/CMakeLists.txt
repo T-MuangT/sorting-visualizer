@@ -40,6 +40,7 @@ set(SELECTION_HEAP_TEST_SOURCES
     selection_heap_test.cpp
     ../src/algorithms/selection-sort/heap-sort/MaxHeapSort.cpp
     ../src/algorithms/selection-sort/heap-sort/MinHeapSort.cpp
+    ../src/algorithms/selection-sort/heap-sort/SmoothSort.cpp
 )
 
 set(VISUALIZER_TEST_SOURCES

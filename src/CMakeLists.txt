@@ -28,6 +28,7 @@ set(SOURCES
     algorithms/selection-sort/selection-sort/CycleSort.cpp
     algorithms/selection-sort/heap-sort/MaxHeapSort.cpp
     algorithms/selection-sort/heap-sort/MinHeapSort.cpp
+    algorithms/selection-sort/heap-sort/SmoothSort.cpp
 )
 
 add_executable(sorting-visualizer ${SOURCES})

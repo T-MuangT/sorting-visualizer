@@ -20,8 +20,9 @@ void optimizedCombSort(std::vector<int>& arr, SortCallback notify) {
         // Track indices swapped during both phases of this gap pass
         std::vector<int> swappedIndices;
 
-        // Run Phase 0 and Phase 1 silently in parallel
-        for (int phase = 0; phase < 2; ++phase) {
+        // Process each residue class separately so pairs in a parallel phase
+        // never share an array element, including when gap is even.
+        for (int phase = 0; phase < 2 * gap; ++phase) {
             bool phaseSwapped = false;
 
             #pragma omp parallel
@@ -29,7 +30,7 @@ void optimizedCombSort(std::vector<int>& arr, SortCallback notify) {
                 std::vector<int> localSwaps;
 
                 #pragma omp for reduction(|:phaseSwapped) schedule(static)
-                for (int i = phase; i < n - gap; i += 2) {
+                for (int i = phase; i < n - gap; i += 2 * gap) {
                     int idx1 = i;
                     int idx2 = i + gap;
 

@@ -3,6 +3,8 @@
 #include <vector>
 
 #include "../src/algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
+#include "../src/algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
+#include "../src/algorithms/selection-sort/heap-sort/SmoothSort.hpp"
 
 namespace {
 
@@ -30,7 +32,9 @@ bool verifySort(SortFunc fn, const std::vector<int>& input, const std::string& l
 
 int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
-        {"maxHeapSort", maxHeapSort}
+        {"maxHeapSort", maxHeapSort},
+        {"minHeapSort", minHeapSort},
+        {"smoothSort", smoothSort}
     };
 
     const std::vector<std::vector<int>> cases = {

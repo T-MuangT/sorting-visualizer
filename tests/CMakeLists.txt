@@ -33,6 +33,7 @@ set(SELECTION_SELECTION_TEST_SOURCES
     selection_selection_test.cpp
     ../src/algorithms/selection-sort/selection-sort/SelectionSort.cpp
     ../src/algorithms/selection-sort/selection-sort/DoubleSelectionSort.cpp
+    ../src/algorithms/selection-sort/selection-sort/CycleSort.cpp
 )
 
 set(SELECTION_HEAP_TEST_SOURCES

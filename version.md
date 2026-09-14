@@ -33,3 +33,6 @@ Added:
 ### v1.2.4
 - Added Min Heap Sort
 - Fixed bug unable to access Selection Sort family from menu
+
+### v1.2.5
+- Added Cycle Sort

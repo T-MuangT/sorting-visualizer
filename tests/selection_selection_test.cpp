@@ -4,6 +4,7 @@
 
 #include "../src/algorithms/selection-sort/selection-sort/SelectionSort.hpp"
 #include "../src/algorithms/selection-sort/selection-sort/DoubleSelectionSort.hpp"
+#include "../src/algorithms/selection-sort/selection-sort/CycleSort.hpp"
 
 namespace {
 
@@ -32,7 +33,8 @@ bool verifySort(SortFunc fn, const std::vector<int>& input, const std::string& l
 int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
         {"selectionSort", selectionSort},
-        {"doubleSelectionSort", doubleSelectionSort}
+        {"doubleSelectionSort", doubleSelectionSort},
+        {"cycleSort", cycleSort}
     };
 
     const std::vector<std::vector<int>> cases = {

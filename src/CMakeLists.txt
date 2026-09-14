@@ -25,6 +25,7 @@ set(SOURCES
     algorithms/exchange-sort/partition-sort/StableQuickSort.cpp
     algorithms/selection-sort/selection-sort/SelectionSort.cpp
     algorithms/selection-sort/selection-sort/DoubleSelectionSort.cpp
+    algorithms/selection-sort/selection-sort/CycleSort.cpp
     algorithms/selection-sort/heap-sort/MaxHeapSort.cpp
     algorithms/selection-sort/heap-sort/MinHeapSort.cpp
 )

@@ -38,6 +38,7 @@
 // Include Selection Algorithms
 #include "algorithms/selection-sort/selection-sort/SelectionSort.hpp"
 #include "algorithms/selection-sort/selection-sort/DoubleSelectionSort.hpp"
+#include "algorithms/selection-sort/selection-sort/CycleSort.hpp"
 #include "algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
 #include "algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
 

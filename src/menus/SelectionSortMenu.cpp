@@ -3,6 +3,7 @@
 
 #include "../algorithms/selection-sort/selection-sort/SelectionSort.hpp"
 #include "../algorithms/selection-sort/selection-sort/DoubleSelectionSort.hpp"
+#include "../algorithms/selection-sort/selection-sort/CycleSort.hpp"
 #include "../algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
 #include "../algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
 
@@ -10,6 +11,7 @@ AlgorithmRunner selectSelectionBranchAlgorithm() {
     std::cout << "\n--- Selection Sort Branch ---\n";
     std::cout << "  1. Selection Sort\n";
     std::cout << "  2. Double Selection Sort\n";
+    std::cout << "  3. Cycle Sort\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -19,6 +21,7 @@ AlgorithmRunner selectSelectionBranchAlgorithm() {
     switch (choice) {
         case 1: return selectionSort;
         case 2: return doubleSelectionSort;
+        case 3: return cycleSort;
         default: return nullptr;
     }
 }

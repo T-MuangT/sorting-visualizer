@@ -43,6 +43,11 @@ set(SELECTION_HEAP_TEST_SOURCES
     ../src/algorithms/selection-sort/heap-sort/SmoothSort.cpp
 )
 
+set(INSERTION_INSERTION_TEST_SOURCES
+    insertion_insertion_test.cpp
+    ../src/algorithms/insertion-sort/insertion-sort/InsertionSort.cpp
+)
+
 set(VISUALIZER_TEST_SOURCES
     visualizer_test.cpp
     ../src/stats/SortStats.cpp
@@ -66,6 +71,7 @@ add_executable(exchange_bubble_test ${EXCHANGE_BUBBLE_TEST_SOURCES})
 add_executable(exchange_partition_test ${EXCHANGE_PARTITION_TEST_SOURCES})
 add_executable(selection_selection_test ${SELECTION_SELECTION_TEST_SOURCES})
 add_executable(selection_heap_test ${SELECTION_HEAP_TEST_SOURCES})
+add_executable(insertion_insertion_test ${INSERTION_INSERTION_TEST_SOURCES})
 add_executable(visualizer_test ${VISUALIZER_TEST_SOURCES})
 add_executable(integration_test ${INTEGRATION_TEST_SOURCES})
 
@@ -74,10 +80,11 @@ add_test(NAME exchange_bubble_test COMMAND $<TARGET_FILE:exchange_bubble_test>)
 add_test(NAME exchange_partition_test COMMAND $<TARGET_FILE:exchange_partition_test>)
 add_test(NAME selection_selection_test COMMAND $<TARGET_FILE:selection_selection_test>)
 add_test(NAME selection_heap_test COMMAND $<TARGET_FILE:selection_heap_test>)
+add_test(NAME insertion_insertion_test COMMAND $<TARGET_FILE:insertion_insertion_test>)
 add_test(NAME visualizer_test COMMAND $<TARGET_FILE:visualizer_test>)
 add_test(NAME integration_test COMMAND $<TARGET_FILE:integration_test>)
 
-foreach(test_target IN ITEMS randomizer_test exchange_bubble_test exchange_partition_test selection_selection_test selection_heap_test visualizer_test integration_test)
+foreach(test_target IN ITEMS randomizer_test exchange_bubble_test exchange_partition_test selection_selection_test selection_heap_test insertion_insertion_test visualizer_test integration_test)
     target_include_directories(${test_target} PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
     target_link_libraries(${test_target} PRIVATE OpenMP::OpenMP_CXX)
     if(MSVC)

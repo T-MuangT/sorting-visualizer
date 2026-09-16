@@ -44,3 +44,6 @@ Added:
 ### v1.2.7
 - Reverted Smooth Sort algorithm
 - Fixed inconsistent Optimized Circle Sort build problem
+
+### v1.3.0
+- Added Insertion Sort

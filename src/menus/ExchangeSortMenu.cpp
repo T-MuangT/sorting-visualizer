@@ -18,7 +18,7 @@
 #include "../algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
 #include "../algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
 
-AlgorithmRunner selectBubbleAlgorithm() {
+AlgorithmRunner selectBubbleBranchAlgorithm() {
     std::cout << "\n--- Bubble Sort Branch ---\n";
     std::cout << "  1. Standard Bubble Sort\n";
     std::cout << "  2. Cocktail Shaker Sort\n";
@@ -45,13 +45,13 @@ AlgorithmRunner selectBubbleAlgorithm() {
     }
 }
 
-AlgorithmRunner selectPartitionAlgorithm() {
+AlgorithmRunner selectPartitionBranchAlgorithm() {
     std::cout << "\n--- Partition Sort Branch ---\n";
     std::cout << "  1. Circle Sort\n";
     std::cout << "  2. Optimized Circle Sort\n";
     std::cout << "  3. Lomuto Partition (Left-Left)\n";
     std::cout << "  4. Hoare Partition (Left-Right)\n";
-    std::cout << "  5. Dual-Pivot Quick Sort (Yaroslavskiy)\n";
+    std::cout << "  5. Yaroslavskiy Partition (Dual Pivot)\n";
     std::cout << "  6. Stable Quick Sort (Out-of-Place)\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
@@ -70,7 +70,7 @@ AlgorithmRunner selectPartitionAlgorithm() {
     }
 }
 
-AlgorithmRunner selectExchangeAlgorithm() {
+AlgorithmRunner selectExchangeFamilyAlgorithm() {
     std::cout << "\n--- Exchange Sort Family ---\n";
     std::cout << "  1. Bubble Sort Branch\n";
     std::cout << "  2. Partition Sort Branch\n";
@@ -81,8 +81,8 @@ AlgorithmRunner selectExchangeAlgorithm() {
     std::cin >> choice;
 
     switch (choice) {
-        case 1: return selectBubbleAlgorithm();     // Invokes sub-menu
-        case 2: return selectPartitionAlgorithm();  // Invokes sub-menu
+        case 1: return selectBubbleBranchAlgorithm();     // Invokes sub-menu
+        case 2: return selectPartitionBranchAlgorithm();  // Invokes sub-menu
         default: return nullptr;
     }
 }

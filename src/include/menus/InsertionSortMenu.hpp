@@ -9,6 +9,6 @@
 using SortCallback = std::function<void(SortEvent, int, int, const std::string&)>;
 using AlgorithmRunner = std::function<void(std::vector<int>&, SortCallback)>;
 
-AlgorithmRunner selectBubbleBranchAlgorithm();
-AlgorithmRunner selectPartitionBranchAlgorithm();
-AlgorithmRunner selectExchangeFamilyAlgorithm();
+AlgorithmRunner selectInsertionBranchAlgorithm();
+//AlgorithmRunner selectTreeBranchAlgorithm();
+AlgorithmRunner selectInsertionFamilyAlgorithm();

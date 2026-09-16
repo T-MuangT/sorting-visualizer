@@ -13,6 +13,7 @@
 // Include Menus
 #include "include/menus/ExchangeSortMenu.hpp"
 #include "include/menus/SelectionSortMenu.hpp"
+#include "include/menus/InsertionSortMenu.hpp"
 
 // Include Visualizers
 #include "include/SortStats.hpp"
@@ -42,6 +43,9 @@
 #include "algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
 #include "algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
 #include "algorithms/selection-sort/heap-sort/SmoothSort.hpp"
+
+// Include Insertion Algorithms
+#include "algorithms/insertion-sort/insertion-sort/InsertionSort.hpp"
 
 using AlgorithmRunner = std::function<void(std::vector<int>&, SortCallback)>;
 
@@ -120,13 +124,13 @@ int main() {
 
         switch (familyChoice) {
             case 1:
-                selectedAlgorithm = selectExchangeAlgorithm();
+                selectedAlgorithm = selectExchangeFamilyAlgorithm();
                 break;
             case 2:
                 selectedAlgorithm = selectSelectionFamilyAlgorithm();
                 break;
             case 3:
-                selectedAlgorithm = selectPlaceholderMenu("Insertion Sort Family");
+                selectedAlgorithm = selectInsertionFamilyAlgorithm();
                 break;
             case 4:
                 selectedAlgorithm = selectPlaceholderMenu("Merge Sort Family");

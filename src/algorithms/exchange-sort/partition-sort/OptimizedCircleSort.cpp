@@ -23,6 +23,15 @@ int optimizedCircleSortRecursive(std::vector<int>& arr, int low, int high, SortC
         --highIdx;
     }
 
+    if (lowIdx == highIdx && highIdx + 1 <= high) {
+        if (arr[lowIdx] > arr[highIdx + 1]) {
+            std::swap(arr[lowIdx], arr[highIdx + 1]);
+            swapped = 1;
+            swappedIndices.push_back(lowIdx);
+            swappedIndices.push_back(highIdx + 1);
+        }
+    }
+
     if (notify && !swappedIndices.empty()) {
         int highlight1 = swappedIndices.front();
         int highlight2 = swappedIndices.back();
@@ -38,10 +47,10 @@ int optimizedCircleSortRecursive(std::vector<int>& arr, int low, int high, SortC
     int leftSwapped = 0;
     int rightSwapped = 0;
 
-    #pragma omp task shared(arr, notify) if(high - low > 64)
+    #pragma omp task shared(arr, notify, leftSwapped) if(high - low > 64)
     leftSwapped = optimizedCircleSortRecursive(arr, low, mid, notify);
 
-    #pragma omp task shared(arr, notify) if(high - low > 64)
+    #pragma omp task shared(arr, notify, rightSwapped) if(high - low > 64)
     rightSwapped = optimizedCircleSortRecursive(arr, mid + 1, high, notify);
 
     #pragma omp taskwait

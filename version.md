@@ -36,3 +36,11 @@ Added:
 
 ### v1.2.5
 - Added Cycle Sort
+
+### v1.2.6
+- Added Smooth Sort
+- Fixed inconsistent Optimized Comb Sort build problem
+
+### v1.2.7
+- Reverted Smooth Sort algorithm
+- Fixed inconsistent Optimized Circle Sort build problem

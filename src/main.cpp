@@ -41,6 +41,7 @@
 #include "algorithms/selection-sort/selection-sort/CycleSort.hpp"
 #include "algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
 #include "algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
+#include "algorithms/selection-sort/heap-sort/SmoothSort.hpp"
 
 using AlgorithmRunner = std::function<void(std::vector<int>&, SortCallback)>;
 

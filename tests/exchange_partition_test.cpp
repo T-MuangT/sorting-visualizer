@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "../src/algorithms/exchange-sort/partition-sort/CircleSort.hpp"
+#include "../src/algorithms/exchange-sort/partition-sort/OptimizedCircleSort.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
@@ -35,6 +36,7 @@ bool verifySort(SortFunc fn, const std::vector<int>& input, const std::string& l
 int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
         {"circleSort", circleSort},
+        {"optimizedCircleSort", optimizedCircleSort},
         {"lomutoQuickSort", lomutoQuickSort},
         {"hoareQuickSort", hoareQuickSort},
         {"dualPivotQuickSort", dualPivotQuickSort},

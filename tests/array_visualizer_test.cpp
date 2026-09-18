@@ -2,10 +2,10 @@
 #include <vector>
 
 #include "../src/include/SortStats.hpp"
-#include "../src/include/visualizer/TerminalVisualizer.hpp"
+#include "../src/include/visualizer/TerminalArrayVisualizer.hpp"
 
 int main() {
-    TerminalVisualizer visualizer(0);
+    TerminalArrayVisualizer visualizer(0);
     SortStats stats;
     stats.recordEvent(SortEvent::Compare);
     stats.recordEvent(SortEvent::Swap);

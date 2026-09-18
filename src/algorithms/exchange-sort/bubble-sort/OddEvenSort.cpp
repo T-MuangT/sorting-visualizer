@@ -12,13 +12,13 @@ void oddEvenSort(std::vector<int>& arr, SortCallback notify) {
         // Odd Phase
         for (int i = 1; i <= n - 2; i += 2) {
             if (notify) {
-                notify(SortEvent::Compare, i, i + 1, "Odd Phase Compare");
+                notify(SortEvent::Compare, i, i + 1, "Odd-Even Sort: Odd Phase Compare");
             }
             if (arr[i] > arr[i + 1]) {
                 std::swap(arr[i], arr[i + 1]);
                 isSorted = false;
                 if (notify) {
-                    notify(SortEvent::Swap, i, i + 1, "Odd Phase Swap");
+                    notify(SortEvent::Swap, i, i + 1, "Odd-Even Sort: Odd Phase Swap");
                 }
             }
         }
@@ -26,13 +26,13 @@ void oddEvenSort(std::vector<int>& arr, SortCallback notify) {
         // Even Phase
         for (int i = 0; i < n - 1; i += 2) {
             if (notify) {
-                notify(SortEvent::Compare, i, i + 1, "Even Phase Compare");
+                notify(SortEvent::Compare, i, i + 1, "Odd-Even Sort: Even Phase Compare");
             }
             if (arr[i] > arr[i + 1]) {
                 std::swap(arr[i], arr[i + 1]);
                 isSorted = false;
                 if (notify) {
-                    notify(SortEvent::Swap, i, i + 1, "Even Phase Swap");
+                    notify(SortEvent::Swap, i, i + 1, "Odd-Even Sort: Even Phase Swap");
                 }
             }
         }

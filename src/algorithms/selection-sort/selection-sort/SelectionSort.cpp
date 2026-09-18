@@ -6,14 +6,14 @@ void selectionSort(std::vector<int>& arr, SortCallback notify) {
     for (int i = 0; i < n - 1; ++i) {
         int minIdx = i;
         for (int j = i + 1; j < n; ++j) {
-            if (notify) notify(SortEvent::Compare, j, minIdx, "Selection: Compare elements");
+            if (notify) notify(SortEvent::Compare, j, minIdx, "Selection Sort: Compare elements");
             if (arr[j] < arr[minIdx]) {
                 minIdx = j;
             }
         }
         if (minIdx != i) {
             std::swap(arr[i], arr[minIdx]);
-            if (notify) notify(SortEvent::Swap, i, minIdx, "Selection: Swap minimum to front");
+            if (notify) notify(SortEvent::Swap, i, minIdx, "Selection Sort: Swap minimum to front");
         }
     }
 }

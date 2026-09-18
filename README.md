@@ -5,7 +5,13 @@
 ![GitHub Release](https://img.shields.io/github/v/release/T-MuangT/sorting-visualizer)
 
 
-## How to build
+## How to build and run
 1. Run `cmake -B build`.
-2. Run `cmake --build build`.
-3. The software is compiled. Run with `build/sorting-visualizer` or `build/sorting-visualizer.exe`
+2. Run `cmake --build build --target package`.
+3. The software is compiled in `sorting-visualizer` zipped folder.
+4. Extract the software and run.
+
+## How to test the software
+1. Run `cmake -B build`.
+2. Run `cmake --build build --target tests`.
+3. Run `ctest`.

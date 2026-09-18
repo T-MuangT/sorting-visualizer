@@ -7,19 +7,19 @@ int partitionLomuto(std::vector<int>& arr, int low, int high, SortCallback notif
     int i = low - 1;
 
     for (int j = low; j < high; ++j) {
-        if (notify) notify(SortEvent::Compare, j, high, "Lomuto: Compare with Pivot");
+        if (notify) notify(SortEvent::Compare, j, high, "Lomuto Quicksort: Compare with Pivot");
         if (arr[j] <= pivot) {
             ++i;
             if (i != j) {
                 std::swap(arr[i], arr[j]);
-                if (notify) notify(SortEvent::Swap, i, j, "Lomuto: Swap Small Element");
+                if (notify) notify(SortEvent::Swap, i, j, "Lomuto Quicksort: Swap Small Element");
             }
         }
     }
     
     if (i + 1 != high) {
         std::swap(arr[i + 1], arr[high]);
-        if (notify) notify(SortEvent::Swap, i + 1, high, "Lomuto: Place Pivot");
+        if (notify) notify(SortEvent::Swap, i + 1, high, "Lomuto Quicksort: Place Pivot");
     }
     return i + 1;
 }

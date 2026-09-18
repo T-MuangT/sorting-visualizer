@@ -5,7 +5,8 @@
 #include "../src/include/ArrayGenerator.hpp"
 #include "../src/algorithms/exchange-sort/bubble-sort/BubbleSort.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
-#include "../src/include/visualizer/TerminalVisualizer.hpp"
+#include "../src/include/SortStats.hpp"
+#include "../src/include/visualizer/TerminalArrayVisualizer.hpp"
 
 int main() {
     auto randomData = ArrayGenerator::generate(64, -50, 50, Pattern::UniformRandom, 99ULL);
@@ -29,7 +30,7 @@ int main() {
     stats.recordEvent(SortEvent::Compare);
     stats.recordEvent(SortEvent::Swap);
 
-    TerminalVisualizer visualizer(0);
+    TerminalArrayVisualizer visualizer(0);
     visualizer.renderFrame(sortedByQuick, SortEvent::Swap, 0, 1, "integration check", stats);
 
     std::cout << "Integration test passed." << std::endl;

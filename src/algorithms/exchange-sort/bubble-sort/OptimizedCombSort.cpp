@@ -62,7 +62,7 @@ void optimizedCombSort(std::vector<int>& arr, SortCallback notify) {
                 swappedIndices.empty() ? SortEvent::Compare : SortEvent::Swap,
                 highlight1,
                 highlight2,
-                "Gap " + std::to_string(gap) + " (" + std::to_string(swappedIndices.size() / 2) + " swaps)"
+                "Optimized Comb Sort: Gap " + std::to_string(gap) + " (" + std::to_string(swappedIndices.size() / 2) + " swaps)"
             );
         }
     }

@@ -51,7 +51,7 @@ void optimizedOddEvenSort(std::vector<int>& arr, SortCallback notify) {
                     SortEvent::Swap,
                     highlight1,
                     highlight2,
-                    "Optimized Odd-Even: " + phaseLabel + " (" + std::to_string(swappedIndices.size() / 2) + " swaps)"
+                    "Optimized Odd-Even Sort: " + phaseLabel + " (" + std::to_string(swappedIndices.size() / 2) + " swaps)"
                 );
             }
         }

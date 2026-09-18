@@ -41,7 +41,7 @@ void minHeapSort(std::vector<int>& arr, SortCallback notify) {
     // so we reverse at the end or place them correctly to yield sorted order)
     for (int i = n - 1; i > 0; --i) {
         std::swap(arr[0], arr[i]);
-        if (notify) notify(SortEvent::Swap, 0, i, "Min Heap: Extract Root to End");
+        if (notify) notify(SortEvent::Swap, 0, i, "Min Heapsort: Extract Root to End");
         minHeapify(arr, i, 0, notify);
     }
     

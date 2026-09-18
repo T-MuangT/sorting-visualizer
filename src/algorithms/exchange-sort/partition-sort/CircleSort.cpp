@@ -11,13 +11,13 @@ static bool circleSortRecursive(std::vector<int>& arr, int low, int high, SortCa
 
     while (left < right) {
         if (notify) {
-            notify(SortEvent::Compare, left, right, "Circle Compare");
+            notify(SortEvent::Compare, left, right, "Circle Sort: Compare");
         }
         if (arr[left] > arr[right]) {
             std::swap(arr[left], arr[right]);
             swapped = true;
             if (notify) {
-                notify(SortEvent::Swap, left, right, "Circle Swap");
+                notify(SortEvent::Swap, left, right, "Circle Sort: Swap");
             }
         }
         left++;
@@ -27,13 +27,13 @@ static bool circleSortRecursive(std::vector<int>& arr, int low, int high, SortCa
     // Special case for odd number of elements
     if (left == right) {
         if (notify) {
-            notify(SortEvent::Compare, left, right + 1, "Circle Midpoint Compare");
+            notify(SortEvent::Compare, left, right + 1, "Circle Sort: Midpoint Compare");
         }
         if (arr[left] > arr[right + 1]) {
             std::swap(arr[left], arr[right + 1]);
             swapped = true;
             if (notify) {
-                notify(SortEvent::Swap, left, right + 1, "Circle Midpoint Swap");
+                notify(SortEvent::Swap, left, right + 1, "Circle Sort: Midpoint Swap");
             }
         }
     }

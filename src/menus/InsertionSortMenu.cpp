@@ -1,9 +1,12 @@
 #include "../include/menus/InsertionSortMenu.hpp"
 #include <iostream>
 
+// Include Insertion Sort Branch Headers
 #include "../algorithms/insertion-sort/insertion-sort/InsertionSort.hpp"
 //#include "../algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.hpp"
 //#include "../algorithms/insertion-sort/insertion-sort/ShellSort.hpp"
+
+// Include Tree Sort Branch Headers
 //#include "../algorithms/insertion-sort/tree-sort/TreeSort.hpp"
 
 AlgorithmRunner selectInsertionBranchAlgorithm() {
@@ -18,10 +21,10 @@ AlgorithmRunner selectInsertionBranchAlgorithm() {
     std::cin >> choice;
 
     switch (choice) {
-        case 1: return insertionSort;
-        // case 2: return binaryInsertionSort;
-        // case 3: return shellSort;
-        default: return nullptr;
+        case 1: return AlgorithmRunner::fromClassic(insertionSort);
+        // case 2: return AlgorithmRunner(binaryInsertionSort);
+        // case 3: return AlgorithmRunner(shellSort);
+        default: return AlgorithmRunner();
     }
 }
 
@@ -53,6 +56,6 @@ AlgorithmRunner selectInsertionFamilyAlgorithm() {
     switch (choice) {
         case 1: return selectInsertionBranchAlgorithm();
         // case 2: return selectTreeBranchAlgorithm();
-        default: return nullptr;
+        default: return AlgorithmRunner();
     }
 }

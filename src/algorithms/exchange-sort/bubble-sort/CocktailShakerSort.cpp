@@ -13,11 +13,11 @@ void cocktailShakerSort(std::vector<int>& arr, SortCallback notify) {
 
         // Forward Pass (Left to Right)
         for (int i = start; i < end; ++i) {
-            if (notify) notify(SortEvent::Compare, i, i + 1, "Forward Compare");
+            if (notify) notify(SortEvent::Compare, i, i + 1, "Cocktail Shaker Sort: Forward Compare");
             if (arr[i] > arr[i + 1]) {
                 std::swap(arr[i], arr[i + 1]);
                 swapped = true;
-                if (notify) notify(SortEvent::Swap, i, i + 1, "Forward Swap");
+                if (notify) notify(SortEvent::Swap, i, i + 1, "Cocktail Shaker Sort: Forward Swap");
             }
         }
 
@@ -27,11 +27,11 @@ void cocktailShakerSort(std::vector<int>& arr, SortCallback notify) {
 
         // Backward Pass (Right to Left)
         for (int i = end - 1; i >= start; --i) {
-            if (notify) notify(SortEvent::Compare, i, i + 1, "Backward Compare");
+            if (notify) notify(SortEvent::Compare, i, i + 1, "Cocktail Shaker Sort: Backward Compare");
             if (arr[i] > arr[i + 1]) {
                 std::swap(arr[i], arr[i + 1]);
                 swapped = true;
-                if (notify) notify(SortEvent::Swap, i, i + 1, "Backward Swap");
+                if (notify) notify(SortEvent::Swap, i, i + 1, "Cocktail Shaker Sort: Backward Swap");
             }
         }
 

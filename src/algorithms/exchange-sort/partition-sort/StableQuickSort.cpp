@@ -29,17 +29,17 @@ void stableQuickSortRecursive(std::vector<int>& arr, int startIdx, SortCallback 
     size_t idx = 0;
     for (int val : left) {
         arr[idx] = val;
-        if (notify) notify(SortEvent::Swap, startIdx + static_cast<int>(idx), startIdx + static_cast<int>(idx), "Stable Quick: Write Left");
+        if (notify) notify(SortEvent::Swap, startIdx + static_cast<int>(idx), startIdx + static_cast<int>(idx), "Stable Quicksort: Write Left");
         ++idx;
     }
     for (int val : middle) {
         arr[idx] = val;
-        if (notify) notify(SortEvent::Swap, startIdx + static_cast<int>(idx), startIdx + static_cast<int>(idx), "Stable Quick: Write Pivot");
+        if (notify) notify(SortEvent::Swap, startIdx + static_cast<int>(idx), startIdx + static_cast<int>(idx), "Stable Quicksort: Write Pivot");
         ++idx;
     }
     for (int val : right) {
         arr[idx] = val;
-        if (notify) notify(SortEvent::Swap, startIdx + static_cast<int>(idx), startIdx + static_cast<int>(idx), "Stable Quick: Write Right");
+        if (notify) notify(SortEvent::Swap, startIdx + static_cast<int>(idx), startIdx + static_cast<int>(idx), "Stable Quicksort: Write Right");
         ++idx;
     }
 }

@@ -39,7 +39,7 @@ int optimizedCircleSortRecursive(std::vector<int>& arr, int low, int high, SortC
             SortEvent::Swap,
             highlight1,
             highlight2,
-            "Optimized Circle: Batch Swap (" + std::to_string(swappedIndices.size() / 2) + " swaps)"
+            "Optimized Circle Sort: Batch Swap (" + std::to_string(swappedIndices.size() / 2) + " swaps)"
         );
     }
 

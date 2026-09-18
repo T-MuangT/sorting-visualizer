@@ -12,15 +12,15 @@ void doubleSelectionSort(std::vector<int>& arr, SortCallback notify) {
         // Ensure initial bounds check order
         if (arr[minIdx] > arr[maxIdx]) {
             std::swap(arr[minIdx], arr[maxIdx]);
-            if (notify) notify(SortEvent::Swap, minIdx, maxIdx, "Double Selection: Bounds Swap");
+            if (notify) notify(SortEvent::Swap, minIdx, maxIdx, "Double Selection Sort: Bounds Swap");
         }
 
         for (int j = low + 1; j < high; ++j) {
-            if (notify) notify(SortEvent::Compare, j, minIdx, "Double Selection: Compare Min");
+            if (notify) notify(SortEvent::Compare, j, minIdx, "Double Selection Sort: Compare Min");
             if (arr[j] < arr[minIdx]) {
                 minIdx = j;
             }
-            if (notify) notify(SortEvent::Compare, j, maxIdx, "Double Selection: Compare Max");
+            if (notify) notify(SortEvent::Compare, j, maxIdx, "Double Selection Sort: Compare Max");
             if (arr[j] > arr[maxIdx]) {
                 maxIdx = j;
             }
@@ -28,12 +28,12 @@ void doubleSelectionSort(std::vector<int>& arr, SortCallback notify) {
 
         if (minIdx != low) {
             std::swap(arr[low], arr[minIdx]);
-            if (notify) notify(SortEvent::Swap, low, minIdx, "Double Selection: Swap Min to Left");
+            if (notify) notify(SortEvent::Swap, low, minIdx, "Double Selection Sort: Swap Min to Left");
         }
 
         if (maxIdx != high) {
             std::swap(arr[high], arr[maxIdx]);
-            if (notify) notify(SortEvent::Swap, high, maxIdx, "Double Selection: Swap Max to Right");
+            if (notify) notify(SortEvent::Swap, high, maxIdx, "Double Selection Sort: Swap Max to Right");
         }
 
         ++low;

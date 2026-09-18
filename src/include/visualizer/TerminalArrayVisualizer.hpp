@@ -1,14 +1,14 @@
 #pragma once
 
-#include "IVisualizer.hpp"
+#include "IArrayVisualizer.hpp"
 
-class TerminalVisualizer : public IVisualizer {
+class TerminalArrayVisualizer : public IArrayVisualizer {
 private:
     int delayMs;
     void clearScreen() const;
 
 public:
-    explicit TerminalVisualizer(int delayMs = 100);
+    explicit TerminalArrayVisualizer(int delayMs = 100);
 
     void renderFrame(
         const std::vector<int>& arr,

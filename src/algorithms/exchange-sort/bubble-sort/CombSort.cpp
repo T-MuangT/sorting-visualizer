@@ -15,12 +15,12 @@ void combSort(std::vector<int>& arr, SortCallback notify) {
         swapped = false;
 
         for (int i = 0; i < n - gap; ++i) {
-            if (notify) notify(SortEvent::Compare, i, i + gap, "Gap " + std::to_string(gap));
+            if (notify) notify(SortEvent::Compare, i, i + gap, "Comb Sort: Gap Compare " + std::to_string(gap));
 
             if (arr[i] > arr[i + gap]) {
                 std::swap(arr[i], arr[i + gap]);
                 swapped = true;
-                if (notify) notify(SortEvent::Swap, i, i + gap, "Gap Swap");
+                if (notify) notify(SortEvent::Swap, i, i + gap, "Comb Sort: Gap Swap");
             }
         }
     }

@@ -57,7 +57,7 @@ void siftIn(std::vector<int>& arr, int root, int order, SortCallback& notify) {
         // Compare the two children's roots directly (not against a
         // running "largest" value) to decide which subtree could hold
         // a larger value than the other child.
-        if (lessAt(arr, right, left, notify, "Smooth Sort: Compare Heap Children")) {
+        if (lessAt(arr, right, left, notify, "Smoothsort: Compare Heap Children")) {
             next = left;
             nextOrder = order - 1;
         } else {
@@ -67,11 +67,11 @@ void siftIn(std::vector<int>& arr, int root, int order, SortCallback& notify) {
 
         // If the chosen child's root doesn't exceed the current value
         // at `root`, the heap property already holds here.
-        if (!lessAt(arr, root, next, notify, "Smooth Sort: Compare Heap Root with Chosen Child")) {
+        if (!lessAt(arr, root, next, notify, "Smoothsort: Compare Heap Root with Chosen Child")) {
             break;
         }
 
-        swapAt(arr, root, next, notify, "Smooth Sort: Sift Down");
+        swapAt(arr, root, next, notify, "Smoothsort: Sift Down");
         root = next;
         order = nextOrder;
     }
@@ -94,18 +94,18 @@ void interheapSift(std::vector<int>& arr, int root, HeapSizes hsz,
         if (hsz.offset > 1) {
             int right = root - 1;
             int left = right - static_cast<int>(L[hsz.offset - 2]);
-            if (lessAt(arr, effectiveRoot, left, notify, "Smooth Sort: Trinkle Compare with Left Child"))
+            if (lessAt(arr, effectiveRoot, left, notify, "Smoothsort: Trinkle Compare with Left Child"))
                 effectiveRoot = left;
-            if (lessAt(arr, effectiveRoot, right, notify, "Smooth Sort: Trinkle Compare with Right Child"))
+            if (lessAt(arr, effectiveRoot, right, notify, "Smoothsort: Trinkle Compare with Right Child"))
                 effectiveRoot = right;
         }
 
         int nextHeapRoot = root - static_cast<int>(L[hsz.offset]);
-        if (!lessAt(arr, effectiveRoot, nextHeapRoot, notify, "Smooth Sort: Trinkle Compare with Previous Heap Root")) {
+        if (!lessAt(arr, effectiveRoot, nextHeapRoot, notify, "Smoothsort: Trinkle Compare with Previous Heap Root")) {
             break;
         }
 
-        swapAt(arr, root, nextHeapRoot, notify, "Smooth Sort: Trinkle Swap with Previous Heap Root");
+        swapAt(arr, root, nextHeapRoot, notify, "Smoothsort: Trinkle Swap with Previous Heap Root");
         root = nextHeapRoot;
 
         // Drop the heap we just moved past from the (local) list.

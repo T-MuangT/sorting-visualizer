@@ -9,7 +9,7 @@ void insertionSort(std::vector<int>& arr, SortCallback notify) {
         int j = i - 1;
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
-            if (notify) notify(SortEvent::Swap, j, j + 1, "Insertion Swap " + std::to_string(key));
+            if (notify) notify(SortEvent::Swap, j, j + 1, "Insertion Sort: Swap " + std::to_string(key));
             --j;
         }
         arr[j + 1] = key;

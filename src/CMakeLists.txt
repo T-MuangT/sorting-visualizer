@@ -5,8 +5,11 @@ set(SOURCES
     menus/ExchangeSortMenu.cpp
     menus/SelectionSortMenu.cpp
     menus/InsertionSortMenu.cpp
+    menus/DistributionSortMenu.cpp
     stats/SortStats.cpp
-    visualizer/TerminalVisualizer.cpp
+    visualizer/TerminalArrayVisualizer.cpp
+    visualizer/TerminalTableVisualizer.cpp
+    visualizer/VisualizationSession.cpp
     randomizer/ArrayGenerator.cpp
     randomizer/ArrayRandomizer.cpp
     randomizer/ArrayReversed.cpp
@@ -31,6 +34,7 @@ set(SOURCES
     algorithms/selection-sort/heap-sort/MinHeapSort.cpp
     algorithms/selection-sort/heap-sort/SmoothSort.cpp
     algorithms/insertion-sort/insertion-sort/InsertionSort.cpp
+    algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.cpp
 )
 
 add_executable(sorting-visualizer ${SOURCES})

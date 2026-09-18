@@ -1,12 +1,12 @@
-#include "../include/visualizer/TerminalVisualizer.hpp"
+#include "../include/visualizer/TerminalArrayVisualizer.hpp"
 #include <iostream>
 #include <chrono>
 #include <thread>
 #include <cstdlib>
 
-TerminalVisualizer::TerminalVisualizer(int delayMs) : delayMs(delayMs) {}
+TerminalArrayVisualizer::TerminalArrayVisualizer(int delayMs) : delayMs(delayMs) {}
 
-void TerminalVisualizer::clearScreen() const {
+void TerminalArrayVisualizer::clearScreen() const {
 #if defined(_WIN32) || defined(_WIN64)
     std::system("cls");
 #else
@@ -14,7 +14,7 @@ void TerminalVisualizer::clearScreen() const {
 #endif
 }
 
-void TerminalVisualizer::renderFrame(
+void TerminalArrayVisualizer::renderFrame(
     const std::vector<int>& arr,
     SortEvent event,
     int idx1,

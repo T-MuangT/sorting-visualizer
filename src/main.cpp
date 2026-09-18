@@ -4,21 +4,23 @@
 #include <string>
 #include <chrono>
 #include <thread>
-#include <functional>
 
-// Include Core Types & Generator
-#include "include/Types.hpp"
+// Include Core Headers
 #include "include/ArrayGenerator.hpp"
+#include "include/AlgorithmRunner.hpp"
 
 // Include Menus
 #include "include/menus/ExchangeSortMenu.hpp"
 #include "include/menus/SelectionSortMenu.hpp"
 #include "include/menus/InsertionSortMenu.hpp"
+#include "include/menus/DistributionSortMenu.hpp"
 
 // Include Visualizers
-#include "include/SortStats.hpp"
-#include "include/visualizer/IVisualizer.hpp"
-#include "include/visualizer/TerminalVisualizer.hpp"
+#include "include/visualizer/IArrayVisualizer.hpp"
+#include "include/visualizer/ITableVisualizer.hpp"
+#include "include/visualizer/TerminalArrayVisualizer.hpp"
+#include "include/visualizer/TerminalTableVisualizer.hpp"
+#include "include/visualizer/VisualizationSession.hpp"
 // #include "include/visualizer/GraphicsVisualizer.hpp" // For future GUI backend
 
 // Include Exchange Algorithms
@@ -47,7 +49,8 @@
 // Include Insertion Algorithms
 #include "algorithms/insertion-sort/insertion-sort/InsertionSort.hpp"
 
-using AlgorithmRunner = std::function<void(std::vector<int>&, SortCallback)>;
+//Include Distribution Algorithms
+#include "algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.hpp"
 
 void displayMainMenu() {
     std::cout << "===========================================\n";
@@ -92,7 +95,7 @@ AlgorithmRunner selectPlaceholderMenu(const std::string& familyName) {
     std::cout << "Choice: ";
     int choice;
     std::cin >> choice;
-    return nullptr;
+    return {};
 }
 
 enum class RenderBackend {
@@ -120,7 +123,7 @@ int main() {
             break;
         }
 
-        AlgorithmRunner selectedAlgorithm = nullptr;
+        AlgorithmRunner selectedAlgorithm{};
 
         switch (familyChoice) {
             case 1:
@@ -136,7 +139,7 @@ int main() {
                 selectedAlgorithm = selectPlaceholderMenu("Merge Sort Family");
                 break;
             case 5:
-                selectedAlgorithm = selectPlaceholderMenu("Distribution Sort Family");
+                selectedAlgorithm = selectDistributionFamilyAlgorithm();
                 break;
             case 6:
                 selectedAlgorithm = selectPlaceholderMenu("Concurrent Sort Family");
@@ -175,32 +178,28 @@ int main() {
         auto data = ArrayGenerator::generate(arraySize, 1, 64, pattern);
 
         // Polymorphic backend instantiation
-        std::unique_ptr<IVisualizer> visualizer;
+        std::unique_ptr<IArrayVisualizer> arrayVisualizer;
+        std::unique_ptr<ITableVisualizer> tableVisualizer;
         if (backend == RenderBackend::Terminal) {
-            visualizer = std::make_unique<TerminalVisualizer>(delayMs);
+            arrayVisualizer = std::make_unique<TerminalArrayVisualizer>(delayMs);
+            tableVisualizer = std::make_unique<TerminalTableVisualizer>(delayMs);
         } else {
             // visualizer = std::make_unique<GraphicsVisualizer>(delayMs);
-            std::cout << "[Graphics Backend coming soon, falling back to Terminal Visualizer]\n";
-            visualizer = std::make_unique<TerminalVisualizer>(delayMs);
+            std::cout << "[Graphics Backend coming soon, falling back to Terminal Visualizers]\n";
+            arrayVisualizer = std::make_unique<TerminalArrayVisualizer>(delayMs);
+            tableVisualizer = std::make_unique<TerminalTableVisualizer>(delayMs);
         }
 
-        // State tracker
-        SortStats stats;
-
-        // Callback captures visualizer pointer and calls renderFrame
-        auto callback = [&data, &visualizer, &stats](SortEvent event, int i1, int i2, const std::string& step) {
-            stats.recordEvent(event);
-            visualizer->renderFrame(data, event, i1, i2, step, stats);
-        };
+        VisualizationSession session(*arrayVisualizer, *tableVisualizer);
 
         std::cout << "\nStarting visualization in 2 seconds...\n";
         std::this_thread::sleep_for(std::chrono::seconds(2));
 
-        // Execute selected algorithm via std::function runner
-        selectedAlgorithm(data, callback);
+        // Execute selected algorithm through the session-aware runner.
+        selectedAlgorithm(data, session);
 
         // Final completion render frame
-        visualizer->renderFrame(data, SortEvent::Compare, -1, -1, "Sorting Complete!", stats);
+        session.onArrayEvent(data, SortEvent::Compare, -1, -1, "Sorting Complete!");
         
         std::cout << "\nPress Enter to return to main menu...";
         std::cin.ignore();

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(SortingVisualizer VERSION 1.2 LANGUAGES CXX)
+project(SortingVisualizer VERSION 1.4.0 LANGUAGES CXX)
 
 enable_testing()
 
@@ -13,7 +13,7 @@ set(CPACK_PACKAGE_NAME "sorting-visualizer")
 set(CPACK_PACKAGE_VENDOR "SortingVisualizer")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Sorting algorithm visualizer")
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
-set(CPACK_PACKAGE_VERSION_MINOR "2")
+set(CPACK_PACKAGE_VERSION_MINOR "4")
 set(CPACK_PACKAGE_VERSION_PATCH "0")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "sorting-visualizer")
 set(CPACK_GENERATOR "TGZ;ZIP")

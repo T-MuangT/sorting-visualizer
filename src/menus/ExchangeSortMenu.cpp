@@ -1,7 +1,7 @@
 #include "../include/menus/ExchangeSortMenu.hpp"
 #include <iostream>
 
-// Include Bubble Sort Family Headers
+// Include Bubble Sort Branch Headers
 #include "../algorithms/exchange-sort/bubble-sort/BubbleSort.hpp"
 #include "../algorithms/exchange-sort/bubble-sort/CocktailShakerSort.hpp"
 #include "../algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.hpp"
@@ -10,7 +10,7 @@
 #include "../algorithms/exchange-sort/bubble-sort/CombSort.hpp"
 #include "../algorithms/exchange-sort/bubble-sort/OptimizedCombSort.hpp"
 
-// Include Partition Sort Family Headers
+// Include Partition Sort Branch Headers
 #include "../algorithms/exchange-sort/partition-sort/CircleSort.hpp"
 #include "../algorithms/exchange-sort/partition-sort/OptimizedCircleSort.hpp"
 #include "../algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
@@ -20,7 +20,7 @@
 
 AlgorithmRunner selectBubbleBranchAlgorithm() {
     std::cout << "\n--- Bubble Sort Branch ---\n";
-    std::cout << "  1. Standard Bubble Sort\n";
+    std::cout << "  1. Bubble Sort\n";
     std::cout << "  2. Cocktail Shaker Sort\n";
     std::cout << "  3. Optimized Cocktail Shaker Sort\n";
     std::cout << "  4. Odd-Even Sort\n";
@@ -34,14 +34,14 @@ AlgorithmRunner selectBubbleBranchAlgorithm() {
     std::cin >> choice;
 
     switch (choice) {
-        case 1: return bubbleSort;
-        case 2: return cocktailShakerSort;
-        case 3: return optimizedCocktailShakerSort;
-        case 4: return oddEvenSort;
-        case 5: return optimizedOddEvenSort;
-        case 6: return combSort;
-        case 7: return optimizedCombSort;
-        default: return nullptr;
+        case 1: return AlgorithmRunner::fromClassic(bubbleSort);
+        case 2: return AlgorithmRunner::fromClassic(cocktailShakerSort);
+        case 3: return AlgorithmRunner::fromClassic(optimizedCocktailShakerSort);
+        case 4: return AlgorithmRunner::fromClassic(oddEvenSort);
+        case 5: return AlgorithmRunner::fromClassic(optimizedOddEvenSort);
+        case 6: return AlgorithmRunner::fromClassic(combSort);
+        case 7: return AlgorithmRunner::fromClassic(optimizedCombSort);
+        default: return AlgorithmRunner();
     }
 }
 
@@ -60,13 +60,13 @@ AlgorithmRunner selectPartitionBranchAlgorithm() {
     std::cin >> choice;
 
     switch (choice) {
-        case 1: return circleSort;
-        case 2: return optimizedCircleSort;
-        case 3: return lomutoQuickSort;
-        case 4: return hoareQuickSort;
-        case 5: return dualPivotQuickSort;
-        case 6: return stableQuickSort;
-        default: return nullptr;
+        case 1: return AlgorithmRunner::fromClassic(circleSort);
+        case 2: return AlgorithmRunner::fromClassic(optimizedCircleSort);
+        case 3: return AlgorithmRunner::fromClassic(lomutoQuickSort);
+        case 4: return AlgorithmRunner::fromClassic(hoareQuickSort);
+        case 5: return AlgorithmRunner::fromClassic(dualPivotQuickSort);
+        case 6: return AlgorithmRunner::fromClassic(stableQuickSort);
+        default: return AlgorithmRunner();
     }
 }
 
@@ -83,6 +83,6 @@ AlgorithmRunner selectExchangeFamilyAlgorithm() {
     switch (choice) {
         case 1: return selectBubbleBranchAlgorithm();     // Invokes sub-menu
         case 2: return selectPartitionBranchAlgorithm();  // Invokes sub-menu
-        default: return nullptr;
+        default: return AlgorithmRunner();
     }
 }

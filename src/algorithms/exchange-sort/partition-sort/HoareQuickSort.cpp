@@ -10,18 +10,18 @@ int partitionHoare(std::vector<int>& arr, int low, int high, SortCallback notify
     while (true) {
         do {
             ++i;
-            if (notify) notify(SortEvent::Compare, i, low + (high - low) / 2, "Hoare: Scanning Left");
+            if (notify) notify(SortEvent::Compare, i, low + (high - low) / 2, "Hoare Quicksort: Scanning Left");
         } while (arr[i] < pivot);
 
         do {
             --j;
-            if (notify) notify(SortEvent::Compare, j, low + (high - low) / 2, "Hoare: Scanning Right");
+            if (notify) notify(SortEvent::Compare, j, low + (high - low) / 2, "Hoare Quicksort: Scanning Right");
         } while (arr[j] > pivot);
 
         if (i >= j) return j;
 
         std::swap(arr[i], arr[j]);
-        if (notify) notify(SortEvent::Swap, i, j, "Hoare: Swap Out-of-Order Pair");
+        if (notify) notify(SortEvent::Swap, i, j, "Hoare Quicksort: Swap Out-of-Order Pair");
     }
 }
 

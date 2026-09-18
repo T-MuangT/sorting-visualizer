@@ -5,10 +5,10 @@ namespace {
 void dualPivotQuickSortRecursive(std::vector<int>& arr, int low, int high, SortCallback notify) {
     if (low >= high) return;
 
-    if (notify) notify(SortEvent::Compare, low, high, "Dual-Pivot: Pivot Comparison");
+    if (notify) notify(SortEvent::Compare, low, high, "Yaroslavskiy Quicksort: Pivot Comparison");
     if (arr[low] > arr[high]) {
         std::swap(arr[low], arr[high]);
-        if (notify) notify(SortEvent::Swap, low, high, "Dual-Pivot: Order Initial Pivots");
+        if (notify) notify(SortEvent::Swap, low, high, "Yaroslavskiy Quicksort: Order Initial Pivots");
     }
 
     int p1 = arr[low];
@@ -17,28 +17,28 @@ void dualPivotQuickSortRecursive(std::vector<int>& arr, int low, int high, SortC
     int great = high - 1;
 
     for (int k = less; k <= great; ++k) {
-        if (notify) notify(SortEvent::Compare, k, low, "Dual-Pivot: Compare with P1");
+        if (notify) notify(SortEvent::Compare, k, low, "Yaroslavskiy Quicksort: Compare with P1");
         if (arr[k] < p1) {
             if (k != less) {
                 std::swap(arr[k], arr[less]);
-                if (notify) notify(SortEvent::Swap, k, less, "Dual-Pivot: Swap < P1");
+                if (notify) notify(SortEvent::Swap, k, less, "Yaroslavskiy Quicksort: Swap < P1");
             }
             ++less;
         } else {
-            if (notify) notify(SortEvent::Compare, k, high, "Dual-Pivot: Compare with P2");
+            if (notify) notify(SortEvent::Compare, k, high, "Yaroslavskiy Quicksort: Compare with P2");
             if (arr[k] > p2) {
                 while (k < great && arr[great] > p2) {
-                    if (notify) notify(SortEvent::Compare, great, high, "Dual-Pivot: Scan Right > P2");
+                    if (notify) notify(SortEvent::Compare, great, high, "Yaroslavskiy Quicksort: Scan Right > P2");
                     --great;
                 }
                 std::swap(arr[k], arr[great]);
-                if (notify) notify(SortEvent::Swap, k, great, "Dual-Pivot: Swap > P2");
+                if (notify) notify(SortEvent::Swap, k, great, "Yaroslavskiy Quicksort: Swap > P2");
                 --great;
 
-                if (notify) notify(SortEvent::Compare, k, low, "Dual-Pivot: Re-check swapped with P1");
+                if (notify) notify(SortEvent::Compare, k, low, "Yaroslavskiy Quicksort: Re-check swapped with P1");
                 if (arr[k] < p1) {
                     std::swap(arr[k], arr[less]);
-                    if (notify) notify(SortEvent::Swap, k, less, "Dual-Pivot: Swap < P1");
+                    if (notify) notify(SortEvent::Swap, k, less, "Yaroslavskiy Quicksort: Swap < P1");
                     ++less;
                 }
             }

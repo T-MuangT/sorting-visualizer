@@ -5,9 +5,9 @@
 #include "../Types.hpp"
 #include "../SortStats.hpp"
 
-class IVisualizer {
+class IArrayVisualizer {
 public:
-    virtual ~IVisualizer() = default;
+    virtual ~IArrayVisualizer() = default;
 
     // Core contract required by all visualizer backends
     virtual void renderFrame(

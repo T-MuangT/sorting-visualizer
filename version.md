@@ -47,3 +47,8 @@ Added:
 
 ### v1.3.0
 - Added Insertion Sort
+
+### v1.4.0
+- Refactored visualizer codebase
+- Added Table Visualization for auxiliary array visualization
+- Added Pigeonhole Sort

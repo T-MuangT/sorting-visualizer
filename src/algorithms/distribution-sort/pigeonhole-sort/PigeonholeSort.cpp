@@ -65,5 +65,5 @@ void pigeonholeSort(std::vector<int>& arr, VisualizationSession& session) {
         }
     }
 
-    session.endAuxPhase(arr, "Pigeonhole Sort: Complete");
+    session.endAuxPhase(arr, "Pigeonhole Sort: Auxiliary Array Flush Complete");
 }

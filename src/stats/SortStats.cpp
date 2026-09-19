@@ -11,6 +11,8 @@ void SortStats::recordEvent(SortEvent event) noexcept {
             comparisonCount++;
             break;
         case SortEvent::Swap:
+        case SortEvent::Shift:
+        case SortEvent::Insert:
             swapCount++;
             break;
     }

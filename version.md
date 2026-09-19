@@ -52,3 +52,6 @@ Added:
 - Refactored visualizer codebase
 - Added Table Visualization for auxiliary array visualization
 - Added Pigeonhole Sort
+
+### v1.4.1
+- Added Binary Insertion Sort

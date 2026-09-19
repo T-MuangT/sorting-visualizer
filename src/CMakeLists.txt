@@ -34,6 +34,7 @@ set(SOURCES
     algorithms/selection-sort/heap-sort/MinHeapSort.cpp
     algorithms/selection-sort/heap-sort/SmoothSort.cpp
     algorithms/insertion-sort/insertion-sort/InsertionSort.cpp
+    algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.cpp
     algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.cpp
 )
 

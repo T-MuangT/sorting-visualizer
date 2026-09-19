@@ -52,6 +52,7 @@ set(SELECTION_HEAP_TEST_SOURCES
 set(INSERTION_INSERTION_TEST_SOURCES
     insertion_insertion_test.cpp
     ../src/algorithms/insertion-sort/insertion-sort/InsertionSort.cpp
+    ../src/algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.cpp
 )
 
 set(DISTRIBUTION_PIGEONHOLE_TEST_SOURCES

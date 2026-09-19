@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "../src/algorithms/insertion-sort/insertion-sort/InsertionSort.hpp"
+#include "../src/algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.hpp"
 
 namespace {
 
@@ -30,7 +31,8 @@ bool verifySort(SortFunc fn, const std::vector<int>& input, const std::string& l
 
 int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
-        {"insertionSort", insertionSort}
+        {"insertionSort", insertionSort},
+        {"binaryInsertionSort", binaryInsertionSort}
     };
 
     const std::vector<std::vector<int>> cases = {

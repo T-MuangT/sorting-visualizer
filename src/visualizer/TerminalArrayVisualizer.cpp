@@ -30,10 +30,15 @@ void TerminalArrayVisualizer::renderFrame(
     std::cout << "Comparisons: " << stats.getComparisons()
               << " | Swaps: " << stats.getSwaps() << "\n\n";
 
+    bool isMovement =
+        event == SortEvent::Swap ||
+        event == SortEvent::Shift ||
+        event == SortEvent::Insert;
+
     for (size_t i = 0; i < arr.size(); ++i) {
         std::cout << "[";
         if (static_cast<int>(i) == idx1 || static_cast<int>(i) == idx2) {
-            std::cout << (event == SortEvent::Swap ? "!" : "*");
+            std::cout << (isMovement ? "!" : "*");
         } else {
             std::cout << " ";
         }

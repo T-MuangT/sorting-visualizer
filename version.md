@@ -55,3 +55,6 @@ Added:
 
 ### v1.4.1
 - Added Binary Insertion Sort
+
+### v1.5.0
+- Added Merge Sort

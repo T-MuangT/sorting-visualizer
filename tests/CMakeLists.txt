@@ -55,6 +55,12 @@ set(INSERTION_INSERTION_TEST_SOURCES
     ../src/algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.cpp
 )
 
+set(TABLE_VISUALIZER_TEST_SOURCES
+    table_visualizer_test.cpp
+    ../src/stats/SortStats.cpp
+    ../src/visualizer/TerminalTableVisualizer.cpp
+)
+
 set(DISTRIBUTION_PIGEONHOLE_TEST_SOURCES
     distribution_pigeonhole_test.cpp
     ../src/algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.cpp
@@ -64,10 +70,11 @@ set(DISTRIBUTION_PIGEONHOLE_TEST_SOURCES
     ../src/visualizer/TerminalTableVisualizer.cpp
 )
 
-set(TABLE_VISUALIZER_TEST_SOURCES
-    table_visualizer_test.cpp
+set(MERGE_SORT_TEST_SOURCES
+    merge_sort_test.cpp
+    ../src/algorithms/merge-sort/MergeSort.cpp
+    ../src/visualizer/VisualizationSession.cpp
     ../src/stats/SortStats.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
 )
 
 set(INTEGRATION_TEST_SOURCES
@@ -91,6 +98,7 @@ add_executable(selection_heap_test ${SELECTION_HEAP_TEST_SOURCES})
 add_executable(insertion_insertion_test ${INSERTION_INSERTION_TEST_SOURCES})
 add_executable(table_visualizer_test ${TABLE_VISUALIZER_TEST_SOURCES})
 add_executable(distribution_pigeonhole_test ${DISTRIBUTION_PIGEONHOLE_TEST_SOURCES})
+add_executable(merge_sort_test ${MERGE_SORT_TEST_SOURCES})
 add_executable(integration_test ${INTEGRATION_TEST_SOURCES})
 
 add_test(NAME array_visualizer_test COMMAND $<TARGET_FILE:array_visualizer_test>)
@@ -102,6 +110,7 @@ add_test(NAME selection_heap_test COMMAND $<TARGET_FILE:selection_heap_test>)
 add_test(NAME insertion_insertion_test COMMAND $<TARGET_FILE:insertion_insertion_test>)
 add_test(NAME table_visualizer_test COMMAND $<TARGET_FILE:table_visualizer_test>)
 add_test(NAME distribution_pigeonhole_test COMMAND $<TARGET_FILE:distribution_pigeonhole_test>)
+add_test(NAME merge_sort_test COMMAND $<TARGET_FILE:merge_sort_test>)
 add_test(NAME integration_test COMMAND $<TARGET_FILE:integration_test>)
 
 add_custom_target(tests
@@ -113,12 +122,13 @@ add_custom_target(tests
         selection_selection_test
         selection_heap_test
         insertion_insertion_test
+        merge_sort_test
         table_visualizer_test
         distribution_pigeonhole_test
         integration_test
 )
 
-foreach(test_target IN ITEMS array_visualizer_test randomizer_test exchange_bubble_test exchange_partition_test selection_selection_test selection_heap_test insertion_insertion_test table_visualizer_test distribution_pigeonhole_test integration_test)
+foreach(test_target IN ITEMS array_visualizer_test randomizer_test exchange_bubble_test exchange_partition_test selection_selection_test selection_heap_test insertion_insertion_test merge_sort_test table_visualizer_test distribution_pigeonhole_test integration_test)
     target_include_directories(${test_target} PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
     target_link_libraries(${test_target} PRIVATE OpenMP::OpenMP_CXX)
     if(MSVC)

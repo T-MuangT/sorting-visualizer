@@ -34,14 +34,14 @@ bool TerminalTableVisualizer::isHighlighted(
 const char* TerminalTableVisualizer::eventName(AuxEvent event) {
     switch (event) {
         case AuxEvent::PlaceInBucket:
-            return "Place in bucket";
+            return "Place in Table";
         case AuxEvent::FlushBucket:
-            return "Flush bucket";
+            return "Flush Table";
         case AuxEvent::CompareInAux:
-            return "Compare in auxiliary table";
+            return "Compare in Auxiliary Table";
     }
 
-    return "Auxiliary event";
+    return "Auxiliary Event";
 }
 
 char TerminalTableVisualizer::markerFor(AuxEvent event) {
@@ -102,7 +102,7 @@ void TerminalTableVisualizer::renderFrame(
             const char marker = active ? markerFor(event) : ' ';
 
             std::cout << "[" << marker << " "
-                      << std::right << std::setw(valueWidth) << row.values[pos]
+                      << std::right << std::setw(valueWidth + 1) << row.values[pos]
                       << "] ";
         }
 

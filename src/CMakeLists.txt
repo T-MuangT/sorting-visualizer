@@ -5,6 +5,7 @@ set(SOURCES
     menus/ExchangeSortMenu.cpp
     menus/SelectionSortMenu.cpp
     menus/InsertionSortMenu.cpp
+    menus/MergeSortMenu.cpp
     menus/DistributionSortMenu.cpp
     stats/SortStats.cpp
     visualizer/TerminalArrayVisualizer.cpp
@@ -35,6 +36,7 @@ set(SOURCES
     algorithms/selection-sort/heap-sort/SmoothSort.cpp
     algorithms/insertion-sort/insertion-sort/InsertionSort.cpp
     algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.cpp
+    algorithms/merge-sort/MergeSort.cpp
     algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.cpp
 )
 

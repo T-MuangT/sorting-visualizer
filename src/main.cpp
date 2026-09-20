@@ -13,6 +13,7 @@
 #include "include/menus/ExchangeSortMenu.hpp"
 #include "include/menus/SelectionSortMenu.hpp"
 #include "include/menus/InsertionSortMenu.hpp"
+#include "include/menus/MergeSortMenu.hpp"
 #include "include/menus/DistributionSortMenu.hpp"
 
 // Include Visualizers
@@ -22,35 +23,6 @@
 #include "include/visualizer/TerminalTableVisualizer.hpp"
 #include "include/visualizer/VisualizationSession.hpp"
 // #include "include/visualizer/GraphicsVisualizer.hpp" // For future GUI backend
-
-// Include Exchange Algorithms
-#include "algorithms/exchange-sort/bubble-sort/BubbleSort.hpp"
-#include "algorithms/exchange-sort/bubble-sort/CocktailShakerSort.hpp"
-#include "algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.hpp"
-#include "algorithms/exchange-sort/bubble-sort/OddEvenSort.hpp"
-#include "algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.hpp"
-#include "algorithms/exchange-sort/bubble-sort/CombSort.hpp"
-#include "algorithms/exchange-sort/bubble-sort/OptimizedCombSort.hpp"
-#include "algorithms/exchange-sort/partition-sort/CircleSort.hpp"
-#include "algorithms/exchange-sort/partition-sort/OptimizedCircleSort.hpp"
-#include "algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
-#include "algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
-#include "algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
-#include "algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
-
-// Include Selection Algorithms
-#include "algorithms/selection-sort/selection-sort/SelectionSort.hpp"
-#include "algorithms/selection-sort/selection-sort/DoubleSelectionSort.hpp"
-#include "algorithms/selection-sort/selection-sort/CycleSort.hpp"
-#include "algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
-#include "algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
-#include "algorithms/selection-sort/heap-sort/SmoothSort.hpp"
-
-// Include Insertion Algorithms
-#include "algorithms/insertion-sort/insertion-sort/InsertionSort.hpp"
-
-//Include Distribution Algorithms
-#include "algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.hpp"
 
 void displayMainMenu() {
     std::cout << "===========================================\n";
@@ -136,7 +108,7 @@ int main() {
                 selectedAlgorithm = selectInsertionFamilyAlgorithm();
                 break;
             case 4:
-                selectedAlgorithm = selectPlaceholderMenu("Merge Sort Family");
+                selectedAlgorithm = selectMergeFamilyAlgorithm();
                 break;
             case 5:
                 selectedAlgorithm = selectDistributionFamilyAlgorithm();

@@ -1,11 +1,10 @@
 #include "PigeonholeSort.hpp"
-
 #include <algorithm>
 #include <string>
 
 void pigeonholeSort(std::vector<int>& arr, VisualizationSession& session) {
     if (arr.empty()) {
-        session.onArrayEvent(arr, SortEvent::Compare, -1, -1, "Pigeonhole Sort: Empty array");
+        session.onArrayEvent(arr, SortEvent::Compare, -1, -1, "Pigeonhole Sort: Empty Array");
         return;
     }
 
@@ -30,13 +29,7 @@ void pigeonholeSort(std::vector<int>& arr, VisualizationSession& session) {
         auto& bucket = buckets[static_cast<size_t>(row)];
         bucket.push_back(arr[static_cast<size_t>(i)]);
 
-        session.onAuxEvent(
-            arr,
-            AuxEvent::PlaceInBucket,
-            i,
-            row,
-            static_cast<int>(bucket.size()) - 1,
-            "Pigeonhole Sort: Place " + std::to_string(arr[static_cast<size_t>(i)]));
+        session.onAuxEvent(arr, AuxEvent::PlaceInBucket, i, row, static_cast<int>(bucket.size()) - 1, "Pigeonhole Sort: Place " + std::to_string(arr[static_cast<size_t>(i)]));
     }
 
     int writeIdx = 0;
@@ -46,20 +39,9 @@ void pigeonholeSort(std::vector<int>& arr, VisualizationSession& session) {
             arr[static_cast<size_t>(writeIdx)] = bucket.front();
             bucket.erase(bucket.begin());
 
-            session.onAuxEvent(
-                arr,
-                AuxEvent::FlushBucket,
-                writeIdx,
-                row,
-                0,
-                "Pigeonhole Sort: Flush Bucket " + std::to_string(row + minValue));
+            session.onAuxEvent(arr, AuxEvent::FlushBucket, writeIdx, row, 0, "Pigeonhole Sort: Flush Bucket " + std::to_string(row + minValue));
 
-            session.onArrayEvent(
-                arr,
-                SortEvent::Swap,
-                writeIdx,
-                writeIdx,
-                "Pigeonhole Sort: Write Back " + std::to_string(arr[static_cast<size_t>(writeIdx)]));
+            session.onArrayEvent(arr, SortEvent::Swap, writeIdx, writeIdx, "Pigeonhole Sort: Write Back " + std::to_string(arr[static_cast<size_t>(writeIdx)]));
 
             ++writeIdx;
         }

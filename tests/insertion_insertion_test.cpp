@@ -4,6 +4,7 @@
 
 #include "../src/algorithms/insertion-sort/insertion-sort/InsertionSort.hpp"
 #include "../src/algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.hpp"
+#include "../src/algorithms/insertion-sort/insertion-sort/ShellSort.hpp"
 
 namespace {
 
@@ -32,7 +33,8 @@ bool verifySort(SortFunc fn, const std::vector<int>& input, const std::string& l
 int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
         {"insertionSort", insertionSort},
-        {"binaryInsertionSort", binaryInsertionSort}
+        {"binaryInsertionSort", binaryInsertionSort},
+        {"shellSort", shellSort}
     };
 
     const std::vector<std::vector<int>> cases = {

@@ -53,6 +53,7 @@ set(INSERTION_INSERTION_TEST_SOURCES
     insertion_insertion_test.cpp
     ../src/algorithms/insertion-sort/insertion-sort/InsertionSort.cpp
     ../src/algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.cpp
+    ../src/algorithms/insertion-sort/insertion-sort/ShellSort.cpp
 )
 
 set(TABLE_VISUALIZER_TEST_SOURCES

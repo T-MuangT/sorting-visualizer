@@ -22,11 +22,11 @@ AlgorithmRunner selectBubbleBranchAlgorithm() {
     std::cout << "\n--- Bubble Sort Branch ---\n";
     std::cout << "  1. Bubble Sort\n";
     std::cout << "  2. Cocktail Shaker Sort\n";
-    std::cout << "  3. Optimized Cocktail Shaker Sort\n";
+    std::cout << "  3. Cocktail Shaker Sort with Early Cutoff\n";
     std::cout << "  4. Odd-Even Sort\n";
-    std::cout << "  5. Optimized Odd-Even Sort\n";
+    std::cout << "  5. Odd-Even Sort with Parallelism\n";
     std::cout << "  6. Comb Sort\n";
-    std::cout << "  7. Optimized Comb Sort\n";
+    std::cout << "  7. Comb Sort with Parallelism\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -48,11 +48,11 @@ AlgorithmRunner selectBubbleBranchAlgorithm() {
 AlgorithmRunner selectPartitionBranchAlgorithm() {
     std::cout << "\n--- Partition Sort Branch ---\n";
     std::cout << "  1. Circle Sort\n";
-    std::cout << "  2. Optimized Circle Sort\n";
-    std::cout << "  3. Lomuto Partition (Left-Left)\n";
-    std::cout << "  4. Hoare Partition (Left-Right)\n";
-    std::cout << "  5. Yaroslavskiy Partition (Dual Pivot)\n";
-    std::cout << "  6. Stable Quick Sort (Out-of-Place)\n";
+    std::cout << "  2. Circle Sort with Parallelism\n";
+    std::cout << "  3. Lomuto Partition (Left-Left Quicksort)\n";
+    std::cout << "  4. Hoare Partition (Left-Right Quicksort)\n";
+    std::cout << "  5. Yaroslavskiy Partition (Dual-Pivot Quicksort)\n";
+    std::cout << "  6. Stable Quicksort (Out-of-Place)\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 

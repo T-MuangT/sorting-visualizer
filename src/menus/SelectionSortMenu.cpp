@@ -32,9 +32,9 @@ AlgorithmRunner selectSelectionBranchAlgorithm() {
 
 AlgorithmRunner selectHeapBranchAlgorithm() {
     std::cout << "\n--- Heap Sort Branch ---\n";
-    std::cout << "  1. Max Heap Sort\n";
-    std::cout << "  2. Min Heap Sort\n";
-    std::cout << "  3. Smooth Sort\n";
+    std::cout << "  1. Max Heapsort\n";
+    std::cout << "  2. Min Heapsort\n";
+    std::cout << "  3. Smoothsort\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -52,7 +52,7 @@ AlgorithmRunner selectHeapBranchAlgorithm() {
 AlgorithmRunner selectSelectionFamilyAlgorithm() {
     std::cout << "\n--- Selection Sort Family ---\n";
     std::cout << "  1. Selection Sort Branch\n";
-    std::cout << "  2. Heap Sort Branch\n";
+    std::cout << "  2. Heapsort Branch\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 

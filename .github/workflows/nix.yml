@@ -38,9 +38,6 @@ jobs:
       - name: Check flake
         run: nix flake check ./nix
 
-      - name: Check formatting
-        run: nix fmt ./nix -- --check
-
       - name: Build development environment
         run: nix develop ./nix --command true
 

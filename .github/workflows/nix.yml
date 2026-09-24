@@ -32,7 +32,7 @@ jobs:
       - name: Install Cachix
         uses: cachix/cachix-action@v16
         with:
-          name: YOUR_CACHE_NAME
+          name: sorting-visualizer
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Check flake

@@ -88,7 +88,7 @@ jobs:
       - name: Install Cachix
         uses: cachix/cachix-action@v16
         with:
-          name: YOUR_CACHE_NAME
+          name: sorting-visualizer
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Build Nix package
@@ -96,7 +96,7 @@ jobs:
           nix build ./nix \
             --no-link \
             --print-out-paths \
-            | cachix push YOUR_CACHE_NAME
+            | cachix push sorting-visualizer
 
       - name: Export Nix closure
         run: |

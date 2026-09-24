@@ -70,9 +70,60 @@ jobs:
           path: ${{ matrix.archive_glob }}
           if-no-files-found: error
 
+  nix-release:
+    name: Nix Release
+    runs-on: ubuntu-latest
+    needs: package
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/determinate-nix-action@v3
+
+      - name: Install Cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: sorting-visualizer
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Build Nix package
+        run: |
+          nix build ./nix \
+            --no-link \
+            --print-out-paths \
+            | cachix push sorting-visualizer
+
+      - name: Export Nix closure
+        run: |
+          nix build ./nix \
+            --no-link \
+            --print-out-paths > nix-output.txt
+
+          OUT_PATH="$(cat nix-output.txt)"
+
+          nix-store -qR "$OUT_PATH" \
+            | grep -v '\.drv$' \
+            > nix-closure.txt
+
+          nix-store --export $(cat nix-closure.txt) \
+            | gzip -9 > sorting-visualizer-${{ github.ref_name }}-nix-closure.nar.gz
+
+      - name: Upload Nix closure
+        uses: actions/upload-artifact@v4
+        with:
+          name: sorting-visualizer-${{ github.ref_name }}-nix
+          path: sorting-visualizer-${{ github.ref_name }}-nix-closure.nar.gz
+
   github-release:
     name: Publish GitHub Release
-    needs: package
+    needs:
+      - package
+      - nix-release
     runs-on: ubuntu-latest
     permissions:
       contents: write

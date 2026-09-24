@@ -1,4 +1,4 @@
-name: Nix
+name: Nix CI
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   nix:
-    name: nix-${{ matrix.os }}
+    name: nix-${{ matrix.os }} / Release
     runs-on: ${{ matrix.os }}
 
     strategy:

@@ -9,7 +9,7 @@ on:
 
 jobs:
   nix:
-    name: Nix / ${{ matrix.os }}
+    name: nix-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     strategy:

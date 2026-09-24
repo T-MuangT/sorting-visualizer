@@ -42,7 +42,7 @@
             dontBuild = true;
 
             installPhase = ''
-              ${../scripts/build.sh} build "$out"
+              ${../scripts/install.sh} build "$out"
             '';
           };
         });

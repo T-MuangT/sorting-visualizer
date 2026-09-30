@@ -9,7 +9,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CMAKE_CXX_FLAGS_RELEASE "-O2 -march=x86-64 -mtune=generic -DNDEBUG")
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    add_compile_options(-O2 -march=x86-64 -mtune=generic -DNDEBUG)
+elseif(MSVC)
+    add_compile_options(-O2 -DNDEBUG)
+endif()
 
 if(MSVC)
     set(OpenMP_RUNTIME_MSVC llvm)

@@ -14,16 +14,28 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-24.04
             platform: linux-x64
             archive_glob: build/*.tar.gz
             cpack_generator: TGZ
-          - os: windows-latest
+          - os: windows-2025
             platform: windows-x64
             archive_glob: build/*.zip
             cpack_generator: ZIP
-          - os: macos-latest
+          - os: macos-26-intel
             platform: macos-x64
+            archive_glob: build/*.tar.gz
+            cpack_generator: TGZ
+          - os: ubuntu-24.04-arm
+            platform: linux-arm64
+            archive_glob: build/*.tar.gz
+            cpack_generator: TGZ
+          - os: windows-11-arm
+            platform: windows-arm64
+            archive_glob: build/*.zip
+            cpack_generator: ZIP
+          - os: macos-26
+            platform: macos-arm64
             archive_glob: build/*.tar.gz
             cpack_generator: TGZ
 
@@ -93,25 +105,14 @@ jobs:
 
       - name: Build Nix package
         run: |
-          nix build ./nix \
-            --no-link \
-            --print-out-paths \
-            | cachix push sorting-visualizer
+          nix build ./nix --no-link --print-out-paths | cachix push sorting-visualizer
 
       - name: Export Nix closure
         run: |
-          nix build ./nix \
-            --no-link \
-            --print-out-paths > nix-output.txt
-
+          nix build ./nix --no-link --print-out-paths > nix-output.txt
           OUT_PATH="$(cat nix-output.txt)"
-
-          nix-store -qR "$OUT_PATH" \
-            | grep -v '\.drv$' \
-            > nix-closure.txt
-
-          nix-store --export $(cat nix-closure.txt) \
-            | gzip -9 > sorting-visualizer-${{ github.ref_name }}-nix-closure.nar.gz
+          nix-store -qR "$OUT_PATH" | grep -v '\.drv$' > nix-closure.txt
+          nix-store --export $(cat nix-closure.txt) | gzip -9 > sorting-visualizer-${{ github.ref_name }}-nix-closure.nar.gz
 
       - name: Upload Nix closure
         uses: actions/upload-artifact@v4

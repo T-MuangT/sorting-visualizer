@@ -7,9 +7,14 @@ private:
     int delayMs;
 
     void clearScreen() const;
-    static bool isHighlighted(const std::vector<TableCell>& highlighted, int row, int pos);
+    static bool isHighlighted(
+        const std::vector<TableCell>& highlighted,
+        int row,
+        int pos);
+
     static const char* eventName(AuxEvent event);
     static char markerFor(AuxEvent event);
+    static bool isCountEvent(AuxEvent event);
 
 public:
     explicit TerminalTableVisualizer(int delayMs = 100);

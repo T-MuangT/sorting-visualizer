@@ -1,5 +1,3 @@
-#include "../include/visualizer/TerminalTableVisualizer.hpp"
-
 #include <algorithm>
 #include <chrono>
 #include <cstdlib>
@@ -7,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <thread>
+
+#include "../include/visualizer/TerminalTableVisualizer.hpp"
 
 TerminalTableVisualizer::TerminalTableVisualizer(int delayMs) : delayMs(delayMs) {}
 
@@ -39,6 +39,12 @@ const char* TerminalTableVisualizer::eventName(AuxEvent event) {
             return "Flush Table";
         case AuxEvent::CompareInAux:
             return "Compare in Auxiliary Table";
+        case AuxEvent::IncrementCount:
+            return "Increment Value Tabulation in Table";
+        case AuxEvent::AccumulateCount:
+            return "Accumulate Value Tabulation";
+        case AuxEvent::PlaceCountOutput:
+            return "Place Value and Decrement from Value Tabulation";
     }
 
     return "Auxiliary Event";
@@ -52,9 +58,27 @@ char TerminalTableVisualizer::markerFor(AuxEvent event) {
             return '!';
         case AuxEvent::CompareInAux:
             return '*';
+        case AuxEvent::IncrementCount:
+            return '+';
+        case AuxEvent::AccumulateCount:
+            return '*';
+        case AuxEvent::PlaceCountOutput:
+            return '!';
     }
 
     return '?';
+}
+
+bool TerminalTableVisualizer::isCountEvent(AuxEvent event) {
+    switch (event) {
+        case AuxEvent::IncrementCount:
+        case AuxEvent::AccumulateCount:
+        case AuxEvent::PlaceCountOutput:
+            return true;
+
+        default:
+            return false;
+    }
 }
 
 void TerminalTableVisualizer::renderFrame(
@@ -109,7 +133,11 @@ void TerminalTableVisualizer::renderFrame(
         std::cout << "\n";
     }
 
-    std::cout << "\nLegend: [+] Placed  [!] Flushing  [*] Comparing\n";
+    if (isCountEvent(event)) {
+        std::cout << "\nLegend: [+] Incrementing  [!] Decrementing  [*] Accumulating\n";
+    } else {
+        std::cout << "\nLegend: [+] Placed  [!] Flushing  [*] Comparing\n";
+    }
     std::fflush(stdout);
 
     if (delayMs > 0) {

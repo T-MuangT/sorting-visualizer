@@ -62,3 +62,7 @@ Added:
 ### v1.5.1
 - Added Shellsort
 - Renamed several sorting algorithms to better explain the algorithms
+
+### v1.6.0
+- Added Counting Sort
+- Refactored the code to corresponding Counting Sort algorithm

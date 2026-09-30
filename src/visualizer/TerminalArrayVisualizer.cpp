@@ -1,8 +1,9 @@
-#include "../include/visualizer/TerminalArrayVisualizer.hpp"
 #include <iostream>
 #include <chrono>
 #include <thread>
 #include <cstdlib>
+
+#include "../include/visualizer/TerminalArrayVisualizer.hpp"
 
 TerminalArrayVisualizer::TerminalArrayVisualizer(int delayMs) : delayMs(delayMs) {}
 
@@ -14,14 +15,7 @@ void TerminalArrayVisualizer::clearScreen() const {
 #endif
 }
 
-void TerminalArrayVisualizer::renderFrame(
-    const std::vector<int>& arr,
-    SortEvent event,
-    int idx1,
-    int idx2,
-    const std::string& stepName,
-    const SortStats& stats)
-{
+void TerminalArrayVisualizer::renderFrame(const std::vector<int>& arr, SortEvent event, int idx1, int idx2, const std::string& stepName, const SortStats& stats) {
     clearScreen();
     std::cout << "==== Terminal Visualizer ====\n";
     std::cout << "Step: " << stepName << "\n";

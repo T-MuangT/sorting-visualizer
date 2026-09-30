@@ -1,5 +1,6 @@
-#include "../include/menus/InsertionSortMenu.hpp"
 #include <iostream>
+
+#include "../include/menus/InsertionSortMenu.hpp"
 
 // Include Insertion Sort Branch Headers
 #include "../algorithms/insertion-sort/insertion-sort/InsertionSort.hpp"

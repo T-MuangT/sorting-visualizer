@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <string>
+
 #include "Types.hpp"
 
 // Lightweight snapshot for UI backends (Terminal, Raylib, SFML, GUI, etc.)

@@ -1,5 +1,6 @@
-#include "../include/menus/MergeSortMenu.hpp"
 #include <iostream>
+
+#include "../include/menus/MergeSortMenu.hpp"
 
 // Include Merge Sort Headers
 #include "../algorithms/merge-sort/MergeSort.hpp"

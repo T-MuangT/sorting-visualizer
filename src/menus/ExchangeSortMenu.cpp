@@ -1,5 +1,6 @@
-#include "../include/menus/ExchangeSortMenu.hpp"
 #include <iostream>
+
+#include "../include/menus/ExchangeSortMenu.hpp"
 
 // Include Bubble Sort Branch Headers
 #include "../algorithms/exchange-sort/bubble-sort/BubbleSort.hpp"

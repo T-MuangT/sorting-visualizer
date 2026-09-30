@@ -1,13 +1,9 @@
-#include "../include/ArrayGenerator.hpp"
 #include <algorithm>
 #include <random>
 
-std::vector<int> ArrayGenerator::generateNearlySorted(
-    size_t size, 
-    int minValue, 
-    int maxValue, 
-    uint64_t seed) 
-{
+#include "../include/ArrayGenerator.hpp"
+
+std::vector<int> ArrayGenerator::generateNearlySorted(size_t size, int minValue, int maxValue, uint64_t seed) {
     if (size == 0) return {};
 
     std::vector<int> arr = generateRandom(size, minValue, maxValue, seed);

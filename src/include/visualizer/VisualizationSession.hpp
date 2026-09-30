@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../SortStats.hpp"
+#include "../algorithms/CountEventData.hpp"
 #include "IArrayVisualizer.hpp"
 #include "ITableVisualizer.hpp"
 
@@ -42,6 +43,11 @@ public:
         int srcIdx,
         int row,
         int pos,
+        const std::string& stepName);
+
+    void onCountEvent(
+        AuxEvent event,
+        const CountEventData& data,
         const std::string& stepName);
 
     void endAuxPhase(

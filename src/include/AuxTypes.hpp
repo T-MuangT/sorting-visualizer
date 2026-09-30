@@ -7,6 +7,9 @@ enum class AuxEvent {
     PlaceInBucket,
     FlushBucket,
     CompareInAux,
+    IncrementCount,
+    AccumulateCount,
+    PlaceCountOutput,
     // extend as new algorithms need new verbs
 };
 

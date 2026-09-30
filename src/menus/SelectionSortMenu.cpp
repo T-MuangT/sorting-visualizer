@@ -1,5 +1,6 @@
-#include "../include/menus/SelectionSortMenu.hpp"
 #include <iostream>
+
+#include "../include/menus/SelectionSortMenu.hpp"
 
 // Include Selection Sort Branch Headers
 #include "../algorithms/selection-sort/selection-sort/SelectionSort.hpp"

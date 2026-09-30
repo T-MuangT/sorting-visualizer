@@ -39,6 +39,7 @@ set(SOURCES
     algorithms/insertion-sort/insertion-sort/ShellSort.cpp
     algorithms/merge-sort/MergeSort.cpp
     algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.cpp
+    algorithms/distribution-sort/counting-sort/CountingSort.cpp
 )
 
 add_executable(sorting-visualizer ${SOURCES})

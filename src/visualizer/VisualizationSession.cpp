@@ -1,7 +1,6 @@
-#include "../include/visualizer/VisualizationSession.hpp"
-
-#include <algorithm>
 #include <stdexcept>
+
+#include "../include/visualizer/VisualizationSession.hpp"
 
 VisualizationSession::VisualizationSession(
     IArrayVisualizer& arrayVisualizer,
@@ -55,33 +54,18 @@ void VisualizationSession::ensureRow(int row) {
     }
 }
 
-void VisualizationSession::onArrayEvent(
-    const std::vector<int>& arr,
-    SortEvent event,
-    int idx1,
-    int idx2,
-    const std::string& stepName)
-{
+void VisualizationSession::onArrayEvent(const std::vector<int>& arr, SortEvent event, int idx1, int idx2, const std::string& stepName) {
     stats.recordEvent(event);
     arrayVisualizer->renderFrame(arr, event, idx1, idx2, stepName, stats);
 }
 
-void VisualizationSession::beginAuxPhase(
-    std::vector<TableRow> initialRows,
-    const std::string& stepName)
-{
+void VisualizationSession::beginAuxPhase(std::vector<TableRow> initialRows, const std::string& stepName) {
     auxRows = std::move(initialRows);
     tableVisualizer->renderFrame(auxRows, AuxEvent::PlaceInBucket, {}, stepName, stats);
 }
 
-void VisualizationSession::onAuxEvent(
-    const std::vector<int>& mainArr,
-    AuxEvent event,
-    int srcIdx,
-    int row,
-    int pos,
-    const std::string& stepName)
-{
+// VisualizationSession::onAuxEvent for insertion auxiliary array tables
+void VisualizationSession::onAuxEvent(const std::vector<int>& mainArr, AuxEvent event, int srcIdx, int row, int pos, const std::string& stepName) {
     recordAuxEvent(event);
 
     switch (event) {
@@ -92,17 +76,10 @@ void VisualizationSession::onAuxEvent(
 
             ensureRow(row);
             auto& values = auxRows[static_cast<size_t>(row)].values;
-            const int insertPos = (pos < 0 || pos > static_cast<int>(values.size()))
-                ? static_cast<int>(values.size())
-                : pos;
+            const int insertPos = (pos < 0 || pos > static_cast<int>(values.size())) ? static_cast<int>(values.size()) : pos;
 
             values.insert(values.begin() + insertPos, mainArr[static_cast<size_t>(srcIdx)]);
-            tableVisualizer->renderFrame(
-                auxRows,
-                event,
-                highlightedCell(row, insertPos),
-                stepName,
-                stats);
+            tableVisualizer->renderFrame(auxRows, event, highlightedCell(row, insertPos), stepName, stats);
             break;
         }
 
@@ -116,31 +93,69 @@ void VisualizationSession::onAuxEvent(
                 throw std::out_of_range("Flush position is outside the auxiliary row.");
             }
 
-            tableVisualizer->renderFrame(
-                auxRows,
-                event,
-                highlightedCell(row, pos),
-                stepName,
-                stats);
+            tableVisualizer->renderFrame(auxRows, event, highlightedCell(row, pos), stepName, stats);
             values.erase(values.begin() + pos);
             break;
         }
 
         case AuxEvent::CompareInAux:
-            tableVisualizer->renderFrame(
-                auxRows,
-                event,
-                highlightedCell(row, pos),
-                stepName,
-                stats);
+            tableVisualizer->renderFrame(auxRows, event, highlightedCell(row, pos), stepName, stats);
             break;
+
+        default:
+            throw std::invalid_argument("Invalid event for auxiliary array visualization.");
     }
 }
 
-void VisualizationSession::endAuxPhase(
-    const std::vector<int>& arr,
-    const std::string& stepName)
-{
+// VisualizationSession::onCountEvent for counting auxiliary array tables
+void VisualizationSession::onCountEvent(AuxEvent event, const CountEventData& data, const std::string& stepName) {
+    recordAuxEvent(event);
+
+    if (data.countRow < 0 || data.countRow >= static_cast<int>(auxRows.size())) {
+        throw std::out_of_range("Count row is outside the auxiliary table.");
+    }
+
+    auto& values = auxRows[static_cast<size_t>(data.countRow)].values;
+
+    if (values.empty()) {
+        values.push_back(0);
+    }
+
+    switch (event) {
+        case AuxEvent::IncrementCount: {
+            values[0] = data.value;
+            tableVisualizer->renderFrame(auxRows, event, highlightedCell(data.countRow, 0), stepName, stats);
+            break;
+        }
+
+        case AuxEvent::AccumulateCount: {
+            values[0] = data.value;
+            tableVisualizer->renderFrame(auxRows, event, highlightedCell(data.countRow, 0), stepName, stats);
+            break;
+        }
+
+        case AuxEvent::PlaceCountOutput: {
+            if (data.outputRow < 0 || data.outputRow >= static_cast<int>(auxRows.size())) {
+                throw std::out_of_range("Count output row is outside the auxiliary table.");
+            }
+
+            if (data.outputPos < 0 || data.outputPos >= static_cast<int>(auxRows[static_cast<size_t>(data.outputRow)].values.size())) {
+                throw std::out_of_range("Count output position is outside the auxiliary row.");
+            }
+
+            auxRows[static_cast<size_t>(data.outputRow)].values[static_cast<size_t>(data.outputPos)] = data.value;
+
+            tableVisualizer->renderFrame(auxRows, event, {{data.countRow, 0}, {data.outputRow, data.outputPos}}, stepName, stats);
+
+    break;
+}
+
+        default:
+            throw std::invalid_argument("Invalid event for count array visualization.");
+    }
+}
+
+void VisualizationSession::endAuxPhase(const std::vector<int>& arr, const std::string& stepName) {
     auxRows.clear();
     arrayVisualizer->renderFrame(arr, SortEvent::Compare, -1, -1, stepName, stats);
 }

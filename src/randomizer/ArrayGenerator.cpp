@@ -1,7 +1,7 @@
-#include "../include/ArrayGenerator.hpp"
-
 #include <chrono>
 #include <random>
+
+#include "../include/ArrayGenerator.hpp"
 
 namespace {
 uint64_t resolveSeed(uint64_t seed) {
@@ -16,15 +16,9 @@ uint64_t resolveSeed(uint64_t seed) {
 
     return generator();
 }
-}  // namespace
+}  // anonymous namespace
 
-std::vector<int> ArrayGenerator::generate(
-    size_t size, 
-    int minValue, 
-    int maxValue, 
-    Pattern pattern,
-    uint64_t seed) 
-{
+std::vector<int> ArrayGenerator::generate(size_t size, int minValue, int maxValue, Pattern pattern, uint64_t seed) {
     const uint64_t effectiveSeed = resolveSeed(seed);
 
     switch (pattern) {

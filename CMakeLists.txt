@@ -19,7 +19,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     endif()
 
 elseif(MSVC)
-    add_compile_options(/O2 /DNDEBUG)
+    add_compile_options(/Od /DNDEBUG)
 endif()
 
 if(MSVC)

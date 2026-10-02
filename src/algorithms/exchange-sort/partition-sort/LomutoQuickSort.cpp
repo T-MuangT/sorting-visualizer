@@ -1,5 +1,6 @@
-#include "LomutoQuickSort.hpp"
 #include <algorithm>
+
+#include "LomutoQuickSort.hpp"
 
 namespace {
 int partitionLomuto(std::vector<int>& arr, int low, int high, SortCallback notify) {

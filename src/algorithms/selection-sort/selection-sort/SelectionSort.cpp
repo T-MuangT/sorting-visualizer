@@ -1,5 +1,6 @@
-#include "SelectionSort.hpp"
 #include <algorithm>
+
+#include "SelectionSort.hpp"
 
 void selectionSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());

@@ -1,7 +1,8 @@
-#include "OptimizedCircleSort.hpp"
 #include <algorithm>
 #include <string>
 #include <omp.h>
+
+#include "OptimizedCircleSort.hpp"
 
 namespace {
 int optimizedCircleSortRecursive(std::vector<int>& arr, int low, int high, SortCallback notify) {

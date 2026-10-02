@@ -1,5 +1,6 @@
-#include "DoubleSelectionSort.hpp"
 #include <algorithm>
+
+#include "DoubleSelectionSort.hpp"
 
 void doubleSelectionSort(std::vector<int>& arr, SortCallback notify) {
     int low = 0;

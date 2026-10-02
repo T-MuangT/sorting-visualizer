@@ -1,6 +1,7 @@
-#include "BubbleSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "BubbleSort.hpp"
 
 void bubbleSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());

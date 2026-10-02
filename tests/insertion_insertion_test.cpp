@@ -57,6 +57,6 @@ int main() {
         }
     }
 
-    std::cout << "Insertion sort tests passed." << std::endl;
+    std::cout << "Insertion Sort tests passed." << std::endl;
     return 0;
 }

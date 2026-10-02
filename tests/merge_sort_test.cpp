@@ -2,44 +2,18 @@
 #include <iostream>
 #include <vector>
 
+#include "include/NoopVisualizers.hpp"
 #include "../src/algorithms/merge-sort/MergeSort.hpp"
-#include "../src/include/visualizer/IArrayVisualizer.hpp"
-#include "../src/include/visualizer/ITableVisualizer.hpp"
 #include "../src/include/visualizer/VisualizationSession.hpp"
 
 namespace {
-
-class NoopArrayVisualizer : public IArrayVisualizer {
-public:
-    void renderFrame(
-        const std::vector<int>&,
-        SortEvent,
-        int,
-        int,
-        const std::string&,
-        const SortStats&) override
-    {
-    }
-};
-
-class NoopTableVisualizer : public ITableVisualizer {
-public:
-    void renderFrame(
-        const std::vector<TableRow>&,
-        AuxEvent,
-        const std::vector<TableCell>&,
-        const std::string&,
-        const SortStats&) override
-    {
-    }
-};
-
 bool verifySort(const std::vector<int>& input) {
     auto data = input;
 
     NoopArrayVisualizer arrayVisualizer;
     NoopTableVisualizer tableVisualizer;
-    VisualizationSession session(arrayVisualizer, tableVisualizer);
+    NoopGraphVisualizer graphVisualizer;
+    VisualizationSession session(arrayVisualizer, tableVisualizer, graphVisualizer);
 
     mergeSort(data, session);
 
@@ -53,7 +27,6 @@ bool verifySort(const std::vector<int>& input) {
 
     return true;
 }
-
 }  // namespace
 
 int main() {
@@ -76,6 +49,6 @@ int main() {
         }
     }
 
-    std::cout << "Merge sort tests passed." << std::endl;
+    std::cout << "Mergesort tests passed." << std::endl;
     return 0;
 }

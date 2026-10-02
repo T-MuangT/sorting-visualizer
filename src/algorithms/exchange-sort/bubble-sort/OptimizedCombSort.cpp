@@ -1,8 +1,9 @@
-#include "OptimizedCombSort.hpp"
 #include <algorithm>
 #include <string>
 #include <vector>
 #include <omp.h>
+
+#include "OptimizedCombSort.hpp"
 
 void optimizedCombSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size()); // To prevent floating numbers

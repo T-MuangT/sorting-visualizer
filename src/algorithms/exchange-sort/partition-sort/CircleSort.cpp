@@ -1,6 +1,7 @@
-#include "CircleSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "CircleSort.hpp"
 
 static bool circleSortRecursive(std::vector<int>& arr, int low, int high, SortCallback notify) {
     bool swapped = false;

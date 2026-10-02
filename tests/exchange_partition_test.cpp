@@ -63,6 +63,6 @@ int main() {
         }
     }
 
-    std::cout << "Exchange partition tests passed." << std::endl;
+    std::cout << "Partition Sort tests passed." << std::endl;
     return 0;
 }

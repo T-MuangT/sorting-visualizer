@@ -1,5 +1,6 @@
-#include "MaxHeapSort.hpp"
 #include <algorithm>
+
+#include "MaxHeapSort.hpp"
 
 namespace {
 void heapify(std::vector<int>& arr, int n, int i, SortCallback notify) {

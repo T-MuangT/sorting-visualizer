@@ -19,8 +19,10 @@
 // Include Visualizers
 #include "include/visualizer/IArrayVisualizer.hpp"
 #include "include/visualizer/ITableVisualizer.hpp"
+#include "include/visualizer/IGraphVisualizer.hpp"
 #include "include/visualizer/TerminalArrayVisualizer.hpp"
 #include "include/visualizer/TerminalTableVisualizer.hpp"
+#include "include/visualizer/TerminalGraphVisualizer.hpp"
 #include "include/visualizer/VisualizationSession.hpp"
 // #include "include/visualizer/GraphicsVisualizer.hpp" // For future GUI backend
 
@@ -152,20 +154,23 @@ int main() {
         // Polymorphic backend instantiation
         std::unique_ptr<IArrayVisualizer> arrayVisualizer;
         std::unique_ptr<ITableVisualizer> tableVisualizer;
+        std::unique_ptr<IGraphVisualizer> graphVisualizer;
         if (backend == RenderBackend::Terminal) {
             arrayVisualizer = std::make_unique<TerminalArrayVisualizer>(delayMs);
             tableVisualizer = std::make_unique<TerminalTableVisualizer>(delayMs);
+            graphVisualizer = std::make_unique<TerminalGraphVisualizer>(delayMs);
         } else {
             // visualizer = std::make_unique<GraphicsVisualizer>(delayMs);
             std::cout << "[Graphics Backend coming soon, falling back to Terminal Visualizers]\n";
             arrayVisualizer = std::make_unique<TerminalArrayVisualizer>(delayMs);
             tableVisualizer = std::make_unique<TerminalTableVisualizer>(delayMs);
+            graphVisualizer = std::make_unique<TerminalGraphVisualizer>(delayMs);
         }
 
-        VisualizationSession session(*arrayVisualizer, *tableVisualizer);
+        VisualizationSession session(*arrayVisualizer, *tableVisualizer, *graphVisualizer);
 
-        std::cout << "\nStarting visualization in 2 seconds...\n";
-        std::this_thread::sleep_for(std::chrono::seconds(2));
+        std::cout << "\nStarting visualization in 3 seconds...\n";
+        std::this_thread::sleep_for(std::chrono::seconds(3));
 
         // Execute selected algorithm through the session-aware runner.
         selectedAlgorithm(data, session);

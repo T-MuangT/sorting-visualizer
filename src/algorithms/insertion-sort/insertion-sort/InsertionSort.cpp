@@ -1,6 +1,7 @@
-#include "InsertionSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "InsertionSort.hpp"
 
 void insertionSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());

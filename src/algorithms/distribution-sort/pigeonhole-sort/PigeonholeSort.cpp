@@ -1,6 +1,7 @@
-#include "PigeonholeSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "PigeonholeSort.hpp"
 
 void pigeonholeSort(std::vector<int>& arr, VisualizationSession& session) {
     if (arr.empty()) {

@@ -2,19 +2,18 @@
 #include <iostream>
 #include <vector>
 
+#include "include/NoopVisualizers.hpp"
 #include "../src/algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.hpp"
-#include "../src/include/visualizer/TerminalArrayVisualizer.hpp"
-#include "../src/include/visualizer/TerminalTableVisualizer.hpp"
 #include "../src/include/visualizer/VisualizationSession.hpp"
 
 namespace {
-
 bool verifySort(const std::vector<int>& input) {
     auto data = input;
 
-    TerminalArrayVisualizer arrayVisualizer(0);
-    TerminalTableVisualizer tableVisualizer(0);
-    VisualizationSession session(arrayVisualizer, tableVisualizer);
+    NoopArrayVisualizer arrayVisualizer;
+    NoopTableVisualizer tableVisualizer;
+    NoopGraphVisualizer graphVisualizer;
+    VisualizationSession session(arrayVisualizer, tableVisualizer, graphVisualizer);
 
     pigeonholeSort(data, session);
 
@@ -32,7 +31,6 @@ bool verifySort(const std::vector<int>& input) {
 
     return true;
 }
-
 }  // namespace
 
 int main() {
@@ -42,11 +40,11 @@ int main() {
         {5, 4, 3, 2, 1},
         {1, 2, 3, 4, 5},
         {3, 1, 3, 2, 1},
-        {5, 0, 2, 9, 1},
-        {10, 1, 7, 9, 3, 2, 0},
+        {-5, 0, -2, 9, -1},
+        {10, -1, 7, -9, 3, 2, 0},
         {9, 8, 7, 6, 5, 4, 3, 2, 1},
         {4, 1, 4, 2, 3, 2, 1, 5},
-        {12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+        {12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
     };
 
     for (const auto& input : cases) {

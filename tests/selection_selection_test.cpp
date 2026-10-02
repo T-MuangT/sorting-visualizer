@@ -57,6 +57,6 @@ int main() {
         }
     }
 
-    std::cout << "Selection sort tests passed." << std::endl;
+    std::cout << "Selection Sort tests passed." << std::endl;
     return 0;
 }

@@ -1,6 +1,7 @@
-#include "BinaryInsertionSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "BinaryInsertionSort.hpp"
 
 void binaryInsertionSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());

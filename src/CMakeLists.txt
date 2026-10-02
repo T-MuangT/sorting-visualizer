@@ -10,11 +10,13 @@ set(SOURCES
     stats/SortStats.cpp
     visualizer/TerminalArrayVisualizer.cpp
     visualizer/TerminalTableVisualizer.cpp
+    visualizer/TerminalGraphVisualizer.cpp
     visualizer/VisualizationSession.cpp
     randomizer/ArrayGenerator.cpp
     randomizer/ArrayRandomizer.cpp
     randomizer/ArrayReversed.cpp
     randomizer/ArrayNearlySorted.cpp
+    algorithms/TreeStructure.cpp
     algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
     algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
     algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp

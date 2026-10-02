@@ -66,3 +66,7 @@ Added:
 ### v1.6.0
 - Added Counting Sort
 - Refactored the code to corresponding Counting Sort algorithm
+
+### v1.7.0
+- Added Unbalanced Binary Search Tree Sort
+- Major refactor implemented to corresponding Tree Sort branch

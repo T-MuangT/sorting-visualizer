@@ -1,9 +1,10 @@
-#include "MergeSort.hpp"
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
 #include <string>
 #include <vector>
+
+#include "MergeSort.hpp"
 
 namespace{
 std::string rangeLabel(int left, int right, int width = 0) {

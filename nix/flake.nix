@@ -25,7 +25,7 @@
         {
           default = pkgs.stdenv.mkDerivation {
             pname = "sorting-visualizer";
-            version = "1.5.1";
+            version = "1.7.0";
 
             src = ../.;
 

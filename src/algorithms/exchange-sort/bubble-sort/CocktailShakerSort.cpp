@@ -1,6 +1,7 @@
-#include "CocktailShakerSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "CocktailShakerSort.hpp"
 
 void cocktailShakerSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());

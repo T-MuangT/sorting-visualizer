@@ -8,5 +8,5 @@
 #include "../AlgorithmRunner.hpp"
 
 AlgorithmRunner selectInsertionBranchAlgorithm();
-//AlgorithmRunner selectTreeBranchAlgorithm();
+AlgorithmRunner selectTreeBranchAlgorithm();
 AlgorithmRunner selectInsertionFamilyAlgorithm();

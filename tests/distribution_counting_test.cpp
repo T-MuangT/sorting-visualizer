@@ -2,19 +2,18 @@
 #include <iostream>
 #include <vector>
 
+#include "include/NoopVisualizers.hpp"
 #include "../src/algorithms/distribution-sort/counting-sort/CountingSort.hpp"
-#include "../src/include/visualizer/TerminalArrayVisualizer.hpp"
-#include "../src/include/visualizer/TerminalTableVisualizer.hpp"
 #include "../src/include/visualizer/VisualizationSession.hpp"
 
 namespace {
-
 bool verifySort(const std::vector<int>& input) {
     auto data = input;
 
-    TerminalArrayVisualizer arrayVisualizer(0);
-    TerminalTableVisualizer tableVisualizer(0);
-    VisualizationSession session(arrayVisualizer, tableVisualizer);
+    NoopArrayVisualizer arrayVisualizer;
+    NoopTableVisualizer tableVisualizer;
+    NoopGraphVisualizer graphVisualizer;
+    VisualizationSession session(arrayVisualizer, tableVisualizer, graphVisualizer);
 
     countingSort(data, session);
 
@@ -33,7 +32,6 @@ bool verifySort(const std::vector<int>& input) {
 
     return true;
 }
-
 }  // namespace
 
 int main() {

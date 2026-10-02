@@ -57,6 +57,6 @@ int main() {
         }
     }
 
-    std::cout << "Heap sort tests passed." << std::endl;
+    std::cout << "Heapsort tests passed." << std::endl;
     return 0;
 }

@@ -21,8 +21,8 @@ void TerminalArrayVisualizer::renderFrame(const std::vector<int>& arr, SortEvent
     std::cout << "Step: " << stepName << "\n";
     
     // Render stats snapshot
-    std::cout << "Comparisons: " << stats.getComparisons()
-              << " | Swaps: " << stats.getSwaps() << "\n\n";
+    std::cout << "Reads: " << stats.getComparisons()
+              << " | Writes: " << stats.getSwaps() << "\n\n";
 
     bool isMovement =
         event == SortEvent::Swap ||

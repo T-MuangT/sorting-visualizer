@@ -81,13 +81,7 @@ bool TerminalTableVisualizer::isCountEvent(AuxEvent event) {
     }
 }
 
-void TerminalTableVisualizer::renderFrame(
-    const std::vector<TableRow>& rows,
-    AuxEvent event,
-    const std::vector<TableCell>& highlighted,
-    const std::string& stepName,
-    const SortStats& stats)
-{
+void TerminalTableVisualizer::renderFrame(const std::vector<TableRow>& rows, AuxEvent event, const std::vector<TableCell>& highlighted, const std::string& stepName, const SortStats& stats) {
     clearScreen();
 
     size_t labelWidth = 5;
@@ -102,8 +96,8 @@ void TerminalTableVisualizer::renderFrame(
     std::cout << "==== Terminal Visualizer ====\n";
     std::cout << "Step: " << stepName << "\n";
     std::cout << "Event: " << eventName(event) << "\n";
-    std::cout << "Comparisons: " << stats.getComparisons()
-              << " | Swaps: " << stats.getSwaps() << "\n\n";
+    std::cout << "Reads: " << stats.getComparisons()
+              << " | Writes: " << stats.getSwaps() << "\n\n";
 
     if (rows.empty()) {
         std::cout << "(no auxiliary rows)\n";

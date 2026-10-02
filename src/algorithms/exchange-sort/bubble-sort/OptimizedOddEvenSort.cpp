@@ -1,7 +1,8 @@
-#include "OptimizedOddEvenSort.hpp"
 #include <algorithm>
 #include <string>
 #include <omp.h>
+
+#include "OptimizedOddEvenSort.hpp"
 
 void optimizedOddEvenSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());

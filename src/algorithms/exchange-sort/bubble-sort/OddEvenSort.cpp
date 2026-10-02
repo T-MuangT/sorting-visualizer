@@ -1,6 +1,7 @@
-#include "OddEvenSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "OddEvenSort.hpp"
 
 void oddEvenSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());

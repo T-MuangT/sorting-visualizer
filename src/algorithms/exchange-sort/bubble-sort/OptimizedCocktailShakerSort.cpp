@@ -1,6 +1,7 @@
-#include "OptimizedCocktailShakerSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "OptimizedCocktailShakerSort.hpp"
 
 void optimizedCocktailShakerSort(std::vector<int>& arr, SortCallback notify) {
     int start = 0;

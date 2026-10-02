@@ -10,6 +10,10 @@ enum class AuxEvent {
     IncrementCount,
     AccumulateCount,
     PlaceCountOutput,
+    InsertInTree,
+    LinkLeft,
+    LinkRight,
+    VisitInOrder,
     // extend as new algorithms need new verbs
 };
 

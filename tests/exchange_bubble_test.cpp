@@ -65,6 +65,6 @@ int main() {
         }
     }
 
-    std::cout << "Exchange bubble tests passed." << std::endl;
+    std::cout << "Bubble Sort tests passed." << std::endl;
     return 0;
 }

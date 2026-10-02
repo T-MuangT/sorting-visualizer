@@ -1,6 +1,7 @@
-#include "ShellSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "ShellSort.hpp"
 
 void shellSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());

@@ -1,6 +1,7 @@
-#include "CombSort.hpp"
 #include <algorithm>
 #include <string>
+
+#include "CombSort.hpp"
 
 void combSort(std::vector<int>& arr, SortCallback notify) {
     int n = static_cast<int>(arr.size());

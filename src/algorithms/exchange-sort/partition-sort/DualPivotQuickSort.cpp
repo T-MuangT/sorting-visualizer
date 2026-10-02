@@ -1,5 +1,6 @@
-#include "DualPivotQuickSort.hpp"
 #include <algorithm>
+
+#include "DualPivotQuickSort.hpp"
 
 namespace {
 void dualPivotQuickSortRecursive(std::vector<int>& arr, int low, int high, SortCallback notify) {

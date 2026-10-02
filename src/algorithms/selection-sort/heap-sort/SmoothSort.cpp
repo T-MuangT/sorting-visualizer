@@ -1,14 +1,8 @@
-// Smoothsort (Dijkstra, 1981).
-//
-// This is a direct port of the well-known reference derivation by
-// Martin Knoblauch Revuelta (itself adapted from Keith Schwarz's
-// "Smoothsort Demystified"), translated line-for-line into the
-// index-based / SortCallback-instrumented style used by this codebase,
-// instead of the raw-pointer style of the original C source.
-#include "SmoothSort.hpp"
 #include <cstdint>
 #include <vector>
 #include <string>
+
+#include "SmoothSort.hpp"
 
 namespace {
 
@@ -189,3 +183,11 @@ void smoothSort(std::vector<int>& arr, SortCallback notify) {
     HeapSizes hsz = heapify(arr, n, notify);
     extract(arr, n, hsz, notify);
 }
+
+// Smoothsort (Dijkstra, 1981).
+//
+// This is a direct port of the well-known reference derivation by
+// Martin Knoblauch Revuelta (itself adapted from Keith Schwarz's
+// "Smoothsort Demystified"), translated line-for-line into the
+// index-based / SortCallback-instrumented style used by this codebase,
+// instead of the raw-pointer style of the original C source.

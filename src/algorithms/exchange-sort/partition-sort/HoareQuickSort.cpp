@@ -1,5 +1,6 @@
-#include "HoareQuickSort.hpp"
 #include <algorithm>
+
+#include "HoareQuickSort.hpp"
 
 namespace {
 int partitionHoare(std::vector<int>& arr, int low, int high, SortCallback notify) {

@@ -8,7 +8,7 @@
 #include "../algorithms/insertion-sort/insertion-sort/ShellSort.hpp"
 
 // Include Tree Sort Branch Headers
-//#include "../algorithms/insertion-sort/tree-sort/TreeSort.hpp"
+#include "../algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.hpp"
 
 AlgorithmRunner selectInsertionBranchAlgorithm() {
     std::cout << "\n--- Insertion Sort Branch ---\n";
@@ -29,9 +29,9 @@ AlgorithmRunner selectInsertionBranchAlgorithm() {
     }
 }
 
-/*AlgorithmRunner selectTreeBranchAlgorithm() {
+AlgorithmRunner selectTreeBranchAlgorithm() {
     std::cout << "\n--- Tree Sort Branch ---\n";
-    std::cout << "  1. Tree Sort\n";
+    std::cout << "  1. Unbalanced Binary Search Tree Sort\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -39,15 +39,15 @@ AlgorithmRunner selectInsertionBranchAlgorithm() {
     std::cin >> choice;
 
     switch (choice) {
-        case 1: return treeSort;
-        default: return nullptr;
+        case 1: return AlgorithmRunner::fromSession(unbalancedTreeSort);
+        default: return AlgorithmRunner();
     }
-}*/
+}
 
 AlgorithmRunner selectInsertionFamilyAlgorithm() {
     std::cout << "\n--- Insertion Sort Family ---\n";
     std::cout << "  1. Insertion Sort Branch\n";
-    // std::cout << "  2. Tree Sort Branch\n";
+    std::cout << "  2. Tree Sort Branch\n";
     std::cout << "  0. Back\n";
     std::cout << "Choice: ";
 
@@ -56,7 +56,7 @@ AlgorithmRunner selectInsertionFamilyAlgorithm() {
 
     switch (choice) {
         case 1: return selectInsertionBranchAlgorithm();
-        // case 2: return selectTreeBranchAlgorithm();
+        case 2: return selectTreeBranchAlgorithm();
         default: return AlgorithmRunner();
     }
 }

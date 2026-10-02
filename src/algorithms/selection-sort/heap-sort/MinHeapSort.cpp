@@ -1,5 +1,6 @@
-#include "MinHeapSort.hpp"
 #include <algorithm>
+
+#include "MinHeapSort.hpp"
 
 namespace {
 void minHeapify(std::vector<int>& arr, int n, int i, SortCallback notify) {

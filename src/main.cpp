@@ -167,10 +167,10 @@ int main() {
             graphVisualizer = std::make_unique<TerminalGraphVisualizer>(delayMs);
         }
 
-        VisualizationSession session(*arrayVisualizer, *tableVisualizer);
+        VisualizationSession session(*arrayVisualizer, *tableVisualizer, *graphVisualizer);
 
-        std::cout << "\nStarting visualization in 2 seconds...\n";
-        std::this_thread::sleep_for(std::chrono::seconds(2));
+        std::cout << "\nStarting visualization in 3 seconds...\n";
+        std::this_thread::sleep_for(std::chrono::seconds(3));
 
         // Execute selected algorithm through the session-aware runner.
         selectedAlgorithm(data, session);

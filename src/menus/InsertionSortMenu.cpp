@@ -39,7 +39,7 @@ AlgorithmRunner selectTreeBranchAlgorithm() {
     std::cin >> choice;
 
     switch (choice) {
-        case 1: return AlgorithmRunner::fromSession(unbalancedTreeSort);
+        case 1: return AlgorithmRunner::fromSession(unbalancedBstTreeSort);
         default: return AlgorithmRunner();
     }
 }

@@ -5,11 +5,13 @@
 #include "../../../include/algorithms/TreeStructure.hpp"
 #include "UnbalancedBstTreeSort.hpp"
 
-void unbalancedBstTreeSort(std::vector<int>& arr, VisualizationSession& session){
+void unbalancedBstTreeSort(std::vector<int>& arr, VisualizationSession& session) {
     if (arr.empty()) {
         session.onArrayEvent(arr, SortEvent::Compare, -1, -1, "Unbalanced Binary Search Tree Sort: Empty Array");
         return;
     }
+
+    session.onArrayEvent(arr, SortEvent::Compare, -1, -1, "Unbalanced Binary Search Tree Sort: Original Array");
 
     session.beginTreePhase("Unbalanced Binary Search Tree Sort: Create Tree");
     UnbalancedBstTree tree;

@@ -70,3 +70,6 @@ Added:
 ### v1.7.0
 - Added Unbalanced Binary Search Tree Sort
 - Major refactor implemented to corresponding Tree Sort branch
+
+### v1.7.1
+- Overhauled graph visualization

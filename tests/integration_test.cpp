@@ -11,6 +11,7 @@
 #include "../src/algorithms/merge-sort/MergeSort.hpp"
 #include "../src/algorithms/distribution-sort/counting-sort/CountingSort.hpp"
 #include "../src/algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.hpp"
+#include "../src/include/algorithms/PairwiseCompareSwap.hpp"
 #include "../src/include/algorithms/TreeStructure.hpp"
 #include "../src/include/visualizer/VisualizationSession.hpp"
 #include "../src/include/visualizer/terminal/TerminalArrayVisualizer.hpp"

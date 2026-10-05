@@ -34,6 +34,7 @@ set(RANDOMIZER_TEST_SOURCES
 
 set(EXCHANGE_BUBBLE_TEST_SOURCES
     exchange_bubble_test.cpp
+    ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
@@ -113,6 +114,7 @@ set(INTEGRATION_TEST_SOURCES
     ../src/randomizer/ArrayRandomizer.cpp
     ../src/randomizer/ArrayReversed.cpp
     ../src/randomizer/ArrayNearlySorted.cpp
+    ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/TreeStructure.cpp
     ../src/algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
     ../src/algorithms/merge-sort/MergeSort.cpp

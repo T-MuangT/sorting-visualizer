@@ -17,6 +17,7 @@ set(SOURCES
     randomizer/ArrayReversed.cpp
     randomizer/ArrayNearlySorted.cpp
     algorithms/TreeStructure.cpp
+    algorithms/PairwiseCompareSwap.cpp
     algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
     algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
     algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
@@ -46,6 +47,11 @@ set(SOURCES
 )
 
 add_executable(sorting-visualizer ${SOURCES})
+
+add_custom_target(release
+    DEPENDS sorting-visualizer
+    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config Release
+)
 
 target_include_directories(sorting-visualizer PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(sorting-visualizer PRIVATE OpenMP::OpenMP_CXX)

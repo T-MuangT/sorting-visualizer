@@ -11,11 +11,12 @@
 #include "../src/algorithms/merge-sort/MergeSort.hpp"
 #include "../src/algorithms/distribution-sort/counting-sort/CountingSort.hpp"
 #include "../src/algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.hpp"
+#include "../src/include/algorithms/PairwiseCompareSwap.hpp"
 #include "../src/include/algorithms/TreeStructure.hpp"
 #include "../src/include/visualizer/VisualizationSession.hpp"
-#include "../src/include/visualizer/TerminalArrayVisualizer.hpp"
-#include "../src/include/visualizer/TerminalTableVisualizer.hpp"
-#include "../src/include/visualizer/TerminalGraphVisualizer.hpp"
+#include "../src/include/visualizer/terminal/TerminalArrayVisualizer.hpp"
+#include "../src/include/visualizer/terminal/TerminalTableVisualizer.hpp"
+#include "../src/include/visualizer/terminal/TerminalGraphVisualizer.hpp"
 
 namespace {
 

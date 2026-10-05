@@ -9,6 +9,7 @@
     let
       systems = [
         "x86_64-linux"
+        "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
       ];
@@ -25,7 +26,7 @@
         {
           default = pkgs.stdenv.mkDerivation {
             pname = "sorting-visualizer";
-            version = "1.7.0";
+            version = "1.7.2";
 
             src = ../.;
 

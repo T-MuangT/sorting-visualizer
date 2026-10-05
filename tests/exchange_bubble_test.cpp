@@ -2,13 +2,12 @@
 #include <iostream>
 #include <vector>
 
+#include "../src/include/algorithms/PairwiseCompareSwap.hpp"
+
 #include "../src/algorithms/exchange-sort/bubble-sort/BubbleSort.hpp"
 #include "../src/algorithms/exchange-sort/bubble-sort/CocktailShakerSort.hpp"
-#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.hpp"
 #include "../src/algorithms/exchange-sort/bubble-sort/OddEvenSort.hpp"
-#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.hpp"
 #include "../src/algorithms/exchange-sort/bubble-sort/CombSort.hpp"
-#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.hpp"
 
 namespace {
 
@@ -38,11 +37,8 @@ int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
         {"bubbleSort", bubbleSort},
         {"cocktailShakerSort", cocktailShakerSort},
-        {"optimizedCocktailShakerSort", optimizedCocktailShakerSort},
         {"oddEvenSort", oddEvenSort},
-        {"optimizedOddEvenSort", optimizedOddEvenSort},
-        {"combSort", combSort},
-        {"optimizedCombSort", optimizedCombSort}
+        {"combSort", combSort}
     };
 
     const std::vector<std::vector<int>> cases = {

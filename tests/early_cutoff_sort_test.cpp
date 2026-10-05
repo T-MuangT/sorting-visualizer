@@ -2,11 +2,8 @@
 #include <iostream>
 #include <vector>
 
-#include "../src/algorithms/exchange-sort/partition-sort/CircleSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
+#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedBubbleSort.hpp"
+#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.hpp"
 
 namespace {
 
@@ -34,11 +31,8 @@ bool verifySort(SortFunc fn, const std::vector<int>& input, const std::string& l
 
 int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
-        {"circleSort", circleSort},
-        {"lomutoQuickSort", lomutoQuickSort},
-        {"hoareQuickSort", hoareQuickSort},
-        {"dualPivotQuickSort", dualPivotQuickSort},
-        {"stableQuickSort", stableQuickSort}
+        {"optimizedBubbleSort", optimizedBubbleSort},
+        {"optimizedCocktailShakerSort", optimizedCocktailShakerSort}
     };
 
     const std::vector<std::vector<int>> cases = {
@@ -61,6 +55,6 @@ int main() {
         }
     }
 
-    std::cout << "Partition Sort tests passed." << std::endl;
+    std::cout << "Early Cutoff Sort tests passed." << std::endl;
     return 0;
 }

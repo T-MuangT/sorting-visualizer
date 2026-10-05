@@ -76,7 +76,7 @@ jobs:
           ls -1
 
       - name: Upload package artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sorting-visualizer-${{ github.ref_name }}-${{ matrix.platform }}
           path: ${{ matrix.archive_glob }}

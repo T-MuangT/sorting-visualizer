@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "../src/include/SortStats.hpp"
-#include "../src/include/visualizer/TerminalGraphVisualizer.hpp"
+#include "../src/include/visualizer/terminal/TerminalGraphVisualizer.hpp"
 
 int main() {
     TerminalGraphVisualizer visualizer(0);

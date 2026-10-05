@@ -3,25 +3,25 @@
 set(ARRAY_VISUALIZER_TEST_SOURCES
     array_visualizer_test.cpp
     ../src/stats/SortStats.cpp
-    ../src/visualizer/TerminalArrayVisualizer.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
 )
 
 set(TABLE_VISUALIZER_TEST_SOURCES
     table_visualizer_test.cpp
     ../src/stats/SortStats.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
 set(COUNT_VISUALIZER_TEST_SOURCES
     count_visualizer_test.cpp
     ../src/stats/SortStats.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
 set(GRAPH_VISUALIZER_TEST_SOURCES
     graph_visualizer_test.cpp
     ../src/stats/SortStats.cpp
-    ../src/visualizer/TerminalGraphVisualizer.cpp
+    ../src/visualizer/terminal/TerminalGraphVisualizer.cpp
 )
 
 set(RANDOMIZER_TEST_SOURCES
@@ -34,19 +34,16 @@ set(RANDOMIZER_TEST_SOURCES
 
 set(EXCHANGE_BUBBLE_TEST_SOURCES
     exchange_bubble_test.cpp
+    ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
-    ../src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/OddEvenSort.cpp
-    ../src/algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/CombSort.cpp
-    ../src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.cpp
 )
 
 set(EXCHANGE_PARTITION_TEST_SOURCES
     exchange_partition_test.cpp
     ../src/algorithms/exchange-sort/partition-sort/CircleSort.cpp
-    ../src/algorithms/exchange-sort/partition-sort/OptimizedCircleSort.cpp
     ../src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.cpp
     ../src/algorithms/exchange-sort/partition-sort/HoareQuickSort.cpp
     ../src/algorithms/exchange-sort/partition-sort/DualPivotQuickSort.cpp
@@ -82,13 +79,20 @@ set(INSERTION_TREE_TEST_SOURCES
     ../src/visualizer/VisualizationSession.cpp
 )
 
+set(MERGE_SORT_TEST_SOURCES
+    merge_sort_test.cpp
+    ../src/algorithms/merge-sort/MergeSort.cpp
+    ../src/stats/SortStats.cpp
+    ../src/visualizer/VisualizationSession.cpp
+)
+
 set(DISTRIBUTION_PIGEONHOLE_TEST_SOURCES
     distribution_pigeonhole_test.cpp
     ../src/algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
-    ../src/visualizer/TerminalArrayVisualizer.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
 set(DISTRIBUTION_COUNTING_TEST_SOURCES
@@ -96,15 +100,23 @@ set(DISTRIBUTION_COUNTING_TEST_SOURCES
     ../src/algorithms/distribution-sort/counting-sort/CountingSort.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
-    ../src/visualizer/TerminalArrayVisualizer.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
-set(MERGE_SORT_TEST_SOURCES
-    merge_sort_test.cpp
-    ../src/algorithms/merge-sort/MergeSort.cpp
-    ../src/stats/SortStats.cpp
-    ../src/visualizer/VisualizationSession.cpp
+set(EARLY_CUTOFF_SORT_TEST_SOURCES
+    early_cutoff_sort_test.cpp
+    ../src/algorithms/PairwiseCompareSwap.cpp
+    ../src/algorithms/exchange-sort/bubble-sort/OptimizedBubbleSort.cpp
+    ../src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
+)
+
+set(PARALLEL_SORT_TEST_SOURCES
+    parallel_sort_test.cpp
+    ../src/algorithms/PairwiseCompareSwap.cpp
+    ../src/algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.cpp
+    ../src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.cpp
+    ../src/algorithms/exchange-sort/partition-sort/OptimizedCircleSort.cpp
 )
 
 set(INTEGRATION_TEST_SOURCES
@@ -113,6 +125,7 @@ set(INTEGRATION_TEST_SOURCES
     ../src/randomizer/ArrayRandomizer.cpp
     ../src/randomizer/ArrayReversed.cpp
     ../src/randomizer/ArrayNearlySorted.cpp
+    ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/TreeStructure.cpp
     ../src/algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
     ../src/algorithms/merge-sort/MergeSort.cpp
@@ -120,9 +133,9 @@ set(INTEGRATION_TEST_SOURCES
     ../src/algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
-    ../src/visualizer/TerminalArrayVisualizer.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
-    ../src/visualizer/TerminalGraphVisualizer.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalGraphVisualizer.cpp
 )
 
 add_executable(array_visualizer_test ${ARRAY_VISUALIZER_TEST_SOURCES})
@@ -135,9 +148,11 @@ add_executable(selection_selection_test ${SELECTION_SELECTION_TEST_SOURCES})
 add_executable(selection_heap_test ${SELECTION_HEAP_TEST_SOURCES})
 add_executable(insertion_insertion_test ${INSERTION_INSERTION_TEST_SOURCES})
 add_executable(insertion_tree_test ${INSERTION_TREE_TEST_SOURCES})
+add_executable(merge_sort_test ${MERGE_SORT_TEST_SOURCES})
 add_executable(distribution_pigeonhole_test ${DISTRIBUTION_PIGEONHOLE_TEST_SOURCES})
 add_executable(distribution_counting_test ${DISTRIBUTION_COUNTING_TEST_SOURCES})
-add_executable(merge_sort_test ${MERGE_SORT_TEST_SOURCES})
+add_executable(early_cutoff_sort_test ${EARLY_CUTOFF_SORT_TEST_SOURCES})
+add_executable(parallel_sort_test ${PARALLEL_SORT_TEST_SOURCES})
 add_executable(integration_test ${INTEGRATION_TEST_SOURCES})
 
 add_test(NAME array_visualizer_test COMMAND $<TARGET_FILE:array_visualizer_test>)
@@ -150,9 +165,11 @@ add_test(NAME selection_selection_test COMMAND $<TARGET_FILE:selection_selection
 add_test(NAME selection_heap_test COMMAND $<TARGET_FILE:selection_heap_test>)
 add_test(NAME insertion_insertion_test COMMAND $<TARGET_FILE:insertion_insertion_test>)
 add_test(NAME insertion_tree_test COMMAND $<TARGET_FILE:insertion_tree_test>)
+add_test(NAME merge_sort_test COMMAND $<TARGET_FILE:merge_sort_test>)
 add_test(NAME distribution_pigeonhole_test COMMAND $<TARGET_FILE:distribution_pigeonhole_test>)
 add_test(NAME distribution_counting_test COMMAND $<TARGET_FILE:distribution_counting_test>)
-add_test(NAME merge_sort_test COMMAND $<TARGET_FILE:merge_sort_test>)
+add_test(NAME early_cutoff_sort_test COMMAND $<TARGET_FILE:early_cutoff_sort_test>)
+add_test(NAME parallel_sort_test COMMAND $<TARGET_FILE:parallel_sort_test>)
 add_test(NAME integration_test COMMAND $<TARGET_FILE:integration_test>)
 
 add_custom_target(tests
@@ -170,10 +187,12 @@ add_custom_target(tests
         merge_sort_test
         distribution_pigeonhole_test
         distribution_counting_test
+        early_cutoff_sort_test
+        parallel_sort_test
         integration_test
 )
 
-foreach(test_target IN ITEMS array_visualizer_test table_visualizer_test graph_visualizer_test randomizer_test exchange_bubble_test exchange_partition_test selection_selection_test selection_heap_test insertion_insertion_test insertion_tree_test merge_sort_test distribution_pigeonhole_test distribution_counting_test integration_test)
+foreach(test_target IN ITEMS array_visualizer_test table_visualizer_test graph_visualizer_test randomizer_test exchange_bubble_test exchange_partition_test selection_selection_test selection_heap_test insertion_insertion_test insertion_tree_test merge_sort_test distribution_pigeonhole_test distribution_counting_test early_cutoff_sort_test parallel_sort_test integration_test)
     target_include_directories(${test_target} PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
     target_link_libraries(${test_target} PRIVATE OpenMP::OpenMP_CXX)
     if(MSVC)

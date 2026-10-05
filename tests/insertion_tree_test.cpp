@@ -3,8 +3,9 @@
 #include <vector>
 
 #include "include/NoopVisualizers.hpp"
-#include "../src/algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.hpp"
 #include "../src/include/visualizer/VisualizationSession.hpp"
+
+#include "../src/algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.hpp"
 
 namespace {
 bool verifySort(const std::vector<int>& input) {

@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "../src/include/SortStats.hpp"
-#include "../src/include/visualizer/TerminalArrayVisualizer.hpp"
+#include "../src/include/visualizer/terminal/TerminalArrayVisualizer.hpp"
 
 int main() {
     TerminalArrayVisualizer visualizer(0);

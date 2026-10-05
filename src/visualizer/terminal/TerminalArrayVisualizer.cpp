@@ -3,7 +3,7 @@
 #include <thread>
 #include <cstdlib>
 
-#include "../include/visualizer/TerminalArrayVisualizer.hpp"
+#include "../../include/visualizer/terminal/TerminalArrayVisualizer.hpp"
 
 TerminalArrayVisualizer::TerminalArrayVisualizer(int delayMs) : delayMs(delayMs) {}
 

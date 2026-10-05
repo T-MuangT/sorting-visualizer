@@ -5,7 +5,7 @@ set(CPACK_PACKAGE_VENDOR "SortingVisualizer")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Sorting algorithm visualizer")
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
 set(CPACK_PACKAGE_VERSION_MINOR "7")
-set(CPACK_PACKAGE_VERSION_PATCH "0")
+set(CPACK_PACKAGE_VERSION_PATCH "1")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "sorting-visualizer")
 
 set(CPACK_GENERATOR "TGZ;ZIP")
@@ -18,6 +18,7 @@ install(TARGETS sorting-visualizer
 
 install(FILES
     README.md
+    version.md
     LICENSE
     DESTINATION .
 )

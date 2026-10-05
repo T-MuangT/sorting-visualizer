@@ -3,8 +3,9 @@
 #include <vector>
 
 #include "include/NoopVisualizers.hpp"
-#include "../src/algorithms/distribution-sort/counting-sort/CountingSort.hpp"
 #include "../src/include/visualizer/VisualizationSession.hpp"
+
+#include "../src/algorithms/distribution-sort/counting-sort/CountingSort.hpp"
 
 namespace {
 bool verifySort(const std::vector<int>& input) {

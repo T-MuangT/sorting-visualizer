@@ -2,11 +2,9 @@
 #include <iostream>
 #include <vector>
 
-#include "../src/algorithms/exchange-sort/partition-sort/CircleSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
+#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.hpp"
+#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.hpp"
+#include "../src/algorithms/exchange-sort/partition-sort/OptimizedCircleSort.hpp"
 
 namespace {
 
@@ -34,11 +32,9 @@ bool verifySort(SortFunc fn, const std::vector<int>& input, const std::string& l
 
 int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
-        {"circleSort", circleSort},
-        {"lomutoQuickSort", lomutoQuickSort},
-        {"hoareQuickSort", hoareQuickSort},
-        {"dualPivotQuickSort", dualPivotQuickSort},
-        {"stableQuickSort", stableQuickSort}
+        {"optimizedOddEvenSort", optimizedOddEvenSort},
+        {"optimizedCombSort", optimizedCombSort},
+        {"optimizedCircleSort", optimizedCircleSort}
     };
 
     const std::vector<std::vector<int>> cases = {
@@ -61,6 +57,6 @@ int main() {
         }
     }
 
-    std::cout << "Partition Sort tests passed." << std::endl;
+    std::cout << "Parallel Sort tests passed." << std::endl;
     return 0;
 }

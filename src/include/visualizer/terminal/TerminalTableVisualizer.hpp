@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ITableVisualizer.hpp"
+#include "../ITableVisualizer.hpp"
 
 class TerminalTableVisualizer : public ITableVisualizer {
 private:

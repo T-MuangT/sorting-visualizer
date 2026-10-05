@@ -73,3 +73,7 @@ Added:
 
 ### v1.7.1
 - Overhauled graph visualization
+
+### v1.7.2
+- Added Bubble Sort with Early Cutoff
+- Refactored and extracted compare-swap algorithm from Bubble Sort branch algorithms

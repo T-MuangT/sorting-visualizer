@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "../src/include/SortStats.hpp"
-#include "../src/include/visualizer/TerminalTableVisualizer.hpp"
+#include "../src/include/visualizer/terminal/TerminalTableVisualizer.hpp"
 
 int main() {
     TerminalTableVisualizer visualizer(0);

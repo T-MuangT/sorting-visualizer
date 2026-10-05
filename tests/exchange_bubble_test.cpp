@@ -2,13 +2,12 @@
 #include <iostream>
 #include <vector>
 
+#include "../src/include/algorithms/PairwiseCompareSwap.hpp"
+
 #include "../src/algorithms/exchange-sort/bubble-sort/BubbleSort.hpp"
 #include "../src/algorithms/exchange-sort/bubble-sort/CocktailShakerSort.hpp"
-#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.hpp"
 #include "../src/algorithms/exchange-sort/bubble-sort/OddEvenSort.hpp"
-#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.hpp"
 #include "../src/algorithms/exchange-sort/bubble-sort/CombSort.hpp"
-#include "../src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.hpp"
 
 namespace {
 

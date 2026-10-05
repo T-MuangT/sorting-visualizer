@@ -19,6 +19,7 @@ set(SOURCES
     algorithms/TreeStructure.cpp
     algorithms/PairwiseCompareSwap.cpp
     algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
+    algorithms/exchange-sort/bubble-sort/OptimizedBubbleSort.cpp
     algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
     algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
     algorithms/exchange-sort/bubble-sort/OddEvenSort.cpp

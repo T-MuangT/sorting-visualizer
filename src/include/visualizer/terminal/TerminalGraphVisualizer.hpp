@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IGraphVisualizer.hpp"
+#include "../IGraphVisualizer.hpp"
 
 class TerminalGraphVisualizer : public IGraphVisualizer {
 private:

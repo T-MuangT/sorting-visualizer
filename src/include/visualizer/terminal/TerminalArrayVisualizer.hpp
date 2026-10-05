@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IArrayVisualizer.hpp"
+#include "../IArrayVisualizer.hpp"
 
 class TerminalArrayVisualizer : public IArrayVisualizer {
 private:

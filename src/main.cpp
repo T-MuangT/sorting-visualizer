@@ -16,14 +16,16 @@
 #include "include/menus/MergeSortMenu.hpp"
 #include "include/menus/DistributionSortMenu.hpp"
 
-// Include Visualizers
+// Include Visualizer APIs
 #include "include/visualizer/IArrayVisualizer.hpp"
 #include "include/visualizer/ITableVisualizer.hpp"
 #include "include/visualizer/IGraphVisualizer.hpp"
-#include "include/visualizer/TerminalArrayVisualizer.hpp"
-#include "include/visualizer/TerminalTableVisualizer.hpp"
-#include "include/visualizer/TerminalGraphVisualizer.hpp"
 #include "include/visualizer/VisualizationSession.hpp"
+
+// Include Terminal Visualizer Implementations
+#include "include/visualizer/terminal/TerminalArrayVisualizer.hpp"
+#include "include/visualizer/terminal/TerminalTableVisualizer.hpp"
+#include "include/visualizer/terminal/TerminalGraphVisualizer.hpp"
 // #include "include/visualizer/GraphicsVisualizer.hpp" // For future GUI backend
 
 void displayMainMenu() {

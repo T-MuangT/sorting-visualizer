@@ -10,7 +10,7 @@ class IArrayVisualizer {
 public:
     virtual ~IArrayVisualizer() = default;
 
-    // Core contract required by all visualizer backends
+    // Core contract required by all array-only visualizer backends
     virtual void renderFrame(
         const std::vector<int>& arr,
         SortEvent event,

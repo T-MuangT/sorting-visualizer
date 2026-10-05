@@ -6,7 +6,7 @@
 #include <thread>
 #include <vector>
 
-#include "../include/visualizer/TerminalGraphVisualizer.hpp"
+#include "../../include/visualizer/terminal/TerminalGraphVisualizer.hpp"
 
 TerminalGraphVisualizer::TerminalGraphVisualizer(int delayMs, int maxVisibleNodes) : delayMs(delayMs), maxVisibleNodes(maxVisibleNodes) {}
 

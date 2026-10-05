@@ -8,10 +8,10 @@ set(SOURCES
     menus/MergeSortMenu.cpp
     menus/DistributionSortMenu.cpp
     stats/SortStats.cpp
-    visualizer/TerminalArrayVisualizer.cpp
-    visualizer/TerminalTableVisualizer.cpp
-    visualizer/TerminalGraphVisualizer.cpp
     visualizer/VisualizationSession.cpp
+    visualizer/terminal/TerminalArrayVisualizer.cpp
+    visualizer/terminal/TerminalTableVisualizer.cpp
+    visualizer/terminal/TerminalGraphVisualizer.cpp
     randomizer/ArrayGenerator.cpp
     randomizer/ArrayRandomizer.cpp
     randomizer/ArrayReversed.cpp

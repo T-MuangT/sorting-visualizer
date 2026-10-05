@@ -18,6 +18,7 @@ install(TARGETS sorting-visualizer
 
 install(FILES
     README.md
+    version.md
     LICENSE
     DESTINATION .
 )

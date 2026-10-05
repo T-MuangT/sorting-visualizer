@@ -3,25 +3,25 @@
 set(ARRAY_VISUALIZER_TEST_SOURCES
     array_visualizer_test.cpp
     ../src/stats/SortStats.cpp
-    ../src/visualizer/TerminalArrayVisualizer.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
 )
 
 set(TABLE_VISUALIZER_TEST_SOURCES
     table_visualizer_test.cpp
     ../src/stats/SortStats.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
 set(COUNT_VISUALIZER_TEST_SOURCES
     count_visualizer_test.cpp
     ../src/stats/SortStats.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
 set(GRAPH_VISUALIZER_TEST_SOURCES
     graph_visualizer_test.cpp
     ../src/stats/SortStats.cpp
-    ../src/visualizer/TerminalGraphVisualizer.cpp
+    ../src/visualizer/terminal/TerminalGraphVisualizer.cpp
 )
 
 set(RANDOMIZER_TEST_SOURCES
@@ -87,8 +87,8 @@ set(DISTRIBUTION_PIGEONHOLE_TEST_SOURCES
     ../src/algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
-    ../src/visualizer/TerminalArrayVisualizer.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
 set(DISTRIBUTION_COUNTING_TEST_SOURCES
@@ -96,8 +96,8 @@ set(DISTRIBUTION_COUNTING_TEST_SOURCES
     ../src/algorithms/distribution-sort/counting-sort/CountingSort.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
-    ../src/visualizer/TerminalArrayVisualizer.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
 set(MERGE_SORT_TEST_SOURCES
@@ -120,9 +120,9 @@ set(INTEGRATION_TEST_SOURCES
     ../src/algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
-    ../src/visualizer/TerminalArrayVisualizer.cpp
-    ../src/visualizer/TerminalTableVisualizer.cpp
-    ../src/visualizer/TerminalGraphVisualizer.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalGraphVisualizer.cpp
 )
 
 add_executable(array_visualizer_test ${ARRAY_VISUALIZER_TEST_SOURCES})

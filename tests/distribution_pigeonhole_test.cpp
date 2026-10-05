@@ -3,8 +3,9 @@
 #include <vector>
 
 #include "include/NoopVisualizers.hpp"
-#include "../src/algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.hpp"
 #include "../src/include/visualizer/VisualizationSession.hpp"
+
+#include "../src/algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.hpp"
 
 namespace {
 bool verifySort(const std::vector<int>& input) {

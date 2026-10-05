@@ -6,7 +6,7 @@
 #include <string>
 #include <thread>
 
-#include "../include/visualizer/TerminalTableVisualizer.hpp"
+#include "../../include/visualizer/terminal/TerminalTableVisualizer.hpp"
 
 TerminalTableVisualizer::TerminalTableVisualizer(int delayMs) : delayMs(delayMs) {}
 

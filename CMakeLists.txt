@@ -32,8 +32,7 @@ add_subdirectory(src)
 add_subdirectory(tests)
 
 target_link_libraries(sorting-visualizer PRIVATE OpenMP::OpenMP_CXX)
-target_link_libraries(exchange_bubble_test PRIVATE OpenMP::OpenMP_CXX)
-target_link_libraries(exchange_partition_test PRIVATE OpenMP::OpenMP_CXX)
+target_link_libraries(parallel_sort_test PRIVATE OpenMP::OpenMP_CXX)
 
 set(CPACK_PACKAGE_NAME "sorting-visualizer")
 set(CPACK_PACKAGE_VENDOR "SortingVisualizer")

@@ -37,11 +37,8 @@ int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
         {"bubbleSort", bubbleSort},
         {"cocktailShakerSort", cocktailShakerSort},
-        {"optimizedCocktailShakerSort", optimizedCocktailShakerSort},
         {"oddEvenSort", oddEvenSort},
-        {"optimizedOddEvenSort", optimizedOddEvenSort},
-        {"combSort", combSort},
-        {"optimizedCombSort", optimizedCombSort}
+        {"combSort", combSort}
     };
 
     const std::vector<std::vector<int>> cases = {

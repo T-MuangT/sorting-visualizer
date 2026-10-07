@@ -43,6 +43,8 @@ set(EXCHANGE_BUBBLE_TEST_SOURCES
 
 set(EXCHANGE_PARTITION_TEST_SOURCES
     exchange_partition_test.cpp
+    ../src/algorithms/PairwiseCompareSwap.cpp
+    ../src/algorithms/ArraySplitRange.cpp
     ../src/algorithms/exchange-sort/partition-sort/CircleSort.cpp
     ../src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.cpp
     ../src/algorithms/exchange-sort/partition-sort/HoareQuickSort.cpp

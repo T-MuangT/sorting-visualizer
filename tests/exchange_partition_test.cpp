@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 
+#include "../src/include/algorithms/PairwiseCompareSwap.hpp"
+#include "../src/include/algorithms/ArraySplitRange.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/CircleSort.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"

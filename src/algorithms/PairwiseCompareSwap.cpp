@@ -2,11 +2,7 @@
 
 #include "../include/algorithms/PairwiseCompareSwap.hpp"
 
-bool pairwiseCompareSwap(
-    std::vector<int>& arr,
-    int lhs,
-    int rhs) {
-
+bool pairwiseCompareSwap(std::vector<int>& arr, int lhs, int rhs) {
     if (arr[lhs] <= arr[rhs]) {
         return false;
     }

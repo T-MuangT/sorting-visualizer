@@ -16,8 +16,9 @@ set(SOURCES
     randomizer/ArrayRandomizer.cpp
     randomizer/ArrayReversed.cpp
     randomizer/ArrayNearlySorted.cpp
-    algorithms/TreeStructure.cpp
     algorithms/PairwiseCompareSwap.cpp
+    algorithms/ArraySplitRange.cpp
+    algorithms/TreeStructure.cpp
     algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
     algorithms/exchange-sort/bubble-sort/OptimizedBubbleSort.cpp
     algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp

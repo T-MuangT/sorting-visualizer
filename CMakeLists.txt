@@ -19,10 +19,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     endif()
 
 elseif(MSVC)
-    add_compile_options(/Od /DNDEBUG)
-endif()
-
-if(MSVC)
+    add_compile_options(/Od /DNDEBUG /std:c++latest)
     set(OpenMP_RUNTIME_MSVC llvm)
 endif()
 

@@ -15,10 +15,10 @@
 // Include Partition Sort Branch Headers
 #include "../algorithms/exchange-sort/partition-sort/CircleSort.hpp"
 #include "../algorithms/exchange-sort/partition-sort/OptimizedCircleSort.hpp"
-#include "../algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
-#include "../algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
-#include "../algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
 #include "../algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
+
+// Include Quicksort Pivot Selection Header
+#include "../include/menus/exchange-sort/PivotSelectionMenu.hpp"
 
 AlgorithmRunner selectBubbleBranchAlgorithm() {
     std::cout << "\n--- Bubble Sort Branch ---\n";
@@ -66,9 +66,9 @@ AlgorithmRunner selectPartitionBranchAlgorithm() {
     switch (choice) {
         case 1: return AlgorithmRunner::fromClassic(circleSort);
         case 2: return AlgorithmRunner::fromClassic(optimizedCircleSort);
-        case 3: return AlgorithmRunner::fromClassic(lomutoQuickSort);
-        case 4: return AlgorithmRunner::fromClassic(hoareQuickSort);
-        case 5: return AlgorithmRunner::fromClassic(dualPivotQuickSort);
+        case 3: return selectLomutoQuickSortPivotSelectionAlgorithm();
+        case 4: return selectHoareQuickSortPivotSelectionAlgorithm();
+        case 5: return selectDualPivotQuickSortPivotSelectionAlgorithm();
         case 6: return AlgorithmRunner::fromClassic(stableQuickSort);
         default: return AlgorithmRunner();
     }

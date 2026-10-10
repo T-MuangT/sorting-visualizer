@@ -7,6 +7,7 @@ set(SOURCES
     menus/InsertionSortMenu.cpp
     menus/MergeSortMenu.cpp
     menus/DistributionSortMenu.cpp
+    menus/exchange-sort/PivotSelectionMenu.cpp
     stats/SortStats.cpp
     visualizer/VisualizationSession.cpp
     visualizer/terminal/TerminalArrayVisualizer.cpp
@@ -16,8 +17,10 @@ set(SOURCES
     randomizer/ArrayRandomizer.cpp
     randomizer/ArrayReversed.cpp
     randomizer/ArrayNearlySorted.cpp
-    algorithms/TreeStructure.cpp
     algorithms/PairwiseCompareSwap.cpp
+    algorithms/ArraySplitRange.cpp
+    algorithms/PivotSelection.cpp
+    algorithms/TreeStructure.cpp
     algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
     algorithms/exchange-sort/bubble-sort/OptimizedBubbleSort.cpp
     algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp

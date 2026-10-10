@@ -2,10 +2,9 @@
 #include <iostream>
 #include <vector>
 
+#include "../src/include/algorithms/PairwiseCompareSwap.hpp"
+#include "../src/include/algorithms/ArraySplitRange.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/CircleSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
 
 namespace {
@@ -35,9 +34,6 @@ bool verifySort(SortFunc fn, const std::vector<int>& input, const std::string& l
 int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
         {"circleSort", circleSort},
-        {"lomutoQuickSort", lomutoQuickSort},
-        {"hoareQuickSort", hoareQuickSort},
-        {"dualPivotQuickSort", dualPivotQuickSort},
         {"stableQuickSort", stableQuickSort}
     };
 

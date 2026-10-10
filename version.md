@@ -77,3 +77,7 @@ Added:
 ### v1.7.2
 - Added Bubble Sort with Early Cutoff
 - Refactored and extracted compare-swap algorithm from Bubble Sort branch algorithms
+
+### v1.7.3
+- Refactored and extracted splitting range and partitioning algorithms from Partition Sort branch algorithms
+- Added Pivot Selection menu for Quicksorts (Lomuto, Hoare, Yaroslavskiy)

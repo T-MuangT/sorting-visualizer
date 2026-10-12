@@ -81,3 +81,7 @@ Added:
 ### v1.7.3
 - Refactored and extracted splitting range and partitioning algorithms from Partition Sort branch algorithms
 - Added Pivot Selection menu for Quicksorts (Lomuto, Hoare, Yaroslavskiy)
+
+### v1.7.4
+- Added Auxiliary Array Bar Chart rendering
+- Refactored and fixed Stable Quicksort rendering bug, now using rendering method above

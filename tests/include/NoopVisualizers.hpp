@@ -17,6 +17,15 @@ public:
         const std::string&,
         const SortStats&) override
     {}
+
+    void renderAuxFrame(
+        const std::vector<int>&,
+        AuxEvent,
+        int,
+        const std::string&,
+        const std::string&,
+        const SortStats&) override
+    {}
 };
 
 class NoopTableVisualizer : public ITableVisualizer {

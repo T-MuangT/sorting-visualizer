@@ -69,7 +69,7 @@ AlgorithmRunner selectPartitionBranchAlgorithm() {
         case 3: return selectLomutoQuickSortPivotSelectionAlgorithm();
         case 4: return selectHoareQuickSortPivotSelectionAlgorithm();
         case 5: return selectDualPivotQuickSortPivotSelectionAlgorithm();
-        case 6: return AlgorithmRunner::fromClassic(stableQuickSort);
+        case 6: return AlgorithmRunner::fromSession(stableQuickSort);
         default: return AlgorithmRunner();
     }
 }

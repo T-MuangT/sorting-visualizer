@@ -4,6 +4,8 @@
 #include <functional>
 
 enum class AuxEvent {
+    PlaceInPartition,
+    WriteFromAuxPartition,
     PlaceInBucket,
     FlushBucket,
     CompareInAux,
@@ -13,7 +15,7 @@ enum class AuxEvent {
     InsertInTree,
     LinkLeft,
     LinkRight,
-    VisitInOrder,
+    VisitInOrder
     // extend as new algorithms need new verbs
 };
 

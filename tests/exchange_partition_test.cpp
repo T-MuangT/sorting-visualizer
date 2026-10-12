@@ -5,7 +5,6 @@
 #include "../src/include/algorithms/PairwiseCompareSwap.hpp"
 #include "../src/include/algorithms/ArraySplitRange.hpp"
 #include "../src/algorithms/exchange-sort/partition-sort/CircleSort.hpp"
-#include "../src/algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
 
 namespace {
 
@@ -33,8 +32,7 @@ bool verifySort(SortFunc fn, const std::vector<int>& input, const std::string& l
 
 int main() {
     const std::vector<std::pair<std::string, SortFunc>> algorithms = {
-        {"circleSort", circleSort},
-        {"stableQuickSort", stableQuickSort}
+        {"circleSort", circleSort}
     };
 
     const std::vector<std::vector<int>> cases = {

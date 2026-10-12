@@ -1,52 +1,85 @@
+#include <string>
+
 #include "StableQuickSort.hpp"
 
-namespace {
-void stableQuickSortRecursive(std::vector<int>& arr, int startIdx, SortCallback notify) {
-    if (arr.size() <= 1) return;
+namespace stable_quicksort_internal {
+void stableQuickSortRecursive(std::vector<int>& arr, int startIdx, VisualizationSession& session) {
+    if (arr.size() <= 1) {
+        return;
+    }
 
-    int pivot = arr[0];
+    session.onArrayEvent(arr, SortEvent::Compare, -1, -1, "Stabel Quicksort: Original Array");
+
+    const int pivot = arr[0];
     std::vector<int> left;
     std::vector<int> middle;
     std::vector<int> right;
 
+    const std::string stepName = "Stable Quicksort: Partition " + std::to_string(pivot);
+
+    // Prepare three auxiliary partition arrays: Left, Pivot, Right
+    session.beginPartitionPhase(
+        {
+            {"Left    (Fewer)", {}},
+            {"Pivot   (Equal)", {}},
+            {"Right (Greater)", {}}
+        },
+        stepName);
+
     for (size_t i = 0; i < arr.size(); ++i) {
-        int globalIdx = startIdx + static_cast<int>(i);
-        if (notify) notify(SortEvent::Compare, globalIdx, startIdx, "Stable Quick: Partition Compare");
+        PartitionEventData data{};
+        data.srcIdx = static_cast<int>(i);
+        data.startIdx = 0;
+        data.endIdx = static_cast<int>(arr.size()) - 1;
+        data.pivotValue = pivot;
+        data.leftRow = 0;
+        data.middleRow = 1;
+        data.rightRow = 2;
+        data.value = arr[i];
 
         if (arr[i] < pivot) {
+            data.leftPos = static_cast<int>(left.size());
+            session.onPartitionEvent(arr, data, stepName);
             left.push_back(arr[i]);
         } else if (arr[i] == pivot) {
+            data.middlePos = static_cast<int>(middle.size());
+            session.onPartitionEvent(arr, data, stepName);
             middle.push_back(arr[i]);
         } else {
+            data.rightPos = static_cast<int>(right.size());
+            session.onPartitionEvent(arr, data, stepName);
             right.push_back(arr[i]);
         }
     }
 
-    stableQuickSortRecursive(left, startIdx, notify);
-    stableQuickSortRecursive(right, startIdx + static_cast<int>(left.size() + middle.size()), notify);
+    // Recursively sort left and right partitions (they are separate vectors)
+    stableQuickSortRecursive(left, startIdx, session);
+    stableQuickSortRecursive(right, startIdx + static_cast<int>(left.size() + middle.size()), session);
 
-    // Reconstruct input partition and report updates
+    // Reconstruct the original array segment from left, middle, right
     size_t idx = 0;
     for (int val : left) {
         arr[idx] = val;
-        if (notify) notify(SortEvent::Swap, startIdx + static_cast<int>(idx), startIdx + static_cast<int>(idx), "Stable Quicksort: Write Left");
+        session.onArrayEvent(arr, SortEvent::Swap, static_cast<int>(idx), static_cast<int>(idx), "Stable Quicksort: Write Left " + std::to_string(arr[idx]));
         ++idx;
     }
     for (int val : middle) {
         arr[idx] = val;
-        if (notify) notify(SortEvent::Swap, startIdx + static_cast<int>(idx), startIdx + static_cast<int>(idx), "Stable Quicksort: Write Pivot");
+        session.onArrayEvent(arr, SortEvent::Swap, static_cast<int>(idx), static_cast<int>(idx), "Stable Quicksort: Write Pivot " + std::to_string(arr[idx]));
         ++idx;
     }
     for (int val : right) {
         arr[idx] = val;
-        if (notify) notify(SortEvent::Swap, startIdx + static_cast<int>(idx), startIdx + static_cast<int>(idx), "Stable Quicksort: Write Right");
+        session.onArrayEvent(arr, SortEvent::Swap, static_cast<int>(idx), static_cast<int>(idx), "Stable Quicksort: Write Right " + std::to_string(arr[idx]));
         ++idx;
     }
+
+    session.endPartitionPhase(arr, "Stable Quicksort: Reconstructed Array");
 }
 } // anonymous namespace
 
-void stableQuickSort(std::vector<int>& arr, SortCallback notify) {
+void stableQuickSort(std::vector<int>& arr, VisualizationSession& session) {
     if (!arr.empty()) {
-        stableQuickSortRecursive(arr, 0, notify);
+        stable_quicksort_internal::stableQuickSortRecursive(arr, 0, session);
     }
 }

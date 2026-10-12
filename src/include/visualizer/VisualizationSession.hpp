@@ -6,7 +6,7 @@
 #include "../SortStats.hpp"
 #include "../algorithms/PartitionEventData.hpp"
 #include "../algorithms/PartitionArray.hpp"
-#include "../algorithms/BucketEventData.hpp"    // TODO: Add Bucket Event Data for Visualization Session
+// #include "../algorithms/BucketEventData.hpp"    // TODO: Add Bucket Event Data for Visualization Session
 #include "../algorithms/CountEventData.hpp"
 #include "../algorithms/TreeEventData.hpp"
 #include "IArrayVisualizer.hpp"

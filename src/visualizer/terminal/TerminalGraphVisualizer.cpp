@@ -289,6 +289,7 @@ void TerminalGraphVisualizer::renderFrame(
     clearScreen();
 
     std::cout << "==== Terminal Visualizer ====\n";
+    std::cout << "View: Auxiliary Array\n";
     std::cout << "Step: " << stepName << "\n";
     std::cout << "Event: " << eventName(event) << "\n";
     std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n\n";

@@ -3,5 +3,6 @@
 #include <vector>
 
 #include "../../../include/Types.hpp"
+#include "../../../include/visualizer/VisualizationSession.hpp"
 
-void stableQuickSort(std::vector<int>& arr, SortCallback notify);
+void stableQuickSort(std::vector<int>& arr, VisualizationSession& session);

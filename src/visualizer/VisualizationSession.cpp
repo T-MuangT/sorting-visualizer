@@ -12,6 +12,10 @@ const SortStats& VisualizationSession::getStats() const noexcept {
     return stats;
 }
 
+const std::vector<PartitionArray>& VisualizationSession::getPartitionArrays() const noexcept {
+    return partitionArrays;
+}
+
 const std::vector<TableRow>& VisualizationSession::getAuxRows() const noexcept {
     return auxRows;
 }
@@ -52,9 +56,65 @@ void VisualizationSession::ensureRow(int row) {
     }
 }
 
+// VisualizationSession::onArrayEvent for main array charts
 void VisualizationSession::onArrayEvent(const std::vector<int>& arr, SortEvent event, int idx1, int idx2, const std::string& stepName) {
     stats.recordEvent(event);
     arrayVisualizer->renderFrame(arr, event, idx1, idx2, stepName, stats);
+}
+
+void VisualizationSession::beginPartitionPhase(std::vector<PartitionArray> initialArrays, const std::string& stepName) {
+    partitionArrays = std::move(initialArrays);
+
+    for (const auto& partition : partitionArrays) {
+        arrayVisualizer->renderAuxFrame(partition.values, AuxEvent::PlaceInPartition, -1, partition.label, stepName, stats);
+    }
+}
+
+// VisualizationSession::onPartitionEvent for partitioning auxiliary array charts
+void VisualizationSession::onPartitionEvent(const std::vector<int>& mainArr, const PartitionEventData& data, const std::string& stepName) {
+    if (data.srcIdx < 0 || data.srcIdx >= static_cast<int>(mainArr.size())) {
+        throw std::out_of_range("Partition source index is outside the main array.");
+    }
+
+    if (data.value != mainArr[static_cast<size_t>(data.srcIdx)]) {
+        throw std::invalid_argument("Partition event value does not match its source element.");
+    }
+
+    int targetRow;
+    int targetPos;
+
+    if (data.value < data.pivotValue) {
+        targetRow = data.leftRow;
+        targetPos = data.leftPos;
+    } else if (data.value == data.pivotValue) {
+        targetRow = data.middleRow;
+        targetPos = data.middlePos;
+    } else {
+        targetRow = data.rightRow;
+        targetPos = data.rightPos;
+    }
+
+    if (targetRow < 0 || targetRow >= static_cast<int>(partitionArrays.size())) {
+        throw std::out_of_range("Partition destination row is outside the auxiliary arrays.");
+    }
+
+    auto& partition = partitionArrays[static_cast<size_t>(targetRow)];
+    auto& values = partition.values;
+
+    // A negative destination position means append.
+    const int insertPos = targetPos < 0 ? static_cast<int>(values.size()) : targetPos;
+
+    if (insertPos > static_cast<int>(values.size())) {
+        throw std::out_of_range("Partition destination position is outside the auxiliary array.");
+    }
+
+    values.insert(values.begin() + insertPos, data.value);
+    arrayVisualizer->renderAuxFrame(values, AuxEvent::PlaceInPartition, insertPos, partition.label, stepName, stats);
+}
+
+void VisualizationSession::endPartitionPhase(const std::vector<int>& arr, const std::string& stepName) {
+    partitionArrays.clear();
+    arrayVisualizer->renderFrame(arr, SortEvent::Compare, -1, -1, stepName, stats);
 }
 
 void VisualizationSession::beginAuxPhase(std::vector<TableRow> initialRows, const std::string& stepName) {

@@ -94,10 +94,10 @@ void TerminalTableVisualizer::renderFrame(const std::vector<TableRow>& rows, Aux
     }
 
     std::cout << "==== Terminal Visualizer ====\n";
+    std::cout << "View: Auxiliary Array\n";
     std::cout << "Step: " << stepName << "\n";
     std::cout << "Event: " << eventName(event) << "\n";
-    std::cout << "Reads: " << stats.getComparisons()
-              << " | Writes: " << stats.getSwaps() << "\n\n";
+    std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n\n";
 
     if (rows.empty()) {
         std::cout << "(no auxiliary rows)\n";
@@ -119,9 +119,7 @@ void TerminalTableVisualizer::renderFrame(const std::vector<TableRow>& rows, Aux
                 static_cast<int>(pos));
             const char marker = active ? markerFor(event) : ' ';
 
-            std::cout << "[" << marker << " "
-                      << std::right << std::setw(valueWidth + 1) << row.values[pos]
-                      << "] ";
+            std::cout << "[" << marker << " " << std::right << std::setw(valueWidth + 1) << row.values[pos] << "] ";
         }
 
         std::cout << "\n";
@@ -130,7 +128,7 @@ void TerminalTableVisualizer::renderFrame(const std::vector<TableRow>& rows, Aux
     if (isCountEvent(event)) {
         std::cout << "\nLegend: [+] Incrementing  [!] Decrementing  [*] Accumulating\n";
     } else {
-        std::cout << "\nLegend: [+] Placed  [!] Flushing  [*] Comparing\n";
+        std::cout << "\nLegend: [+] Placing  [!] Flushing  [*] Comparing\n";
     }
     std::fflush(stdout);
 

@@ -1,7 +1,22 @@
-# Test tree build
+add_library(visualization_session_support STATIC
+    ../src/stats/SortStats.cpp
+    ../src/visualizer/VisualizationSession.cpp
+)
+
+target_include_directories(visualization_session_support
+    PUBLIC
+        ${PROJECT_SOURCE_DIR}
+        ${PROJECT_SOURCE_DIR}/src
+)
 
 set(ARRAY_VISUALIZER_TEST_SOURCES
     array_visualizer_test.cpp
+    ../src/stats/SortStats.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
+)
+
+set(AUXIL_VISUALIZER_TEST_SOURCES
+    auxil_visualizer_test.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
 )
@@ -46,7 +61,6 @@ set(EXCHANGE_PARTITION_TEST_SOURCES
     ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/ArraySplitRange.cpp
     ../src/algorithms/exchange-sort/partition-sort/CircleSort.cpp
-    ../src/algorithms/exchange-sort/partition-sort/StableQuickSort.cpp
 )
 
 set(SINGLE_PIVOT_SORT_TEST_SOURCES
@@ -65,6 +79,19 @@ set(DUAL_PIVOT_SORT_TEST_SOURCES
     ../src/algorithms/PivotSelection.cpp
     ../src/algorithms/exchange-sort/partition-sort/DualPivotQuickSort.cpp
 )
+
+set(STABLE_QUICK_TEST_SOURCES
+    stable_quick_test.cpp
+    ../src/algorithms/PairwiseCompareSwap.cpp
+    ../src/algorithms/ArraySplitRange.cpp
+    ../src/algorithms/exchange-sort/partition-sort/StableQuickSort.cpp
+    ../src/stats/SortStats.cpp
+    ../src/visualizer/VisualizationSession.cpp
+    ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
+    ../src/visualizer/terminal/TerminalTableVisualizer.cpp
+    ../src/visualizer/terminal/TerminalGraphVisualizer.cpp
+)
+
 
 set(SELECTION_SELECTION_TEST_SOURCES
     selection_selection_test.cpp
@@ -155,6 +182,7 @@ set(INTEGRATION_TEST_SOURCES
 )
 
 add_executable(array_visualizer_test ${ARRAY_VISUALIZER_TEST_SOURCES})
+add_executable(auxil_visualizer_test ${AUXIL_VISUALIZER_TEST_SOURCES})
 add_executable(table_visualizer_test ${TABLE_VISUALIZER_TEST_SOURCES})
 add_executable(count_visualizer_test ${COUNT_VISUALIZER_TEST_SOURCES})
 add_executable(graph_visualizer_test ${GRAPH_VISUALIZER_TEST_SOURCES})
@@ -163,6 +191,7 @@ add_executable(exchange_bubble_test ${EXCHANGE_BUBBLE_TEST_SOURCES})
 add_executable(exchange_partition_test ${EXCHANGE_PARTITION_TEST_SOURCES})
 add_executable(single_pivot_sort_test ${SINGLE_PIVOT_SORT_TEST_SOURCES})
 add_executable(dual_pivot_sort_test ${DUAL_PIVOT_SORT_TEST_SOURCES})
+add_executable(stable_quick_test ${STABLE_QUICK_TEST_SOURCES})
 add_executable(selection_selection_test ${SELECTION_SELECTION_TEST_SOURCES})
 add_executable(selection_heap_test ${SELECTION_HEAP_TEST_SOURCES})
 add_executable(insertion_insertion_test ${INSERTION_INSERTION_TEST_SOURCES})
@@ -175,6 +204,7 @@ add_executable(parallel_sort_test ${PARALLEL_SORT_TEST_SOURCES})
 add_executable(integration_test ${INTEGRATION_TEST_SOURCES})
 
 add_test(NAME array_visualizer_test COMMAND $<TARGET_FILE:array_visualizer_test>)
+add_test(NAME auxil_visualizer_test COMMAND $<TARGET_FILE:auxil_visualizer_test>)
 add_test(NAME table_visualizer_test COMMAND $<TARGET_FILE:table_visualizer_test>)
 add_test(NAME count_visualizer_test COMMAND $<TARGET_FILE:count_visualizer_test>)
 add_test(NAME graph_visualizer_test COMMAND $<TARGET_FILE:graph_visualizer_test>)
@@ -183,6 +213,7 @@ add_test(NAME exchange_bubble_test COMMAND $<TARGET_FILE:exchange_bubble_test>)
 add_test(NAME exchange_partition_test COMMAND $<TARGET_FILE:exchange_partition_test>)
 add_test(NAME single_pivot_sort_test COMMAND $<TARGET_FILE:single_pivot_sort_test>)
 add_test(NAME dual_pivot_sort_test COMMAND $<TARGET_FILE:dual_pivot_sort_test>)
+add_test(NAME stable_quick_test COMMAND $<TARGET_FILE:stable_quick_test>)
 add_test(NAME selection_selection_test COMMAND $<TARGET_FILE:selection_selection_test>)
 add_test(NAME selection_heap_test COMMAND $<TARGET_FILE:selection_heap_test>)
 add_test(NAME insertion_insertion_test COMMAND $<TARGET_FILE:insertion_insertion_test>)
@@ -197,6 +228,7 @@ add_test(NAME integration_test COMMAND $<TARGET_FILE:integration_test>)
 add_custom_target(tests
     DEPENDS
         array_visualizer_test
+        auxil_visualizer_test
         table_visualizer_test
         count_visualizer_test
         graph_visualizer_test
@@ -205,6 +237,7 @@ add_custom_target(tests
         exchange_partition_test
         single_pivot_sort_test
         dual_pivot_sort_test
+        stable_quick_test
         selection_selection_test
         selection_heap_test
         insertion_insertion_test
@@ -217,7 +250,7 @@ add_custom_target(tests
         integration_test
 )
 
-foreach(test_target IN ITEMS array_visualizer_test table_visualizer_test count_visualizer_test graph_visualizer_test randomizer_test exchange_bubble_test exchange_partition_test single_pivot_sort_test dual_pivot_sort_test selection_selection_test selection_heap_test insertion_insertion_test insertion_tree_test merge_sort_test distribution_pigeonhole_test distribution_counting_test early_cutoff_sort_test parallel_sort_test integration_test)
+foreach(test_target IN ITEMS array_visualizer_test auxil_visualizer_test table_visualizer_test count_visualizer_test graph_visualizer_test randomizer_test exchange_bubble_test exchange_partition_test single_pivot_sort_test dual_pivot_sort_test stable_quick_test selection_selection_test selection_heap_test insertion_insertion_test insertion_tree_test merge_sort_test distribution_pigeonhole_test distribution_counting_test early_cutoff_sort_test parallel_sort_test integration_test)
     target_include_directories(${test_target} PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
     target_link_libraries(${test_target} PRIVATE OpenMP::OpenMP_CXX)
     if(MSVC)

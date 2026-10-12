@@ -15,6 +15,6 @@ int main() {
     std::vector<int> array = {3, 1, 2};
     visualizer.renderFrame(array, SortEvent::Compare, 0, 1, "visualizer smoke test", stats);
 
-    std::cout << "Array visualizer test passed." << std::endl;
+    std::cout << "Main bar visualizer test passed." << std::endl;
     return 0;
 }

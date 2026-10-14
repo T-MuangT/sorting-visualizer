@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <string>
 #include <cassert>
+#include <iostream>
 
 #include "../../../include/algorithms/PivotSelection.hpp"
 #include "DualPivotQuickSort.hpp"
@@ -17,6 +18,7 @@ namespace dual_pivot_quicksort_internal {
         int i1 = pivots.firstPivot;
         int i2 = pivots.secondPivot;
         if (i1 < low || i1 > high || i2 < low || i2 > high || i1 == i2) {
+            std::cerr << "Invalid pivots returned: i1=" << i1 << " i2=" << i2 << " low=" << low << " high=" << high << " size=" << arr.size() << "\n";
             assert(false && "DualPivotSelector returned invalid or duplicate pivot indices");
             i1 = low;
             i2 = high;

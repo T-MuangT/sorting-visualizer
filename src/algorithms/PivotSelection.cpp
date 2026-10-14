@@ -54,16 +54,31 @@ PivotPair twoRandomIndicesPivots(const std::vector<int>&, int low, int high) {
         secondPivot = distribution(generator);
     } while (secondPivot == firstPivot);
 
+    // Safeguard against accidental index collision
+    if (firstPivot == secondPivot) {
+        secondPivot = (firstPivot < high) ? firstPivot + 1 : high - 1;
+    }
+
     return {firstPivot, secondPivot};
 }
 
 PivotPair twoQuartileMediansPivots(const std::vector<int>& arr, int low, int high) {
+    // If the range is too small for quartile math, safely return the boundaries
+    if (high - low < 3) {
+        return { low, high };
+    }
+
     int mid = low + (high - low) / 2;
     int firstQuartile = low + (high - low) / 4;
     int thirdQuartile = low + 3 * (high - low) / 4;
 
     int firstPivot = medianOfThreeIndices(arr, low, firstQuartile, mid);
     int secondPivot = medianOfThreeIndices(arr, mid, thirdQuartile, high);
+
+    // Safeguard against accidental index collision
+    if (firstPivot == secondPivot) {
+        secondPivot = (firstPivot < high) ? firstPivot + 1 : high - 1;
+    }
 
     return {firstPivot, secondPivot};
 }

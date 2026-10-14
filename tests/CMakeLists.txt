@@ -1,13 +1,26 @@
-add_library(visualization_session_support STATIC
+# Test suite build
+
+include_directories(${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
+link_libraries(OpenMP::OpenMP_CXX)
+
+if(MSVC)
+    add_compile_options(/W4)
+else()
+    add_compile_options(-Wall -Wextra -pedantic)
+endif()
+
+add_library(visualization_session_test SHARED
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
 )
 
-target_include_directories(visualization_session_support
+target_include_directories(visualization_session_test
     PUBLIC
         ${PROJECT_SOURCE_DIR}
         ${PROJECT_SOURCE_DIR}/src
 )
+
+set_target_properties(visualization_session_test PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 set(ARRAY_VISUALIZER_TEST_SOURCES
     array_visualizer_test.cpp
@@ -91,7 +104,6 @@ set(STABLE_QUICK_TEST_SOURCES
     ../src/visualizer/terminal/TerminalTableVisualizer.cpp
     ../src/visualizer/terminal/TerminalGraphVisualizer.cpp
 )
-
 
 set(SELECTION_SELECTION_TEST_SOURCES
     selection_selection_test.cpp
@@ -181,76 +193,35 @@ set(INTEGRATION_TEST_SOURCES
     ../src/visualizer/terminal/TerminalGraphVisualizer.cpp
 )
 
-add_executable(array_visualizer_test ${ARRAY_VISUALIZER_TEST_SOURCES})
-add_executable(auxil_visualizer_test ${AUXIL_VISUALIZER_TEST_SOURCES})
-add_executable(table_visualizer_test ${TABLE_VISUALIZER_TEST_SOURCES})
-add_executable(count_visualizer_test ${COUNT_VISUALIZER_TEST_SOURCES})
-add_executable(graph_visualizer_test ${GRAPH_VISUALIZER_TEST_SOURCES})
-add_executable(randomizer_test ${RANDOMIZER_TEST_SOURCES})
-add_executable(exchange_bubble_test ${EXCHANGE_BUBBLE_TEST_SOURCES})
-add_executable(exchange_partition_test ${EXCHANGE_PARTITION_TEST_SOURCES})
-add_executable(single_pivot_sort_test ${SINGLE_PIVOT_SORT_TEST_SOURCES})
-add_executable(dual_pivot_sort_test ${DUAL_PIVOT_SORT_TEST_SOURCES})
-add_executable(stable_quick_test ${STABLE_QUICK_TEST_SOURCES})
-add_executable(selection_selection_test ${SELECTION_SELECTION_TEST_SOURCES})
-add_executable(selection_heap_test ${SELECTION_HEAP_TEST_SOURCES})
-add_executable(insertion_insertion_test ${INSERTION_INSERTION_TEST_SOURCES})
-add_executable(insertion_tree_test ${INSERTION_TREE_TEST_SOURCES})
-add_executable(merge_sort_test ${MERGE_SORT_TEST_SOURCES})
-add_executable(distribution_pigeonhole_test ${DISTRIBUTION_PIGEONHOLE_TEST_SOURCES})
-add_executable(distribution_counting_test ${DISTRIBUTION_COUNTING_TEST_SOURCES})
-add_executable(early_cutoff_sort_test ${EARLY_CUTOFF_SORT_TEST_SOURCES})
-add_executable(parallel_sort_test ${PARALLEL_SORT_TEST_SOURCES})
-add_executable(integration_test ${INTEGRATION_TEST_SOURCES})
-
-add_test(NAME array_visualizer_test COMMAND $<TARGET_FILE:array_visualizer_test>)
-add_test(NAME auxil_visualizer_test COMMAND $<TARGET_FILE:auxil_visualizer_test>)
-add_test(NAME table_visualizer_test COMMAND $<TARGET_FILE:table_visualizer_test>)
-add_test(NAME count_visualizer_test COMMAND $<TARGET_FILE:count_visualizer_test>)
-add_test(NAME graph_visualizer_test COMMAND $<TARGET_FILE:graph_visualizer_test>)
-add_test(NAME randomizer_test COMMAND $<TARGET_FILE:randomizer_test>)
-add_test(NAME exchange_bubble_test COMMAND $<TARGET_FILE:exchange_bubble_test>)
-add_test(NAME exchange_partition_test COMMAND $<TARGET_FILE:exchange_partition_test>)
-add_test(NAME single_pivot_sort_test COMMAND $<TARGET_FILE:single_pivot_sort_test>)
-add_test(NAME dual_pivot_sort_test COMMAND $<TARGET_FILE:dual_pivot_sort_test>)
-add_test(NAME stable_quick_test COMMAND $<TARGET_FILE:stable_quick_test>)
-add_test(NAME selection_selection_test COMMAND $<TARGET_FILE:selection_selection_test>)
-add_test(NAME selection_heap_test COMMAND $<TARGET_FILE:selection_heap_test>)
-add_test(NAME insertion_insertion_test COMMAND $<TARGET_FILE:insertion_insertion_test>)
-add_test(NAME insertion_tree_test COMMAND $<TARGET_FILE:insertion_tree_test>)
-add_test(NAME merge_sort_test COMMAND $<TARGET_FILE:merge_sort_test>)
-add_test(NAME distribution_pigeonhole_test COMMAND $<TARGET_FILE:distribution_pigeonhole_test>)
-add_test(NAME distribution_counting_test COMMAND $<TARGET_FILE:distribution_counting_test>)
-add_test(NAME early_cutoff_sort_test COMMAND $<TARGET_FILE:early_cutoff_sort_test>)
-add_test(NAME parallel_sort_test COMMAND $<TARGET_FILE:parallel_sort_test>)
-add_test(NAME integration_test COMMAND $<TARGET_FILE:integration_test>)
-
-add_custom_target(tests
-    DEPENDS
-        array_visualizer_test
-        auxil_visualizer_test
-        table_visualizer_test
-        count_visualizer_test
-        graph_visualizer_test
-        randomizer_test
-        exchange_bubble_test
-        exchange_partition_test
-        single_pivot_sort_test
-        dual_pivot_sort_test
-        stable_quick_test
-        selection_selection_test
-        selection_heap_test
-        insertion_insertion_test
-        insertion_tree_test
-        merge_sort_test
-        distribution_pigeonhole_test
-        distribution_counting_test
-        early_cutoff_sort_test
-        parallel_sort_test
-        integration_test
+set(TEST_TARGETS
+    array_visualizer_test
+    auxil_visualizer_test
+    table_visualizer_test
+    count_visualizer_test
+    graph_visualizer_test
+    randomizer_test
+    exchange_bubble_test
+    exchange_partition_test
+    single_pivot_sort_test
+    dual_pivot_sort_test
+    stable_quick_test
+    selection_selection_test
+    selection_heap_test
+    insertion_insertion_test
+    insertion_tree_test
+    merge_sort_test
+    distribution_pigeonhole_test
+    distribution_counting_test
+    early_cutoff_sort_test
+    parallel_sort_test
+    integration_test
 )
 
-foreach(test_target IN ITEMS array_visualizer_test auxil_visualizer_test table_visualizer_test count_visualizer_test graph_visualizer_test randomizer_test exchange_bubble_test exchange_partition_test single_pivot_sort_test dual_pivot_sort_test stable_quick_test selection_selection_test selection_heap_test insertion_insertion_test insertion_tree_test merge_sort_test distribution_pigeonhole_test distribution_counting_test early_cutoff_sort_test parallel_sort_test integration_test)
+# Unified Loop for Executables, Properties, and CTest
+foreach(test_target IN LISTS TEST_TARGETS)
+    string(TOUPPER ${test_target} upper_name)
+    add_executable(${test_target} ${${upper_name}_SOURCES})
+
     target_include_directories(${test_target} PRIVATE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
     target_link_libraries(${test_target} PRIVATE OpenMP::OpenMP_CXX)
     if(MSVC)
@@ -258,4 +229,9 @@ foreach(test_target IN ITEMS array_visualizer_test auxil_visualizer_test table_v
     else()
         target_compile_options(${test_target} PRIVATE -Wall -Wextra -pedantic)
     endif()
+
+    add_test(NAME ${test_target} COMMAND $<TARGET_FILE:${test_target}>)
 endforeach()
+
+# Custom target referencing the single list
+add_custom_target(tests DEPENDS ${TEST_TARGETS})

@@ -85,3 +85,6 @@ Added:
 ### v1.7.4
 - Added Auxiliary Array Bar Chart rendering
 - Refactored and fixed Stable Quicksort rendering bug, now using rendering method above
+
+### v1.7.5
+- Now released as binary with shared libraries for future visualization expansion

@@ -1,16 +1,16 @@
 #include <iostream>
 
-#include "../include/menus/SelectionSortMenu.hpp"
+#include "../../include/menus/SelectionSortMenu.hpp"
 
 // Include Selection Sort Branch Headers
-#include "../algorithms/selection-sort/selection-sort/SelectionSort.hpp"
-#include "../algorithms/selection-sort/selection-sort/DoubleSelectionSort.hpp"
-#include "../algorithms/selection-sort/selection-sort/CycleSort.hpp"
+#include "../../algorithms/selection-sort/selection-sort/SelectionSort.hpp"
+#include "../../algorithms/selection-sort/selection-sort/DoubleSelectionSort.hpp"
+#include "../../algorithms/selection-sort/selection-sort/CycleSort.hpp"
 
 // Include Heap Sort Branch Headers
-#include "../algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
-#include "../algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
-#include "../algorithms/selection-sort/heap-sort/SmoothSort.hpp"
+#include "../../algorithms/selection-sort/heap-sort/MaxHeapSort.hpp"
+#include "../../algorithms/selection-sort/heap-sort/MinHeapSort.hpp"
+#include "../../algorithms/selection-sort/heap-sort/SmoothSort.hpp"
 
 AlgorithmRunner selectSelectionBranchAlgorithm() {
     std::cout << "\n--- Selection Sort Branch ---\n";

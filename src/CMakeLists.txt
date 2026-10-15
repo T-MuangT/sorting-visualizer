@@ -2,7 +2,7 @@
 
 # Algorithms and Visualization Session Library
 
-add_library(libsortalgos SHARED
+add_library(sortalgos SHARED
     # Session Bridge / Telemetry
     visualizer/VisualizationSession.cpp
 
@@ -47,41 +47,47 @@ add_library(libsortalgos SHARED
     algorithms/distribution-sort/counting-sort/CountingSort.cpp
 )
 
-target_include_directories(libsortalgos PUBLIC 
+target_include_directories(sortalgos PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR} 
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
-target_link_libraries(libsortalgos PUBLIC OpenMP::OpenMP_CXX)
+target_link_libraries(sortalgos PUBLIC OpenMP::OpenMP_CXX)
 
 # When building a shared library on Windows with MSVC, export all symbols so
 # consumers (the executable) can link without adding explicit __declspec
 # annotations in the sources.
-set_target_properties(libsortalgos PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+set_target_properties(sortalgos PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 
 # Terminal Visualizer Library
-add_library(libtermvisual SHARED
+add_library(termvisual SHARED
     visualizer/terminal/TerminalArrayVisualizer.cpp
     visualizer/terminal/TerminalTableVisualizer.cpp
     visualizer/terminal/TerminalGraphVisualizer.cpp
 )
-target_link_libraries(libtermvisual PUBLIC libsortalgos)
-set_target_properties(libtermvisual PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+target_link_libraries(termvisual PUBLIC sortalgos)
+set_target_properties(termvisual PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
+# Terminal Menu Library
+add_library(termmenu SHARED
+    menus/terminal/TerminalMainMenu.cpp
+    menus/terminal/ExchangeSortMenu.cpp
+    menus/terminal/SelectionSortMenu.cpp
+    menus/terminal/InsertionSortMenu.cpp
+    menus/terminal/MergeSortMenu.cpp
+    menus/terminal/DistributionSortMenu.cpp
+    menus/terminal/exchange-sort/PivotSelectionMenu.cpp
+)
+target_link_libraries(termmenu PUBLIC sortalgos)
+set_target_properties(termmenu PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 # Executable
 set(APP_SOURCES
     main.cpp
-    menus/ExchangeSortMenu.cpp
-    menus/SelectionSortMenu.cpp
-    menus/InsertionSortMenu.cpp
-    menus/MergeSortMenu.cpp
-    menus/DistributionSortMenu.cpp
-    menus/exchange-sort/PivotSelectionMenu.cpp
 )
 
 add_executable(sorting-visualizer ${APP_SOURCES})
-target_link_libraries(sorting-visualizer PRIVATE libsortalgos libtermvisual)
+target_link_libraries(sorting-visualizer PRIVATE sortalgos termvisual termmenu)
 
 
 add_custom_target(release
@@ -90,8 +96,9 @@ add_custom_target(release
 )
 
 install(TARGETS
-    libsortalgos
-    libtermvisual
+    sortalgos
+    termvisual
+    termmenu
     sorting-visualizer
 
 
@@ -108,10 +115,12 @@ install(FILES
 
 if(MSVC)
     target_compile_options(sorting-visualizer PRIVATE /W4)
-    target_compile_options(libsortalgos PRIVATE /W4)
-    target_compile_options(libtermvisual PRIVATE /W4)
+    target_compile_options(sortalgos PRIVATE /W4)
+    target_compile_options(termvisual PRIVATE /W4)
+    target_compile_options(termmenu PRIVATE /W4)
 else()
     target_compile_options(sorting-visualizer PRIVATE -Wall -Wextra -pedantic)
-    target_compile_options(libsortalgos PRIVATE -Wall -Wextra -pedantic)
-    target_compile_options(libtermvisual PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(sortalgos PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(termvisual PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(termmenu PRIVATE -Wall -Wextra -pedantic)
 endif()

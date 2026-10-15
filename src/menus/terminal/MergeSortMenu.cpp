@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "../include/menus/MergeSortMenu.hpp"
+#include "../../include/menus/MergeSortMenu.hpp"
 
 // Include Merge Sort Headers
-#include "../algorithms/merge-sort/MergeSort.hpp"
+#include "../../algorithms/merge-sort/MergeSort.hpp"
 
 AlgorithmRunner selectMergeFamilyAlgorithm() {
     std::cout << "\n--- Merge Sort Family ---\n";

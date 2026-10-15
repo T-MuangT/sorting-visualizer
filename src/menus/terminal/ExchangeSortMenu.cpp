@@ -1,24 +1,24 @@
 #include <iostream>
 
-#include "../include/menus/ExchangeSortMenu.hpp"
+#include "../../include/menus/ExchangeSortMenu.hpp"
 
 // Include Bubble Sort Branch Headers
-#include "../algorithms/exchange-sort/bubble-sort/BubbleSort.hpp"
-#include "../algorithms/exchange-sort/bubble-sort/OptimizedBubbleSort.hpp"
-#include "../algorithms/exchange-sort/bubble-sort/CocktailShakerSort.hpp"
-#include "../algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.hpp"
-#include "../algorithms/exchange-sort/bubble-sort/OddEvenSort.hpp"
-#include "../algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.hpp"
-#include "../algorithms/exchange-sort/bubble-sort/CombSort.hpp"
-#include "../algorithms/exchange-sort/bubble-sort/OptimizedCombSort.hpp"
+#include "../../algorithms/exchange-sort/bubble-sort/BubbleSort.hpp"
+#include "../../algorithms/exchange-sort/bubble-sort/OptimizedBubbleSort.hpp"
+#include "../../algorithms/exchange-sort/bubble-sort/CocktailShakerSort.hpp"
+#include "../../algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.hpp"
+#include "../../algorithms/exchange-sort/bubble-sort/OddEvenSort.hpp"
+#include "../../algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.hpp"
+#include "../../algorithms/exchange-sort/bubble-sort/CombSort.hpp"
+#include "../../algorithms/exchange-sort/bubble-sort/OptimizedCombSort.hpp"
 
 // Include Partition Sort Branch Headers
-#include "../algorithms/exchange-sort/partition-sort/CircleSort.hpp"
-#include "../algorithms/exchange-sort/partition-sort/OptimizedCircleSort.hpp"
-#include "../algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
+#include "../../algorithms/exchange-sort/partition-sort/CircleSort.hpp"
+#include "../../algorithms/exchange-sort/partition-sort/OptimizedCircleSort.hpp"
+#include "../../algorithms/exchange-sort/partition-sort/StableQuickSort.hpp"
 
 // Include Quicksort Pivot Selection Header
-#include "../include/menus/exchange-sort/PivotSelectionMenu.hpp"
+#include "../../include/menus/exchange-sort/PivotSelectionMenu.hpp"
 
 AlgorithmRunner selectBubbleBranchAlgorithm() {
     std::cout << "\n--- Bubble Sort Branch ---\n";

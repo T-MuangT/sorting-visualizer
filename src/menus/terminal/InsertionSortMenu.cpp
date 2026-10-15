@@ -1,14 +1,14 @@
 #include <iostream>
 
-#include "../include/menus/InsertionSortMenu.hpp"
+#include "../../include/menus/InsertionSortMenu.hpp"
 
 // Include Insertion Sort Branch Headers
-#include "../algorithms/insertion-sort/insertion-sort/InsertionSort.hpp"
-#include "../algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.hpp"
-#include "../algorithms/insertion-sort/insertion-sort/ShellSort.hpp"
+#include "../../algorithms/insertion-sort/insertion-sort/InsertionSort.hpp"
+#include "../../algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.hpp"
+#include "../../algorithms/insertion-sort/insertion-sort/ShellSort.hpp"
 
 // Include Tree Sort Branch Headers
-#include "../algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.hpp"
+#include "../../algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.hpp"
 
 AlgorithmRunner selectInsertionBranchAlgorithm() {
     std::cout << "\n--- Insertion Sort Branch ---\n";

@@ -9,43 +9,20 @@
 #include "include/ArrayGenerator.hpp"
 #include "include/AlgorithmRunner.hpp"
 
-// Include Menus
-#include "include/menus/ExchangeSortMenu.hpp"
-#include "include/menus/SelectionSortMenu.hpp"
-#include "include/menus/InsertionSortMenu.hpp"
-#include "include/menus/MergeSortMenu.hpp"
-#include "include/menus/DistributionSortMenu.hpp"
-
 // Include Visualizer APIs
 #include "include/visualizer/IArrayVisualizer.hpp"
 #include "include/visualizer/ITableVisualizer.hpp"
 #include "include/visualizer/IGraphVisualizer.hpp"
 #include "include/visualizer/VisualizationSession.hpp"
 
+// Include Terminal Main Menu
+#include "include/menus/main-menu/TerminalMainMenu.hpp"
+
 // Include Terminal Visualizer Implementations
 #include "include/visualizer/terminal/TerminalArrayVisualizer.hpp"
 #include "include/visualizer/terminal/TerminalTableVisualizer.hpp"
 #include "include/visualizer/terminal/TerminalGraphVisualizer.hpp"
 // #include "include/visualizer/GraphicsVisualizer.hpp" // For future GUI backend
-
-void displayMainMenu() {
-    std::cout << "===========================================\n";
-    std::cout << "         ALGORITHM VISUALIZER ENGINE       \n";
-    std::cout << "===========================================\n";
-    std::cout << "Select Algorithm Family:\n";
-    std::cout << "  1. Exchange Sorts\n";
-    std::cout << "  2. Selection Sorts\n";
-    std::cout << "  3. Insertion Sorts\n";
-    std::cout << "  4. Merge Sorts\n";
-    std::cout << "  5. Distribution Sorts\n";
-    std::cout << "  6. Concurrent Sorts\n";
-    std::cout << "  7. Miscellaneous Sorts\n";
-    std::cout << "  8. Hybrid Sorts\n";
-    std::cout << "  9. Impractical Sorts\n";
-    std::cout << "  0. Exit\n";
-    std::cout << "-------------------------------------------\n";
-    std::cout << "Choice: ";
-}
 
 Pattern selectPattern() {
     std::cout << "\nSelect Array Data Pattern:\n";
@@ -62,16 +39,6 @@ Pattern selectPattern() {
         case 3:  return Pattern::NearlySorted;
         default: return Pattern::UniformRandom;
     }
-}
-
-AlgorithmRunner selectPlaceholderMenu(const std::string& familyName) {
-    std::cout << "\n--- " << familyName << " ---\n";
-    std::cout << "  [Under Construction - Variants coming soon]\n";
-    std::cout << "  0. Back\n";
-    std::cout << "Choice: ";
-    int choice;
-    std::cin >> choice;
-    return {};
 }
 
 enum class RenderBackend {
@@ -92,46 +59,11 @@ RenderBackend selectBackend() {
 
 int main() {
     while (true) {
-        displayMainMenu();
-        int familyChoice = 0;
-        if (!(std::cin >> familyChoice) || familyChoice == 0) {
+        AlgorithmRunner selectedAlgorithm = selectMainMenuAlgorithm();
+
+        if (!std::cin) {
             std::cout << "Exiting application...\n";
             break;
-        }
-
-        AlgorithmRunner selectedAlgorithm{};
-
-        switch (familyChoice) {
-            case 1:
-                selectedAlgorithm = selectExchangeFamilyAlgorithm();
-                break;
-            case 2:
-                selectedAlgorithm = selectSelectionFamilyAlgorithm();
-                break;
-            case 3:
-                selectedAlgorithm = selectInsertionFamilyAlgorithm();
-                break;
-            case 4:
-                selectedAlgorithm = selectMergeFamilyAlgorithm();
-                break;
-            case 5:
-                selectedAlgorithm = selectDistributionFamilyAlgorithm();
-                break;
-            case 6:
-                selectedAlgorithm = selectPlaceholderMenu("Concurrent Sort Family");
-                break;
-            case 7:
-                selectedAlgorithm = selectPlaceholderMenu("Miscellaneous Sort Family");
-                break;
-            case 8:
-                selectedAlgorithm = selectPlaceholderMenu("Hybrid Sort Family");
-                break;
-            case 9:
-                selectedAlgorithm = selectPlaceholderMenu("Impractical Sort Family");
-                break;
-            default:
-                std::cout << "Invalid family choice.\n\n";
-                continue;
         }
 
         if (!selectedAlgorithm) {

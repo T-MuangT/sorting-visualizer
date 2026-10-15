@@ -1,12 +1,12 @@
 #include <iostream>
 #include <vector>
 
-#include "../../include/menus/exchange-sort/PivotSelectionMenu.hpp"
-#include "../../include/algorithms/PivotSelection.hpp"
+#include "../../../include/menus/exchange-sort/PivotSelectionMenu.hpp"
+#include "../../../include/algorithms/PivotSelection.hpp"
 
-#include "../../algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
-#include "../../algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
-#include "../../algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
+#include "../../../algorithms/exchange-sort/partition-sort/LomutoQuickSort.hpp"
+#include "../../../algorithms/exchange-sort/partition-sort/HoareQuickSort.hpp"
+#include "../../../algorithms/exchange-sort/partition-sort/DualPivotQuickSort.hpp"
 
 AlgorithmRunner selectLomutoQuickSortPivotSelectionAlgorithm() {
     std::cout << "\n--- Lomuto Quicksort: Pivot Selection ---\n";

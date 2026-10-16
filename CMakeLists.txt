@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(SortingVisualizer VERSION 1.7.5 LANGUAGES CXX)
+project(SortingVisualizer VERSION 1.7.6 LANGUAGES CXX)
 
 # Centralize build outputs to avoid multi-config nesting path issues on Windows
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -62,7 +62,7 @@ set(CPACK_PACKAGE_VENDOR "SortingVisualizer")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Sorting algorithm visualizer")
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
 set(CPACK_PACKAGE_VERSION_MINOR "7")
-set(CPACK_PACKAGE_VERSION_PATCH "5")
+set(CPACK_PACKAGE_VERSION_PATCH "6")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "sorting-visualizer")
 set(CPACK_GENERATOR "TGZ;ZIP")
 set(CPACK_PACKAGE_FILE_NAME "sorting-visualizer-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")

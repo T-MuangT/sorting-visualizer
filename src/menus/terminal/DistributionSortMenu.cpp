@@ -1,10 +1,10 @@
 #include <iostream>
 
-#include "../include/menus/DistributionSortMenu.hpp"
+#include "../../include/menus/DistributionSortMenu.hpp"
 
 // Include Pigeonhole Sort Branch Headers
-#include "../algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.hpp"
-#include "../algorithms/distribution-sort/counting-sort/CountingSort.hpp"
+#include "../../algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.hpp"
+#include "../../algorithms/distribution-sort/counting-sort/CountingSort.hpp"
 
 AlgorithmRunner selectPigeonholeBranchAlgorithm() {
     std::cout << "\n--- Pigeonhole Sort Branch ---\n";

@@ -49,7 +49,7 @@ void TerminalArrayVisualizer::renderFrame(const std::vector<int>& arr, SortEvent
     std::cout << "==== Terminal Visualizer ====\n";
     std::cout << "View: Main Array\n";
     std::cout << "Step: " << stepName << "\n";
-    std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n\n\n";
+    std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n\n";
 
     const bool isMovement = event == SortEvent::Swap || event == SortEvent::Shift || event == SortEvent::Insert;
 
@@ -65,7 +65,7 @@ void TerminalArrayVisualizer::renderAuxFrame(const std::vector<int>& arr, AuxEve
     std::cout << "View: Auxiliary Array\n";
     std::cout << "Step: " << stepName << "\n";
     std::cout << "Array: " << label << "\n";
-    std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n\n";
+    std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n";
 
     char marker = '?';
 

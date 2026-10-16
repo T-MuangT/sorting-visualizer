@@ -88,3 +88,6 @@ Added:
 
 ### v1.7.5
 - Now released as binary with shared libraries for future visualization expansion
+
+### v1.7.6
+- Refactored and decoupled terminal menu

@@ -97,7 +97,7 @@ void TerminalTableVisualizer::renderFrame(const std::vector<TableRow>& rows, Aux
     std::cout << "View: Auxiliary Array\n";
     std::cout << "Step: " << stepName << "\n";
     std::cout << "Event: " << eventName(event) << "\n";
-    std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n\n";
+    std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n";
 
     if (rows.empty()) {
         std::cout << "(no auxiliary rows)\n";

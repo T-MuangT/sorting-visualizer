@@ -292,7 +292,7 @@ void TerminalGraphVisualizer::renderFrame(
     std::cout << "View: Auxiliary Array\n";
     std::cout << "Step: " << stepName << "\n";
     std::cout << "Event: " << eventName(event) << "\n";
-    std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n\n";
+    std::cout << "Reads: " << stats.getComparisons() << " | Writes: " << stats.getSwaps() << "\n";
 
     if (!currentGraphValid && event == AuxEvent::InsertInTree && hasRenderedGraph) {
         renderGraph(lastRenderedNodes, lastRenderedEvent, lastRenderedHighlights);

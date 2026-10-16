@@ -71,6 +71,7 @@ set_target_properties(termvisual PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 # Terminal Menu Library
 add_library(termmenu SHARED
     menus/terminal/TerminalMainMenu.cpp
+    menus/terminal/TerminalPresortMenu.cpp
     menus/terminal/ExchangeSortMenu.cpp
     menus/terminal/SelectionSortMenu.cpp
     menus/terminal/InsertionSortMenu.cpp

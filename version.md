@@ -91,3 +91,6 @@ Added:
 
 ### v1.7.6
 - Refactored and decoupled terminal menu
+
+### v1.7.7
+- Refactored and separated terminal version for future graphical version of software

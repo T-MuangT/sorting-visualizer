@@ -7,7 +7,7 @@
 
 void displayMainMenu();
 
-AlgorithmRunner selectMainMenuAlgorithm();
+AlgorithmRunner selectMainMenuAlgorithm(bool& shouldExit);
 
 AlgorithmRunner selectPlaceholderMenu(const std::string& familyName);
 

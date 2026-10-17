@@ -83,11 +83,11 @@ target_link_libraries(termmenu PUBLIC sortalgos)
 set_target_properties(termmenu PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 # Executable
-set(APP_SOURCES
-    main.cpp
+set(TERMINAL_APP_SOURCES
+    terminal/main.cpp
 )
 
-add_executable(sorting-visualizer ${APP_SOURCES})
+add_executable(sorting-visualizer ${TERMINAL_APP_SOURCES})
 target_link_libraries(sorting-visualizer PRIVATE sortalgos termvisual termmenu)
 
 
@@ -105,6 +105,7 @@ install(TARGETS
 
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
 )
 
 install(FILES

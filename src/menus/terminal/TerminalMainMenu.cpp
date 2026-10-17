@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 
 #include "../../include/menus/main-menu/TerminalMainMenu.hpp"
 
@@ -42,7 +43,7 @@ AlgorithmRunner selectPlaceholderMenu(const std::string& familyName)
     return {};
 }
 
-AlgorithmRunner selectMainMenuAlgorithm()
+AlgorithmRunner selectMainMenuAlgorithm(bool& shouldExit)
 {
     displayMainMenu();
 
@@ -81,7 +82,11 @@ AlgorithmRunner selectMainMenuAlgorithm()
             return selectPlaceholderMenu("Impractical Sort Family");
 
         case 0:
+            shouldExit = true;
+            return {};
+
         default:
+            std::cout << "Invalid input.\nChoice: ";
             return {};
     }
 }

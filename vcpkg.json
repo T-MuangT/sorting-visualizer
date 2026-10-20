@@ -4,5 +4,11 @@
   "builtin-baseline": "44ccfd88b3eca6929d6d16398c7b19945c29a5f6",
   "dependencies": [
     "wxwidgets"
+  ],
+  "overrides": [
+    {
+      "name": "wxwidgets",
+      "version": "3.2.8.1"
+    }
   ]
 }

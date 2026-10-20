@@ -5,10 +5,14 @@ on:
     branches: [main, master]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   build-and-test:
     name: ${{ matrix.os }} / ${{ matrix.build_type }}
     runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: false
       matrix:
@@ -19,169 +23,54 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Install vcpkg dependencies
+      # Windows only: wxWidgets and other manifest dependencies from vcpkg.
+      - name: Install vcpkg dependencies (Windows)
+        if: runner.os == 'Windows'
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
           vcpkgJsonGlob: '**/vcpkg.json'
 
-      - name: Diagnose vcpkg manifest (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          Write-Host "Working directory: $PWD"
-          Get-ChildItem -Force
-          Get-ChildItem -Path . -Filter vcpkg.json -Recurse |
-          ForEach-Object {
-            Write-Host "`nManifest: $($_.FullName)"
-            Get-Content $_.FullName
-          }
-
-      - name: Diagnose vcpkg manifest (macOS/Linux)
-        if: runner.os != 'Windows'
-        shell: bash
-        run: |
-          echo "Working directory: $PWD"
-          echo ""
-          echo "=== Repository files ==="
-          ls -la
-
-          echo ""
-          echo "=== vcpkg manifests ==="
-          find . -name vcpkg.json -not -path './vcpkg/buildtrees/*' \
-            -not -path './vcpkg/packages/*' \
-            -not -path './build/vcpkg_installed/*' \
-            -print -exec cat {} \;
-
-          echo ""
-          echo "=== vcpkg configuration ==="
-          if [ -f vcpkg-configuration.json ]; then
-            cat vcpkg-configuration.json
-          else
-            echo "No vcpkg-configuration.json at repository root."
-          fi
-
-          echo ""
-          echo "=== Installed wxWidgets version ==="
-          for file in \
-            build/vcpkg_installed/arm64-osx/share/wxwidgets/vcpkg.json \
-            build/vcpkg_installed/x64-linux/share/wxwidgets/vcpkg.json
-          do
-            if [ -f "$file" ]; then
-              echo "--- $file"
-              cat "$file"
-            fi
-          done
-
-          echo ""
-          echo "=== Installed NanoSVG package files ==="
-          find build/vcpkg_installed \
-            -iname '*nanosvg*' -print 2>/dev/null || true
-
-      - name: Install OpenMP dependencies (macOS)
-        if: runner.os == 'macOS'
-        shell: bash
-        run: |
-          brew install libomp
-          echo "OpenMP_ROOT=$(brew --prefix libomp)" >> "$GITHUB_ENV"
-
-      - name: Install build tool dependencies (Linux)
+      # Linux: use Ubuntu's native wxWidgets 3.2 package.
+      - name: Install build dependencies (Linux)
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y autoconf autoconf-archive automake libtool ninja-build libltdl-dev libx11-dev libxft-dev libxext-dev
+          sudo apt-get install -y build-essential cmake ninja-build libwxgtk3.2-dev
 
-      - name: Diagnose wxWidgets and NanoSVG (macOS)
-        if: runner.os == 'macOS' && always()
+      # macOS: use Homebrew's wxWidgets 3.2 formula and libomp.
+      - name: Install build dependencies (macOS)
+        if: runner.os == 'macOS'
         shell: bash
         run: |
-          set +e
-          ROOT="build/vcpkg_installed/arm64-osx"
+          brew install wxwidgets@3.2 libomp
 
-          echo "=== Baseline ==="
-          grep -A 2 '"builtin-baseline"' vcpkg.json
+          echo "OpenMP_ROOT=$(brew --prefix libomp)" >> "$GITHUB_ENV"
+          echo "WXWIDGETS_ROOT=$(brew --prefix wxwidgets@3.2)" >> "$GITHUB_ENV"
 
-          echo ""
-          echo "=== Installed package directories ==="
-          ls -la "$ROOT/share" 2>/dev/null
-
-          echo ""
-          echo "=== wxWidgets metadata ==="
-          find "$ROOT/share" -maxdepth 4 -type f \
-            \( -iname '*wxwidget*' -o -name 'vcpkg.spdx.json' \) \
-            -print 2>/dev/null
-
-          echo ""
-          echo "=== NanoSVG files and CMake targets ==="
-          find "$ROOT" -iname '*nanosvg*' -print 2>/dev/null
-
-          grep -R -n -E \
-            'NanoSVG::nanosvg|NanoSVG::nanosvgrast|nsvgCreateRasterizer' \
-            "$ROOT/share" 2>/dev/null || true
-
-          echo ""
-          echo "=== wxWidgets port version database ==="
-          if [ -f vcpkg/versions/w-/wxwidgets.json ]; then
-            cat vcpkg/versions/w-/wxwidgets.json
-          else
-            echo "Version database not found at expected path."
-          fi
-
-      - name: Diagnose vcpkg failure (Linux)
-        if: runner.os == 'Linux' && always()
-        shell: bash
-        run: |
-          set +e
-          VCPKG_ROOT="${VCPKG_ROOT:-$GITHUB_WORKSPACE/vcpkg}"
-
-          echo "=== Environment ==="
-          echo "Workspace: $GITHUB_WORKSPACE"
-          echo "VCPKG_ROOT: $VCPKG_ROOT"
-          echo "Build directory:"
-          ls -la build 2>/dev/null
-
-          echo ""
-          echo "=== Cairo build directories ==="
-          for dir in \
-            "$VCPKG_ROOT/buildtrees/cairo" \
-            "$GITHUB_WORKSPACE/build/vcpkg_installed
-          do
-            if [ -d "$dir" ]; then
-              echo "--- $dir"
-              find "$dir" -maxdepth 4 -type f \
-                \( -iname '*log*' -o -iname '*error*' \) \
-                -print 2>/dev/null
-            else
-              echo "Not found: $dir"
-            fi
-          done
-
-          echo ""
-          echo "=== Cairo logs under vcpkg ==="
-          if [ -d "$VCPKG_ROOT/buildtrees" ]; then
-            find "$VCPKG_ROOT/buildtrees" -maxdepth 3 \
-              -type f -iname '*cairo*log*' -print
-          fi
-
-          echo ""
-          echo "=== Manifest installation log ==="
-          if [ -f build/vcpkg-manifest-install.log ]; then
-            tail -n 200 build/vcpkg-manifest-install.log
-          else
-            echo "Manifest log not found."
-          fi
-
+      # Windows: Visual Studio generator + vcpkg toolchain.
       - name: Configure CMake (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          cmake -S . -B build -G "Visual Studio 18 2026" -A x64 -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+          cmake -S . -B build `
+            -G "Visual Studio 18 2026" `
+            -A x64 `
+            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
-      - name: Configure CMake (Linux/macOS)
-        if: runner.os != 'Windows'
+      # Linux: native APT wxWidgets, no vcpkg toolchain.
+      - name: Configure CMake (Linux)
+        if: runner.os == 'Linux'
         shell: bash
         run: |
-          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DOpenMP_ROOT="${OpenMP_ROOT:-}" -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.build_type }}"
+
+      # macOS: native Homebrew wxWidgets, no vcpkg toolchain.
+      - name: Configure CMake (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.build_type }}" -DOpenMP_ROOT="$OpenMP_ROOT" -DCMAKE_PREFIX_PATH="$WXWIDGETS_ROOT"
 
       - name: Build
         run: cmake --build build --config ${{ matrix.build_type }} --parallel

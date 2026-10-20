@@ -42,7 +42,12 @@
 
             # Clang on Darwin needs the OpenMP flag explicitly. The library
             # itself is supplied by llvmPackages.openmp in buildInputs.
-            cmakeFlags = pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+            cmakeFlags = [
+              # CMake's Clang module scanner does not receive the wrapped
+              # compiler's Nix standard-library search flags. This project
+              # does not use C++ modules, so disable the unnecessary scan.
+              "-DCMAKE_CXX_SCAN_FOR_MODULES=OFF"
+            ] ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
               "-DOpenMP_CXX_FLAGS=-fopenmp"
               "-DOpenMP_CXX_LIB_NAMES=omp"
               "-DOpenMP_omp_LIBRARY=${pkgs.llvmPackages.openmp}/lib/libomp.dylib"

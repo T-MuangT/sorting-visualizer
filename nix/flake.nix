@@ -31,6 +31,8 @@
             src = ../.;
 
             nativeBuildInputs = [
+              # Build tools are provided by Nix; wxWidgets and OpenMP below
+              # are linked from the native Nix package set.
               pkgs.cmake
               pkgs.ninja
             ];

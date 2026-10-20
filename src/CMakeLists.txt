@@ -137,7 +137,7 @@ target_link_libraries(guivisual
     PUBLIC
         sortalgos
     PRIVATE
-        wxWidgets::wxWidgets
+        ${SORTING_VISUALIZER_WX_TARGETS}
 )
 
 set_target_properties(guivisual PROPERTIES
@@ -159,7 +159,7 @@ target_link_libraries(guimenu
     PUBLIC
         sortalgos
     PRIVATE
-        wxWidgets::wxWidgets
+        ${SORTING_VISUALIZER_WX_TARGETS}
 )
 
 set_target_properties(guimenu PROPERTIES

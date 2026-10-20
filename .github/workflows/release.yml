@@ -68,6 +68,13 @@ jobs:
           brew install libomp
           echo "OpenMP_ROOT=$(brew --prefix libomp)" >> "$GITHUB_ENV"
 
+
+      - name: Install autoconf-archive dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y autoconf autoconf-archive automake libtool ninja-build
+
       - name: Configure CMake
         shell: bash
         run: |

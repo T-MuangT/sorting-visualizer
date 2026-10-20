@@ -32,6 +32,39 @@ jobs:
           brew install libomp
           echo "OpenMP_ROOT=$(brew --prefix libomp)" >> "$GITHUB_ENV"
 
+      - name: Install autoconf-archive dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y autoconf autoconf-archive automake libtool ninja-build
+
+      - name: Diagnose wxWidgets and NanoSVG (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          echo "=== vcpkg baseline ==="
+          grep -A 2 '"builtin-baseline"' vcpkg.json
+
+          echo ""
+          echo "=== Installed wxWidgets version ==="
+          cat build/vcpkg_installed/arm64-osx/share/wxwidgets/vcpkg.json
+
+          echo ""
+          echo "=== Installed NanoSVG package metadata ==="
+          find build/vcpkg_installed/arm64-osx/share \
+            -iname '*nanosvg*' -print
+
+          echo ""
+          echo "=== NanoSVG CMake references ==="
+          grep -R -n -E \
+            'NanoSVG::nanosvg|NanoSVG::nanosvgrast|nsvgCreateRasterizer' \
+            build/vcpkg_installed/arm64-osx/share \
+            2>/dev/null || true
+
+          echo ""
+          echo "=== wxWidgets port version in vcpkg registry ==="
+          cat vcpkg/versions/w-/wxwidgets.json
+
       - name: Configure CMake (Windows)
         if: runner.os == 'Windows'
         shell: pwsh

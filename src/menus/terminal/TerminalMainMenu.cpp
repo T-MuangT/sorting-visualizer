@@ -1,14 +1,14 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "../../include/menus/main-menu/TerminalMainMenu.hpp"
+#include "../../include/menus/terminal/TerminalMainMenu.hpp"
 
 // Include algorithm-family menus
-#include "../../include/menus/ExchangeSortMenu.hpp"
-#include "../../include/menus/SelectionSortMenu.hpp"
-#include "../../include/menus/InsertionSortMenu.hpp"
-#include "../../include/menus/MergeSortMenu.hpp"
-#include "../../include/menus/DistributionSortMenu.hpp"
+#include "../../include/menus/terminal/sort-menu/TerminalExchangeSortMenu.hpp"
+#include "../../include/menus/terminal/sort-menu/TerminalSelectionSortMenu.hpp"
+#include "../../include/menus/terminal/sort-menu/TerminalInsertionSortMenu.hpp"
+#include "../../include/menus/terminal/sort-menu/TerminalMergeSortMenu.hpp"
+#include "../../include/menus/terminal/sort-menu/TerminalDistributionSortMenu.hpp"
 
 void displayMainMenu()
 {

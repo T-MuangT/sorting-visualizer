@@ -22,38 +22,38 @@ target_include_directories(visualization_session_test
 
 set_target_properties(visualization_session_test PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-set(ARRAY_VISUALIZER_TEST_SOURCES
-    array_visualizer_test.cpp
+set(TERMINAL_ARRAY_VISUALIZER_TEST_SOURCES
+    terminal/terminal_array_visualizer_test.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
 )
 
-set(AUXIL_VISUALIZER_TEST_SOURCES
-    auxil_visualizer_test.cpp
+set(TERMINAL_AUXIL_VISUALIZER_TEST_SOURCES
+    terminal/terminal_auxil_visualizer_test.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/terminal/TerminalArrayVisualizer.cpp
 )
 
-set(TABLE_VISUALIZER_TEST_SOURCES
-    table_visualizer_test.cpp
+set(TERMINAL_TABLE_VISUALIZER_TEST_SOURCES
+    terminal/terminal_table_visualizer_test.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
-set(COUNT_VISUALIZER_TEST_SOURCES
-    count_visualizer_test.cpp
+set(TERMINAL_COUNT_VISUALIZER_TEST_SOURCES
+    terminal/terminal_count_visualizer_test.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/terminal/TerminalTableVisualizer.cpp
 )
 
-set(GRAPH_VISUALIZER_TEST_SOURCES
-    graph_visualizer_test.cpp
+set(TERMINAL_GRAPH_VISUALIZER_TEST_SOURCES
+    terminal/terminal_graph_visualizer_test.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/terminal/TerminalGraphVisualizer.cpp
 )
 
 set(RANDOMIZER_TEST_SOURCES
-    randomizer_test.cpp
+    randomizer/randomizer_test.cpp
     ../src/randomizer/ArrayGenerator.cpp
     ../src/randomizer/ArrayRandomizer.cpp
     ../src/randomizer/ArrayReversed.cpp
@@ -61,7 +61,7 @@ set(RANDOMIZER_TEST_SOURCES
 )
 
 set(EXCHANGE_BUBBLE_TEST_SOURCES
-    exchange_bubble_test.cpp
+    algorithms/exchange_bubble_test.cpp
     ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/exchange-sort/bubble-sort/BubbleSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/CocktailShakerSort.cpp
@@ -70,14 +70,14 @@ set(EXCHANGE_BUBBLE_TEST_SOURCES
 )
 
 set(EXCHANGE_PARTITION_TEST_SOURCES
-    exchange_partition_test.cpp
+    algorithms/exchange_partition_test.cpp
     ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/ArraySplitRange.cpp
     ../src/algorithms/exchange-sort/partition-sort/CircleSort.cpp
 )
 
 set(SINGLE_PIVOT_SORT_TEST_SOURCES
-    single_pivot_sort_test.cpp
+    algorithms/single_pivot_sort_test.cpp
     ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/ArraySplitRange.cpp
     ../src/algorithms/PivotSelection.cpp
@@ -86,7 +86,7 @@ set(SINGLE_PIVOT_SORT_TEST_SOURCES
 )
 
 set(DUAL_PIVOT_SORT_TEST_SOURCES
-    dual_pivot_sort_test.cpp
+    algorithms/dual_pivot_sort_test.cpp
     ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/ArraySplitRange.cpp
     ../src/algorithms/PivotSelection.cpp
@@ -94,7 +94,7 @@ set(DUAL_PIVOT_SORT_TEST_SOURCES
 )
 
 set(STABLE_QUICK_TEST_SOURCES
-    stable_quick_test.cpp
+    algorithms/stable_quick_test.cpp
     ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/ArraySplitRange.cpp
     ../src/algorithms/exchange-sort/partition-sort/StableQuickSort.cpp
@@ -106,28 +106,28 @@ set(STABLE_QUICK_TEST_SOURCES
 )
 
 set(SELECTION_SELECTION_TEST_SOURCES
-    selection_selection_test.cpp
+    algorithms/selection_selection_test.cpp
     ../src/algorithms/selection-sort/selection-sort/SelectionSort.cpp
     ../src/algorithms/selection-sort/selection-sort/DoubleSelectionSort.cpp
     ../src/algorithms/selection-sort/selection-sort/CycleSort.cpp
 )
 
 set(SELECTION_HEAP_TEST_SOURCES
-    selection_heap_test.cpp
+    algorithms/selection_heap_test.cpp
     ../src/algorithms/selection-sort/heap-sort/MaxHeapSort.cpp
     ../src/algorithms/selection-sort/heap-sort/MinHeapSort.cpp
     ../src/algorithms/selection-sort/heap-sort/SmoothSort.cpp
 )
 
 set(INSERTION_INSERTION_TEST_SOURCES
-    insertion_insertion_test.cpp
+    algorithms/insertion_insertion_test.cpp
     ../src/algorithms/insertion-sort/insertion-sort/InsertionSort.cpp
     ../src/algorithms/insertion-sort/insertion-sort/BinaryInsertionSort.cpp
     ../src/algorithms/insertion-sort/insertion-sort/ShellSort.cpp
 )
 
 set(INSERTION_TREE_TEST_SOURCES
-    insertion_tree_test.cpp
+    algorithms/insertion_tree_test.cpp
     ../src/algorithms/insertion-sort/tree-sort/UnbalancedBstTreeSort.cpp
     ../src/algorithms/TreeStructure.cpp
     ../src/stats/SortStats.cpp
@@ -135,14 +135,14 @@ set(INSERTION_TREE_TEST_SOURCES
 )
 
 set(MERGE_SORT_TEST_SOURCES
-    merge_sort_test.cpp
+    algorithms/merge_sort_test.cpp
     ../src/algorithms/merge-sort/MergeSort.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
 )
 
 set(DISTRIBUTION_PIGEONHOLE_TEST_SOURCES
-    distribution_pigeonhole_test.cpp
+    algorithms/distribution_pigeonhole_test.cpp
     ../src/algorithms/distribution-sort/pigeonhole-sort/PigeonholeSort.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
@@ -151,7 +151,7 @@ set(DISTRIBUTION_PIGEONHOLE_TEST_SOURCES
 )
 
 set(DISTRIBUTION_COUNTING_TEST_SOURCES
-    distribution_counting_test.cpp
+    algorithms/distribution_counting_test.cpp
     ../src/algorithms/distribution-sort/counting-sort/CountingSort.cpp
     ../src/stats/SortStats.cpp
     ../src/visualizer/VisualizationSession.cpp
@@ -160,22 +160,22 @@ set(DISTRIBUTION_COUNTING_TEST_SOURCES
 )
 
 set(EARLY_CUTOFF_SORT_TEST_SOURCES
-    early_cutoff_sort_test.cpp
+    algorithms/early_cutoff_sort_test.cpp
     ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/exchange-sort/bubble-sort/OptimizedBubbleSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/OptimizedCocktailShakerSort.cpp
 )
 
 set(PARALLEL_SORT_TEST_SOURCES
-    parallel_sort_test.cpp
+    algorithms/parallel_sort_test.cpp
     ../src/algorithms/PairwiseCompareSwap.cpp
     ../src/algorithms/exchange-sort/bubble-sort/OptimizedOddEvenSort.cpp
     ../src/algorithms/exchange-sort/bubble-sort/OptimizedCombSort.cpp
     ../src/algorithms/exchange-sort/partition-sort/OptimizedCircleSort.cpp
 )
 
-set(INTEGRATION_TEST_SOURCES
-    integration_test.cpp
+set(TERMINAL_INTEGRATION_TEST_SOURCES
+    terminal/terminal_integration_test.cpp
     ../src/randomizer/ArrayGenerator.cpp
     ../src/randomizer/ArrayRandomizer.cpp
     ../src/randomizer/ArrayReversed.cpp
@@ -193,12 +193,46 @@ set(INTEGRATION_TEST_SOURCES
     ../src/visualizer/terminal/TerminalGraphVisualizer.cpp
 )
 
+set(GRAPHICS_ARRAY_VISUALIZER_TEST_SOURCES
+    graphics/graphics_array_visualizer_test.cpp
+)
+
+set(GRAPHICS_AUXIL_VISUALIZER_TEST_SOURCES
+    graphics/graphics_auxil_visualizer_test.cpp
+)
+
+set(GRAPHICS_TABLE_VISUALIZER_TEST_SOURCES
+    graphics/graphics_table_visualizer_test.cpp
+)
+
+set(GRAPHICS_COUNT_VISUALIZER_TEST_SOURCES
+    graphics/graphics_count_visualizer_test.cpp
+)
+
+set(GRAPHICS_GRAPH_VISUALIZER_TEST_SOURCES
+    graphics/graphics_graph_visualizer_test.cpp
+)
+
+set(GRAPHICS_INTEGRATION_TEST_SOURCES
+    graphics/graphics_integration_test.cpp
+)
+
+set(GRAPHICS_DASHBOARD_INTEGRATION_TEST_SOURCES
+    graphics/graphics_visualizer_dashboard_test.cpp
+)
+
 set(TEST_TARGETS
-    array_visualizer_test
-    auxil_visualizer_test
-    table_visualizer_test
-    count_visualizer_test
-    graph_visualizer_test
+    terminal_array_visualizer_test
+    terminal_auxil_visualizer_test
+    terminal_table_visualizer_test
+    terminal_count_visualizer_test
+    terminal_graph_visualizer_test
+    graphics_array_visualizer_test
+    graphics_auxil_visualizer_test
+    graphics_table_visualizer_test
+    graphics_count_visualizer_test
+    graphics_graph_visualizer_test
+    graphics_dashboard_integration_test
     randomizer_test
     exchange_bubble_test
     exchange_partition_test
@@ -214,7 +248,8 @@ set(TEST_TARGETS
     distribution_counting_test
     early_cutoff_sort_test
     parallel_sort_test
-    integration_test
+    terminal_integration_test
+    graphics_integration_test
 )
 
 # Unified Loop for Executables, Properties, and CTest
@@ -231,6 +266,18 @@ foreach(test_target IN LISTS TEST_TARGETS)
     endif()
 
     add_test(NAME ${test_target} COMMAND $<TARGET_FILE:${test_target}>)
+endforeach()
+
+foreach(test_target IN ITEMS
+        graphics_array_visualizer_test
+        graphics_auxil_visualizer_test
+        graphics_table_visualizer_test
+        graphics_count_visualizer_test
+        graphics_graph_visualizer_test
+        graphics_integration_test
+        graphics_dashboard_integration_test)
+    target_link_libraries(${test_target} PRIVATE guivisual wxWidgets::wxWidgets)
+    set_tests_properties(${test_target} PROPERTIES SKIP_RETURN_CODE 77)
 endforeach()
 
 # Custom target referencing the single list

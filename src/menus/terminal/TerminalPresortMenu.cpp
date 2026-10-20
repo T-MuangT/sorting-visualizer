@@ -2,7 +2,7 @@
 #include <string>
 #include <exception>
 
-#include "../../include/menus/presort-menu/TerminalPresortMenu.hpp"
+#include "../../include/menus/terminal/TerminalPresortMenu.hpp"
 
 namespace {
     Pattern selectPattern() {

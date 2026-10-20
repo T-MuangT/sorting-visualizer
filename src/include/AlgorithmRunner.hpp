@@ -23,29 +23,20 @@ public:
     }
 
     static AlgorithmRunner fromClassic(ClassicAlgorithm algorithm) {
-        return AlgorithmRunner(
-            [algorithm = std::move(algorithm)](
-                std::vector<int>& arr,
-                VisualizationSession& session)
-            {
+        return AlgorithmRunner([algorithm = std::move(algorithm)](std::vector<int>& arr, VisualizationSession& session) {
                 algorithm(arr, makeSortCallback(arr, session));
-            });
+            }
+        );
     }
 
     // Useful for transitional algorithms that emit both event streams directly.
     // Algorithms that need begin/end auxiliary phase boundaries should prefer
     // fromSession so they can call VisualizationSession explicitly.
     static AlgorithmRunner fromCallbacks(DualCallbackAlgorithm algorithm) {
-        return AlgorithmRunner(
-            [algorithm = std::move(algorithm)](
-                std::vector<int>& arr,
-                VisualizationSession& session)
-            {
-                algorithm(
-                    arr,
-                    makeSortCallback(arr, session),
-                    makeAuxCallback(arr, session));
-            });
+        return AlgorithmRunner([algorithm = std::move(algorithm)](std::vector<int>& arr, VisualizationSession& session) {
+                algorithm(arr, makeSortCallback(arr, session), makeAuxCallback(arr, session));
+            }
+        );
     }
 
     void operator()(std::vector<int>& arr, VisualizationSession& session) const {
@@ -63,36 +54,16 @@ public:
 private:
     SessionAlgorithm algorithm;
 
-    explicit AlgorithmRunner(SessionAlgorithm algorithm)
-        : algorithm(std::move(algorithm))
-    {
-    }
+    explicit AlgorithmRunner(SessionAlgorithm algorithm) : algorithm(std::move(algorithm)) {}
 
-    static SortCallback makeSortCallback(
-        std::vector<int>& arr,
-        VisualizationSession& session)
-    {
-        return [&arr, &session](
-            SortEvent event,
-            int idx1,
-            int idx2,
-            const std::string& stepName)
-        {
+    static SortCallback makeSortCallback(std::vector<int>& arr, VisualizationSession& session) {
+        return [&arr, &session](SortEvent event, int idx1, int idx2, const std::string& stepName) {
             session.onArrayEvent(arr, event, idx1, idx2, stepName);
         };
     }
 
-    static AuxCallback makeAuxCallback(
-        std::vector<int>& arr,
-        VisualizationSession& session)
-    {
-        return [&arr, &session](
-            AuxEvent event,
-            int srcIdx,
-            int row,
-            int pos,
-            const std::string& stepName)
-        {
+    static AuxCallback makeAuxCallback(std::vector<int>& arr, VisualizationSession& session) {
+        return [&arr, &session](AuxEvent event, int srcIdx, int row, int pos, const std::string& stepName) {
             session.onAuxEvent(arr, event, srcIdx, row, pos, stepName);
         };
     }

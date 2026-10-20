@@ -24,8 +24,12 @@ public:
     void recordEvent(SortEvent event) noexcept;
 
     // Accessors
-    [[nodiscard]] size_t getComparisons() const noexcept { return comparisonCount; }
-    [[nodiscard]] size_t getSwaps() const noexcept { return swapCount; }
+    [[nodiscard]] size_t getComparisons() const noexcept {
+        return comparisonCount;
+    }
+    [[nodiscard]] size_t getSwaps() const noexcept {
+        return swapCount;
+    }
 
     // Export UI-agnostic snapshot
     [[nodiscard]] StatsSnapshot getSnapshot() const noexcept {

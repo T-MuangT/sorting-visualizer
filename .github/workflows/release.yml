@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*'
   workflow_dispatch:
 
 jobs:
@@ -14,34 +14,46 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-24.04
+          - os: ubuntu-26.04
             platform: linux-x64
+            arch: x64
             archive_glob: build/*.tar.gz
             cpack_generator: TGZ
           - os: windows-2025
             platform: windows-x64
-            archive_glob: build/*.zip
-            cpack_generator: ZIP
+            arch: x64
+            archive_glob: build/*.exe
+            cpack_generator: NSIS
           - os: macos-26-intel
             platform: macos-x64
+            arch: x64
             archive_glob: build/*.tar.gz
             cpack_generator: TGZ
-          - os: ubuntu-24.04-arm
+          - os: ubuntu-26.04-arm
             platform: linux-arm64
+            arch: ARM64
             archive_glob: build/*.tar.gz
             cpack_generator: TGZ
-          - os: windows-11-arm
+          - os: windows-11-vs2026-arm
             platform: windows-arm64
-            archive_glob: build/*.zip
-            cpack_generator: ZIP
+            arch: ARM64
+            archive_glob: build/*.exe
+            cpack_generator: NSIS
           - os: macos-26
             platform: macos-arm64
+            arch: ARM64
             archive_glob: build/*.tar.gz
             cpack_generator: TGZ
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+
+      - name: Install vcpkg dependencies
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
+          vcpkgJsonGlob: '${{ github.workspace }}/vcpkg.json'
 
       - name: Prepare tag metadata
         shell: bash
@@ -54,14 +66,12 @@ jobs:
         shell: bash
         run: |
           brew install libomp
-          echo "CMAKE_PREFIX_PATH=/opt/homebrew/opt/libomp:/usr/local/opt/libomp:${CMAKE_PREFIX_PATH}" >> "$GITHUB_ENV"
-          echo "CPPFLAGS=-I/opt/homebrew/opt/libomp/include -I/usr/local/opt/libomp/include ${CPPFLAGS}" >> "$GITHUB_ENV"
-          echo "LDFLAGS=-L/opt/homebrew/opt/libomp/lib -L/usr/local/opt/libomp/lib ${LDFLAGS}" >> "$GITHUB_ENV"
+          echo "OpenMP_ROOT=$(brew --prefix libomp)" >> "$GITHUB_ENV"
 
       - name: Configure CMake
         shell: bash
         run: |
-          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       - name: Build
         shell: bash

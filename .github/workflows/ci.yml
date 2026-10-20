@@ -19,17 +19,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Install vcpkg dependencies
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
+          vcpkgJsonGlob: '${{ github.workspace }}/vcpkg.json'
+
       - name: Install OpenMP dependencies (macOS)
         if: runner.os == 'macOS'
         shell: bash
         run: |
           brew install libomp
-          echo "CMAKE_PREFIX_PATH=/opt/homebrew/opt/libomp:/usr/local/opt/libomp:${CMAKE_PREFIX_PATH}" >> "$GITHUB_ENV"
-          echo "CPPFLAGS=-I/opt/homebrew/opt/libomp/include -I/usr/local/opt/libomp/include ${CPPFLAGS}" >> "$GITHUB_ENV"
-          echo "LDFLAGS=-L/opt/homebrew/opt/libomp/lib -L/usr/local/opt/libomp/lib ${LDFLAGS}" >> "$GITHUB_ENV"
+          echo "OpenMP_ROOT=$(brew --prefix libomp)" >> "$GITHUB_ENV"
 
-      - name: Configure CMake
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+      - name: Configure CMake (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          cmake -S . -B build -G "Visual Studio 18 2026" -A x64 -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+      - name: Configure CMake (Linux/macOS)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DOpenMP_ROOT="${OpenMP_ROOT:-}" -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       - name: Build
         run: cmake --build build --config ${{ matrix.build_type }} --parallel

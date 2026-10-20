@@ -26,7 +26,7 @@
         {
           default = pkgs.stdenv.mkDerivation {
             pname = "sorting-visualizer";
-            version = "1.7.7";
+            version = "2.0.0-rc.1";
 
             src = ../.;
 
@@ -37,6 +37,7 @@
 
             buildInputs = [
               pkgs.llvmPackages.openmp
+              pkgs.wxGTK32
             ];
 
             dontConfigure = true;
@@ -62,6 +63,7 @@
               pkgs.gcc
               pkgs.llvm
               pkgs.gdb
+              pkgs.wxGTK32
             ];
 
             buildInputs = [

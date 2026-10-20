@@ -31,23 +31,22 @@
             src = ../.;
 
             nativeBuildInputs = [
-              # Build tools are provided by Nix; wxWidgets and OpenMP below
-              # are linked from the native Nix package set.
               pkgs.cmake
               pkgs.ninja
             ];
 
             buildInputs = [
               pkgs.llvmPackages.openmp
-              pkgs.wxGTK32
+              pkgs.wxwidgets_3_2
             ];
 
-            dontConfigure = true;
-            dontBuild = true;
-
-            installPhase = ''
-              ${../scripts/install.sh} build "$out"
-            '';
+            # Clang on Darwin needs the OpenMP flag explicitly. The library
+            # itself is supplied by llvmPackages.openmp in buildInputs.
+            cmakeFlags = pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+              "-DOpenMP_CXX_FLAGS=-fopenmp"
+              "-DOpenMP_CXX_LIB_NAMES=omp"
+              "-DOpenMP_omp_LIBRARY=${pkgs.llvmPackages.openmp}/lib/libomp.dylib"
+            ];
           };
         });
 
@@ -65,7 +64,7 @@
               pkgs.gcc
               pkgs.llvm
               pkgs.gdb
-              pkgs.wxGTK32
+              pkgs.wxwidgets_3_2
             ];
 
             buildInputs = [

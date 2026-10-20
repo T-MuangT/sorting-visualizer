@@ -1,7 +1,6 @@
 # Sorting Visualizer
 
 ![CI/CD](https://github.com/T-MuangT/sorting-visualizer/actions/workflows/ci.yml/badge.svg)
-![Static CI/CD](https://github.com/T-MuangT/sorting-visualizer/actions/workflows/static.yml/badge.svg)
 ![Nix CI/CD](https://github.com/T-MuangT/sorting-visualizer/actions/workflows/nix.yml/badge.svg)
 ![Release](https://github.com/T-MuangT/sorting-visualizer/actions/workflows/release.yml/badge.svg)
 ![GitHub Release](https://img.shields.io/github/v/release/T-MuangT/sorting-visualizer)

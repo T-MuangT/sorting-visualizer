@@ -19,9 +19,4 @@ enum class AuxEvent {
     // extend as new algorithms need new verbs
 };
 
-using AuxCallback = std::function<void(
-    AuxEvent event,
-    int srcIdx,
-    int row,
-    int pos,
-    const std::string& stepName)>;
+using AuxCallback = std::function<void(AuxEvent event, int srcIdx, int row, int pos, const std::string& stepName)>;

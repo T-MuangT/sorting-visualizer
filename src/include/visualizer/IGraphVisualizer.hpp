@@ -16,11 +16,5 @@ struct TreeNode {
 class IGraphVisualizer {
 public:
     virtual ~IGraphVisualizer() = default;
-
-    virtual void renderFrame(
-        const std::vector<TreeNode>& nodes,
-        AuxEvent event,
-        const std::vector<int>& highlighted,
-        const std::string& stepName,
-        const SortStats& stats) = 0;
+    virtual void renderFrame(const std::vector<TreeNode>& nodes, AuxEvent event, const std::vector<int>& highlighted, const std::string& stepName, const SortStats& stats) = 0;
 };

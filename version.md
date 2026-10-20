@@ -94,3 +94,6 @@ Added:
 
 ### v1.7.7
 - Refactored and separated terminal version for future graphical version of software
+
+### v2.0.0-build-001
+- Introducing graphical version (`sorting-visualizer-gui`)

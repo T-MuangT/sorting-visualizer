@@ -19,11 +19,5 @@ struct TableCell {
 class ITableVisualizer {
 public:
     virtual ~ITableVisualizer() = default;
-
-    virtual void renderFrame(
-        const std::vector<TableRow>& rows,
-        AuxEvent event,
-        const std::vector<TableCell>& highlighted,
-        const std::string& stepName,
-        const SortStats& stats) = 0;
+    virtual void renderFrame(const std::vector<TableRow>& rows, AuxEvent event, const std::vector<TableCell>& highlighted, const std::string& stepName, const SortStats& stats) = 0;
 };

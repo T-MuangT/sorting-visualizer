@@ -11,8 +11,4 @@ enum class SortEvent {
     Insert
 };
 
-using SortCallback = std::function<void(
-    SortEvent event, 
-    int idx1, 
-    int idx2, 
-    const std::string& stepName)>;
+using SortCallback = std::function<void(SortEvent event, int idx1, int idx2, const std::string& stepName)>;

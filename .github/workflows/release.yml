@@ -3,84 +3,222 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to build and publish (for example v2.0.0)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
 
 jobs:
   package:
     name: Package ${{ matrix.platform }}
     runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-24.04
+          - os: ubuntu-26.04
             platform: linux-x64
-            archive_glob: build/*.tar.gz
-            cpack_generator: TGZ
+            arch: x64
+            cpack_generators: "TGZ DEB RPM"
+            artifact_paths: |
+              build/*.tar.gz
+              build/*.deb
+              build/*.rpm
+
+          - os: ubuntu-26.04-arm
+            platform: linux-arm64
+            arch: ARM64
+            cpack_generators: "TGZ DEB RPM"
+            artifact_paths: |
+              build/*.tar.gz
+              build/*.deb
+              build/*.rpm
+
           - os: windows-2025
             platform: windows-x64
-            archive_glob: build/*.zip
-            cpack_generator: ZIP
+            arch: x64
+            cpack_generators: "NSIS WIX"
+            artifact_paths: |
+              build/*.exe
+              build/*.msi
+
+          - os: windows-11-vs2026-arm
+            platform: windows-arm64
+            arch: ARM64
+            cpack_generators: "NSIS WIX"
+            artifact_paths: |
+              build/*.exe
+              build/*.msi
+
           - os: macos-26-intel
             platform: macos-x64
-            archive_glob: build/*.tar.gz
-            cpack_generator: TGZ
-          - os: ubuntu-24.04-arm
-            platform: linux-arm64
-            archive_glob: build/*.tar.gz
-            cpack_generator: TGZ
-          - os: windows-11-arm
-            platform: windows-arm64
-            archive_glob: build/*.zip
-            cpack_generator: ZIP
+            arch: x64
+            cpack_generators: "DRAGNDROP TGZ"
+            artifact_paths: |
+              build/*.dmg
+              build/*.tar.gz
+
           - os: macos-26
             platform: macos-arm64
-            archive_glob: build/*.tar.gz
-            cpack_generator: TGZ
+            arch: ARM64
+            cpack_generators: "DRAGNDROP TGZ"
+            artifact_paths: |
+              build/*.dmg
+              build/*.tar.gz
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag || github.ref }}
 
-      - name: Prepare tag metadata
+      - name: Prepare release metadata
         shell: bash
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
+          VERSION="${RELEASE_TAG#v}"
+
           echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
-      - name: Install OpenMP dependencies (macOS)
+          echo "Release tag: ${RELEASE_TAG}"
+          echo "Release version: ${VERSION}"
+          echo "Platform: ${{ matrix.platform }}"
+
+      # Windows: wxWidgets and other manifest dependencies from vcpkg.
+      - name: Install vcpkg dependencies (Windows)
+        if: runner.os == 'Windows'
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
+          vcpkgJsonGlob: '**/vcpkg.json'
+
+      # Windows: install both CPack installer backends.
+      - name: Install Windows packaging tools
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install nsis --yes --no-progress
+
+          dotnet tool install --global wix
+          echo "$env:USERPROFILE\.dotnet\tools" >> $env:GITHUB_PATH
+
+          wix extension add WixToolset.UI.wixext
+
+      # macOS: native wxWidgets 3.2 and OpenMP.
+      - name: Install build dependencies (macOS)
         if: runner.os == 'macOS'
         shell: bash
         run: |
-          brew install libomp
-          echo "CMAKE_PREFIX_PATH=/opt/homebrew/opt/libomp:/usr/local/opt/libomp:${CMAKE_PREFIX_PATH}" >> "$GITHUB_ENV"
-          echo "CPPFLAGS=-I/opt/homebrew/opt/libomp/include -I/usr/local/opt/libomp/include ${CPPFLAGS}" >> "$GITHUB_ENV"
-          echo "LDFLAGS=-L/opt/homebrew/opt/libomp/lib -L/usr/local/opt/libomp/lib ${LDFLAGS}" >> "$GITHUB_ENV"
+          brew install wxwidgets@3.2 libomp
 
-      - name: Configure CMake
+          echo "OpenMP_ROOT=$(brew --prefix libomp)" >> "$GITHUB_ENV"
+          echo "WXWIDGETS_ROOT=$(brew --prefix wxwidgets@3.2)" >> "$GITHUB_ENV"
+
+      # Linux: native wxWidgets 3.2 and RPM packaging tools.
+      - name: Install build dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            cmake \
+            ninja-build \
+            libwxgtk3.2-dev \
+            rpm
+
+      # Windows: vcpkg toolchain and target architecture.
+      - name: Configure CMake (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          cmake -S . -B build `
+            -G "Visual Studio 18 2026" `
+            -A "${{ matrix.arch }}" `
+            -DCPACK_WIX_VERSION=4 `
+            -DSORTING_VISUALIZER_VERSION="${{ env.VERSION }}" `
+            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+      # Linux: native APT wxWidgets; no vcpkg toolchain.
+      - name: Configure CMake (Linux)
+        if: runner.os == 'Linux'
         shell: bash
         run: |
-          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B build \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DSORTING_VISUALIZER_VERSION="$VERSION"
+
+      # macOS: native Homebrew wxWidgets; no vcpkg toolchain.
+      - name: Configure CMake (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          cmake -S . -B build \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DOpenMP_ROOT="$OpenMP_ROOT" \
+            -DCMAKE_PREFIX_PATH="$WXWIDGETS_ROOT" \
+            -DSORTING_VISUALIZER_VERSION="$VERSION"
 
       - name: Build
-        shell: bash
-        run: |
-          cmake --build build --parallel
+        run: cmake --build build --config Release --parallel
 
-      - name: Package with CPack
+      # Linux and macOS: create every requested archive/package.
+      - name: Package (Linux/macOS)
+        if: runner.os != 'Windows'
         shell: bash
         run: |
+          set -euo pipefail
           cd build
-          cpack -G "${{ matrix.cpack_generator }}"
-          ls -1
 
-      - name: Upload package artifact
+          for generator in ${{ matrix.cpack_generators }}; do
+            echo "Packaging with ${generator}"
+            cpack -G "$generator"
+          done
+
+          echo "=== Generated packages ==="
+          ls -lh
+
+      # Windows: create both NSIS and WiX installers.
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          Set-Location build
+
+          $generators = "${{ matrix.cpack_generators }}".Split(
+            " ",
+            [System.StringSplitOptions]::RemoveEmptyEntries
+          )
+
+          foreach ($generator in $generators) {
+            Write-Host "Packaging with $generator"
+            cpack -G $generator
+
+            if ($LASTEXITCODE -ne 0) {
+              throw "CPack failed with generator $generator"
+            }
+          }
+
+          Get-ChildItem -File
+
+      - name: Upload package artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: sorting-visualizer-${{ github.ref_name }}-${{ matrix.platform }}
-          path: ${{ matrix.archive_glob }}
+          name: sorting-visualizer-${{ env.RELEASE_TAG }}-${{ matrix.platform }}
+          path: ${{ matrix.artifact_paths }}
           if-no-files-found: error
+          compression-level: 0
 
   nix-release:
     name: Nix Release
@@ -88,11 +226,13 @@ jobs:
     needs: package
 
     permissions:
-      contents: write
+      contents: read
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag || github.ref }}
 
       - name: Install Nix
         uses: DeterminateSystems/determinate-nix-action@v3
@@ -103,42 +243,54 @@ jobs:
           name: sorting-visualizer
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - name: Build Nix package
+      - name: Build Nix package and push to Cachix
         run: |
-          nix build ./nix --no-link --print-out-paths | cachix push sorting-visualizer
+          nix build ./nix --no-link --print-out-paths \
+            | cachix push sorting-visualizer
 
       - name: Export Nix closure
+        shell: bash
         run: |
+          set -euo pipefail
+
           nix build ./nix --no-link --print-out-paths > nix-output.txt
           OUT_PATH="$(cat nix-output.txt)"
-          nix-store -qR "$OUT_PATH" | grep -v '\.drv$' > nix-closure.txt
-          nix-store --export $(cat nix-closure.txt) | gzip -9 > sorting-visualizer-${{ github.ref_name }}-nix-closure.nar.gz
+
+          nix-store -qR "$OUT_PATH" \
+            | grep -v '\.drv$' > nix-closure.txt
+
+          nix-store --export $(cat nix-closure.txt) \
+            | gzip -9 \
+            > "sorting-visualizer-${RELEASE_TAG}-nix-closure.nar.gz"
 
       - name: Upload Nix closure
         uses: actions/upload-artifact@v7
         with:
-          name: sorting-visualizer-${{ github.ref_name }}-nix
-          path: sorting-visualizer-${{ github.ref_name }}-nix-closure.nar.gz
+          name: sorting-visualizer-${{ env.RELEASE_TAG }}-nix
+          path: sorting-visualizer-${{ env.RELEASE_TAG }}-nix-closure.nar.gz
+          if-no-files-found: error
 
   github-release:
     name: Publish GitHub Release
     needs:
       - package
       - nix-release
+
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
 
     steps:
-      - name: Download artifacts
+      - name: Download all artifacts
         uses: actions/download-artifact@v8
         with:
           path: release-artifacts
 
-      - name: Create release
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: Release ${{ env.RELEASE_TAG }}
           files: release-artifacts/**/*
           generate_release_notes: true

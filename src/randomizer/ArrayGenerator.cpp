@@ -10,9 +10,7 @@ uint64_t resolveSeed(uint64_t seed) {
     }
 
     static std::random_device rd;
-    static std::mt19937_64 generator(
-        static_cast<uint64_t>(std::chrono::high_resolution_clock::now().time_since_epoch().count()) ^
-        (static_cast<uint64_t>(rd()) << 1));
+    static std::mt19937_64 generator(static_cast<uint64_t>(std::chrono::high_resolution_clock::now().time_since_epoch().count()) ^ (static_cast<uint64_t>(rd()) << 1));
 
     return generator();
 }

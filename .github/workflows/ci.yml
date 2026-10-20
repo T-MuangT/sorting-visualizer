@@ -5,10 +5,14 @@ on:
     branches: [main, master]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   build-and-test:
     name: ${{ matrix.os }} / ${{ matrix.build_type }}
     runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: false
       matrix:
@@ -19,20 +23,62 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Install OpenMP dependencies (macOS)
+      # Windows: wxWidgets and other manifest dependencies from vcpkg.
+      - name: Install build dependencies (Windows)
+        if: runner.os == 'Windows'
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
+          vcpkgJsonGlob: '**/vcpkg.json'
+
+      # macOS: use Homebrew's wxWidgets 3.2 formula and libomp.
+      - name: Install build dependencies (macOS)
         if: runner.os == 'macOS'
         shell: bash
         run: |
-          brew install libomp
-          echo "CMAKE_PREFIX_PATH=/opt/homebrew/opt/libomp:/usr/local/opt/libomp:${CMAKE_PREFIX_PATH}" >> "$GITHUB_ENV"
-          echo "CPPFLAGS=-I/opt/homebrew/opt/libomp/include -I/usr/local/opt/libomp/include ${CPPFLAGS}" >> "$GITHUB_ENV"
-          echo "LDFLAGS=-L/opt/homebrew/opt/libomp/lib -L/usr/local/opt/libomp/lib ${LDFLAGS}" >> "$GITHUB_ENV"
+          brew install wxwidgets@3.2 libomp
 
-      - name: Configure CMake
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          echo "OpenMP_ROOT=$(brew --prefix libomp)" >> "$GITHUB_ENV"
+          echo "WXWIDGETS_ROOT=$(brew --prefix wxwidgets@3.2)" >> "$GITHUB_ENV"
+
+      # Linux: use Ubuntu's native wxWidgets 3.2 package.
+      - name: Install build dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake ninja-build libwxgtk3.2-dev xvfb
+
+      # Windows: Visual Studio generator + vcpkg toolchain.
+      - name: Configure CMake (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          cmake -S . -B build `
+            -G "Visual Studio 18 2026" `
+            -A x64 `
+            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+      # macOS: native Homebrew wxWidgets, no vcpkg toolchain.
+      - name: Configure CMake (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.build_type }}" -DOpenMP_ROOT="$OpenMP_ROOT" -DCMAKE_PREFIX_PATH="$WXWIDGETS_ROOT"
+
+      # Linux: native APT wxWidgets, no vcpkg toolchain.
+      - name: Configure CMake (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.build_type }}"
 
       - name: Build
         run: cmake --build build --config ${{ matrix.build_type }} --parallel
 
-      - name: Run tests
+      - name: Run tests (Windows/macOS)
+        if: runner.os != 'Linux'
         run: ctest --test-dir build --output-on-failure -C ${{ matrix.build_type }}
+
+      - name: Run tests (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a ctest --test-dir build --output-on-failure -C ${{ matrix.build_type }}

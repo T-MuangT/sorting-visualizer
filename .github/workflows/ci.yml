@@ -23,20 +23,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      # Windows only: wxWidgets and other manifest dependencies from vcpkg.
-      - name: Install vcpkg dependencies (Windows)
+      # Windows: wxWidgets and other manifest dependencies from vcpkg.
+      - name: Install build dependencies (Windows)
         if: runner.os == 'Windows'
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
           vcpkgJsonGlob: '**/vcpkg.json'
-
-      # Linux: use Ubuntu's native wxWidgets 3.2 package.
-      - name: Install build dependencies (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential cmake ninja-build libwxgtk3.2-dev
 
       # macOS: use Homebrew's wxWidgets 3.2 formula and libomp.
       - name: Install build dependencies (macOS)
@@ -48,6 +41,13 @@ jobs:
           echo "OpenMP_ROOT=$(brew --prefix libomp)" >> "$GITHUB_ENV"
           echo "WXWIDGETS_ROOT=$(brew --prefix wxwidgets@3.2)" >> "$GITHUB_ENV"
 
+      # Linux: use Ubuntu's native wxWidgets 3.2 package.
+      - name: Install build dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake ninja-build libwxgtk3.2-dev xvfb
+
       # Windows: Visual Studio generator + vcpkg toolchain.
       - name: Configure CMake (Windows)
         if: runner.os == 'Windows'
@@ -58,13 +58,6 @@ jobs:
             -A x64 `
             -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
-      # Linux: native APT wxWidgets, no vcpkg toolchain.
-      - name: Configure CMake (Linux)
-        if: runner.os == 'Linux'
-        shell: bash
-        run: |
-          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.build_type }}"
-
       # macOS: native Homebrew wxWidgets, no vcpkg toolchain.
       - name: Configure CMake (macOS)
         if: runner.os == 'macOS'
@@ -72,8 +65,20 @@ jobs:
         run: |
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.build_type }}" -DOpenMP_ROOT="$OpenMP_ROOT" -DCMAKE_PREFIX_PATH="$WXWIDGETS_ROOT"
 
+      # Linux: native APT wxWidgets, no vcpkg toolchain.
+      - name: Configure CMake (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.build_type }}"
+
       - name: Build
         run: cmake --build build --config ${{ matrix.build_type }} --parallel
 
-      - name: Run tests
+      - name: Run tests (Windows/macOS)
+        if: runner.os != 'Linux'
         run: ctest --test-dir build --output-on-failure -C ${{ matrix.build_type }}
+
+      - name: Run tests (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a ctest --test-dir build --output-on-failure -C ${{ matrix.build_type }}

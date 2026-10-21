@@ -90,7 +90,8 @@ elseif(MSVC)
         /std:c++latest
     )
 
-    set(OpenMP_RUNTIME_MSVC llvm)
+    # Do not force OpenMP_RUNTIME_MSVC=llvm.
+    # Let FindOpenMP select MSVC's standard /openmp implementation.
 endif()
 
 # Common dependencies.
@@ -147,7 +148,15 @@ set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "sorting-visualizer")
-set(CPACK_GENERATOR "TGZ;ZIP;NSIS;DragNDrop")
+
+# Platform-specific release formats.
+if(WIN32)
+    set(CPACK_GENERATOR "ZIP;NSIS")
+elseif(APPLE)
+    set(CPACK_GENERATOR "TGZ;DragNDrop")
+else()
+    set(CPACK_GENERATOR "TGZ")
+endif()
 
 set(
     CPACK_PACKAGE_FILE_NAME

@@ -48,7 +48,7 @@ jobs:
               build/*.exe
               build/*.zip
 
-          - os: windows-11-vs2026-arm
+          - os: windows-11-arm
             platform: windows-arm64
             arch: ARM64
             cpack_generators: "NSIS ZIP"
@@ -123,17 +123,20 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential cmake ninja-build libwxgtk3.2-dev
 
-      # Windows: vcpkg toolchain and target architecture.
-      - name: Configure CMake (Windows)
-        if: runner.os == 'Windows'
+      # Windows x64: keep the passing Visual Studio generator configuration.
+      - name: Configure CMake (Windows x64)
+        if: matrix.platform == 'windows-x64'
         shell: pwsh
         run: |
-          cmake -S . -B build `
-            -G "Visual Studio 18 2026" `
-            -A "${{ matrix.arch }}" `
-            -DCPACK_WIX_VERSION=4 `
-            -DSORTING_VISUALIZER_VERSION="${{ env.VERSION }}" `
-            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+          cmake -S . -B build -G "Visual Studio 18 2026" -A x64 -DCPACK_WIX_VERSION=4 -DSORTING_VISUALIZER_VERSION="${{ env.VERSION }}" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+      # Windows ARM64: use Ninja on the native ARM runner instead of the Visual
+      # Studio generator, and select the matching vcpkg target triplet.
+      - name: Configure CMake (Windows ARM64)
+        if: matrix.platform == 'windows-arm64'
+        shell: pwsh
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DVCPKG_TARGET_TRIPLET=arm64-windows -DCPACK_WIX_VERSION=4 -DSORTING_VISUALIZER_VERSION="${{ env.VERSION }}" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       # Linux: native APT wxWidgets; no vcpkg toolchain.
       - name: Configure CMake (Linux)

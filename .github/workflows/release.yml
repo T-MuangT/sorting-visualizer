@@ -29,41 +29,37 @@ jobs:
           - os: ubuntu-26.04
             platform: linux-x64
             arch: x64
-            cpack_generators: "TGZ DEB RPM"
+            cpack_generators: "TGZ"
             artifact_paths: |
               build/*.tar.gz
-              build/*.deb
-              build/*.rpm
 
           - os: ubuntu-26.04-arm
             platform: linux-arm64
             arch: ARM64
-            cpack_generators: "TGZ DEB RPM"
+            cpack_generators: "TGZ"
             artifact_paths: |
               build/*.tar.gz
-              build/*.deb
-              build/*.rpm
 
           - os: windows-2025
             platform: windows-x64
             arch: x64
-            cpack_generators: "NSIS WIX"
+            cpack_generators: "NSIS ZIP"
             artifact_paths: |
               build/*.exe
-              build/*.msi
+              build/*.zip
 
           - os: windows-11-vs2026-arm
             platform: windows-arm64
             arch: ARM64
-            cpack_generators: "NSIS WIX"
+            cpack_generators: "NSIS ZIP"
             artifact_paths: |
               build/*.exe
-              build/*.msi
+              build/*.zip
 
           - os: macos-26-intel
             platform: macos-x64
             arch: x64
-            cpack_generators: "DRAGNDROP TGZ"
+            cpack_generators: "DragNDrop TGZ"
             artifact_paths: |
               build/*.dmg
               build/*.tar.gz
@@ -71,7 +67,7 @@ jobs:
           - os: macos-26
             platform: macos-arm64
             arch: ARM64
-            cpack_generators: "DRAGNDROP TGZ"
+            cpack_generators: "DragNDrop TGZ"
             artifact_paths: |
               build/*.dmg
               build/*.tar.gz
@@ -108,10 +104,7 @@ jobs:
         run: |
           choco install nsis --yes --no-progress
 
-          dotnet tool install --global wix
           echo "$env:USERPROFILE\.dotnet\tools" >> $env:GITHUB_PATH
-
-          wix extension add WixToolset.UI.wixext
 
       # macOS: native wxWidgets 3.2 and OpenMP.
       - name: Install build dependencies (macOS)
@@ -128,12 +121,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
-            cmake \
-            ninja-build \
-            libwxgtk3.2-dev \
-            rpm
+          sudo apt-get install -y build-essential cmake ninja-build libwxgtk3.2-dev
 
       # Windows: vcpkg toolchain and target architecture.
       - name: Configure CMake (Windows)
@@ -152,22 +140,14 @@ jobs:
         if: runner.os == 'Linux'
         shell: bash
         run: |
-          cmake -S . -B build \
-            -G Ninja \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DSORTING_VISUALIZER_VERSION="$VERSION"
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DSORTING_VISUALIZER_VERSION="$VERSION"
 
       # macOS: native Homebrew wxWidgets; no vcpkg toolchain.
       - name: Configure CMake (macOS)
         if: runner.os == 'macOS'
         shell: bash
         run: |
-          cmake -S . -B build \
-            -G Ninja \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DOpenMP_ROOT="$OpenMP_ROOT" \
-            -DCMAKE_PREFIX_PATH="$WXWIDGETS_ROOT" \
-            -DSORTING_VISUALIZER_VERSION="$VERSION"
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DOpenMP_ROOT="$OpenMP_ROOT" -DCMAKE_PREFIX_PATH="$WXWIDGETS_ROOT" -DSORTING_VISUALIZER_VERSION="$VERSION"
 
       - name: Build
         run: cmake --build build --config Release --parallel

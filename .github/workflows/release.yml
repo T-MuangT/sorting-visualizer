@@ -48,13 +48,14 @@ jobs:
               build/*.exe
               build/*.zip
 
-          - os: windows-11-arm
-            platform: windows-arm64
-            arch: ARM64
-            cpack_generators: "NSIS ZIP"
-            artifact_paths: |
-              build/*.exe
-              build/*.zip
+          # Temporary removal until fixed
+          #- os: windows-11-arm
+          #  platform: windows-arm64
+          #  arch: ARM64
+          #  cpack_generators: "NSIS ZIP"
+          #  artifact_paths: |
+          #    build/*.exe
+          #    build/*.zip
 
           - os: macos-26-intel
             platform: macos-x64

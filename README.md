@@ -56,5 +56,6 @@ keeps local and automated dependency versions aligned.
 2. Run `cmake --build build --target tests`.
 3. Run `ctest`.
 
-## Note
-In v2.0.0-rc.1 CI/CD pipeline test, Linux build may have failed the graphical tests. However, it has been manually verified that it worked in the environment with display server, therefore, it will be released normally, with the pipeline fix in the future.
+## Notes
+- In v2.0.0-rc.1, CI/CD pipeline test, Linux build may have failed the graphical tests. However, it has been manually verified that it worked in the environment with display server, therefore, it will be released normally, with the pipeline fix in the future.
+- In v2.0.0-rc.2, Due to dependency conflicts, Windows ARM build is temporarily suspended from pipeline.

@@ -90,8 +90,7 @@ elseif(MSVC)
         /std:c++latest
     )
 
-    # Do not force OpenMP_RUNTIME_MSVC=llvm.
-    # Let FindOpenMP select MSVC's standard /openmp implementation.
+    set(OpenMP_RUNTIME_MSVC llvm)
 endif()
 
 # Common dependencies.
